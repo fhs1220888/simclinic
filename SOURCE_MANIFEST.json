@@ -553,13 +553,18 @@
     },
     {
       "path": "README.md",
-      "sha256": "e2bc81f7c6bc5fb418578a55c3bd839e8d2536998208afd5d2786c50cca50b09",
-      "reason": "Public README and owner-authorized MIT license"
+      "sha256": "f74e9182b21a51dd0cc35a0442acb83e415509c9a510584bf3ac3e1fc6a042c5",
+      "reason": "English README with language navigation"
     },
     {
       "path": "LICENSE",
       "sha256": "13a2e85bc0e1db5bb4083dd1000f1ebb5f1632b1a7b17b767bca3d756849b22f",
       "reason": "Public README and owner-authorized MIT license"
+    },
+    {
+      "path": "README.zh-CN.md",
+      "sha256": "b12a5ed805fd5611473d7eedfc1f6bb13fc3363003ac0d8aa3eb24f8492f2584",
+      "reason": "Simplified Chinese README with equivalent commands and validation scope"
     }
   ],
   "excluded_trees": [

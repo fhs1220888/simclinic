@@ -1,7 +1,8 @@
-# SimClinic（仿真诊所）
+# SimClinic
+
+**[English](README.md)** | [简体中文](README.zh-CN.md)
 
 Evidence-based diagnostics and candidate improvements for simulation agents.
-为仿真 Agent 诊断失败原因、提出工具与流程改进，并验证改进是否有效。
 
 **Development version: 0.11.0.** Python CLI + repository-local Skill.
 The first integration targets Foam-Agent v2.1.0 and OpenFOAM Foundation 10 /
