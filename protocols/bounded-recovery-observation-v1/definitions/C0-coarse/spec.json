@@ -1,0 +1,7 @@
+{
+  "id": "C0-coarse",
+  "kind": "couette",
+  "wall_speed": 0.02,
+  "nx": 40,
+  "ny": 20
+}

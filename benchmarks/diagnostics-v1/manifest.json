@@ -1,0 +1,1151 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "simclinic-offline-diagnostics",
+  "version": "1.0.0",
+  "curation": {
+    "method": "Explicit contract/evidence-based expected states, curated before batch evaluation; checker outputs never generate expected labels.",
+    "scope": "Existing synthetic fixtures, real archives, injected development failures, explicit evidence ablations and an incomplete run. No new heldout, model or CFD results.",
+    "new_model_calls": 0,
+    "new_simulations": 0
+  },
+  "cases": [
+    {
+      "id": "synthetic-healthy",
+      "source_kind": "synthetic",
+      "basis": "Complete synthetic tool/decision/reference/acceptance coverage; no retry is required.",
+      "record": "fixtures/healthy/record.json",
+      "case_dir": "fixtures/healthy/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/healthy/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/healthy/case/log.simpleFoam": "380af312aedc363e53b49b18c04d6f7ca27ebeb28bf4a0b8b5a5c3199c291dcc",
+        "fixtures/healthy/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/healthy/record.json": "0dd175235592c821adff4dae66fc98e3408fd23288e3419fd7efd008c06f680d"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "not_applicable",
+          "stale_results": "pass",
+          "completion": "pass"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-five-faults",
+      "source_kind": "synthetic",
+      "basis": "Declared synthetic omissions, unrecovered error, unchanged repeat, old-result identity and unmet completion criteria exercise all five checks.",
+      "record": "fixtures/faults/record.json",
+      "case_dir": "fixtures/faults/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/faults/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/faults/case/results.json": "d98b8bdefd29f70f715482d90d2666c80fae9935a938ee9cb788146783a5cdb6",
+        "fixtures/faults/record.json": "4dc3ea215e3db07f46bc8c9af884382e466d3b74910955cb339092810221c0cd"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "finding",
+          "error_continuation": "finding",
+          "retries": "finding",
+          "stale_results": "finding",
+          "completion": "finding"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-unknown",
+      "source_kind": "synthetic",
+      "basis": "Incomplete synthetic coverage and unknown identities must remain insufficient evidence, never Agent errors.",
+      "record": "fixtures/missing/record.json",
+      "case_dir": "fixtures/missing/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/missing/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/missing/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/missing/record.json": "8368201249286f62907358618b737465217085a35e10a2c60a9ce9dd80016d52"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "insufficient_evidence",
+          "error_continuation": "insufficient_evidence",
+          "retries": "insufficient_evidence",
+          "stale_results": "insufficient_evidence",
+          "completion": "insufficient_evidence"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-stale",
+      "source_kind": "synthetic",
+      "basis": "The current input references an old run/input result; required completion evidence cannot use that result.",
+      "record": "fixtures/stale/record.json",
+      "case_dir": "fixtures/stale/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/stale/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/stale/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/stale/record.json": "ea6e8272acf775de2dc97275c16a8c4f64be4dc634fea96e63ff95407f247263"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "not_applicable",
+          "stale_results": "finding",
+          "completion": "finding"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-recovered",
+      "source_kind": "synthetic",
+      "basis": "Explicit successful retry lineage resolves the prior error; original and changed attempts remain recorded.",
+      "record": "fixtures/recovered/record.json",
+      "case_dir": "fixtures/recovered/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/recovered/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/recovered/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/recovered/record.json": "cc183730840313ac1d615624ec698839109b4eb6973f5224db03df5dce3b41c8"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "pass",
+          "stale_results": "pass",
+          "completion": "pass"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-not-applicable",
+      "source_kind": "synthetic",
+      "basis": "Complete declared coverage with no applicable work or acceptance criteria.",
+      "record": "fixtures/not-applicable/record.json",
+      "case_dir": "fixtures/not-applicable/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/not-applicable/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/not-applicable/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/not-applicable/record.json": "24a1e8dd057eaf998ed2a3a1ceeb008f5c4b769fd5ed97c857097cbad905e6b9"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "not_applicable",
+          "error_continuation": "not_applicable",
+          "retries": "not_applicable",
+          "stale_results": "not_applicable",
+          "completion": "not_applicable"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "real-full-normal",
+      "source_kind": "real_normal",
+      "basis": "Archived full model workflow met its original task; verified sampling logs and outputs are present.",
+      "record": "real-runs/observed-full-final-20261004/record.json",
+      "case_dir": "real-runs/observed-full-final-20261004",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": false
+      },
+      "provenance": [
+        {
+          "path": "real-runs/observed-full-final-20261004/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "real-runs/observed-full-final-20261004/summary.json",
+          "role": "archived collection outcome and provenance labels"
+        }
+      ],
+      "files": {
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/native-event-render-496c206ae4f945bca4bb328955f4feac.json": "d0564049971e38d3da861d197dda2a85e5c2617eed62970e9207d3255709da6b",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/native/command-calls/4f3d9914e913450f8c35a6d03fdaa58f/metadata.json": "fcc2b2d5e885571f885d54c204fbd0e31836711c8bcd09276b5cf735ba29d8db",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/native/command-calls/87f0eb0d2572462a8cae4d5732289b5c/metadata.json": "11eb8b77f291452e0872b3770b9ca450adb75f57e784e4eb54dc35911c8713eb",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/native/command-calls/d9b872d11ead482b9476e30b15dc2b7a/decision.json": "a11cda5dd0a6f3867b721aba360409d7495e7724684e6f1742a13c26e926500a",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/native/command-calls/d9b872d11ead482b9476e30b15dc2b7a/metadata.json": "4b86c07cd967d96f98b048ed650cf6d69718640c335d1a23edff30e4d7092f76",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/native/execution.json": "c19afb0531408e763e4bade0822be8448bda1da104a41237c420e99235010946",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/.simclinic/native/b7cb69bcf8d146ca8c149047475c1a9b/postprocessing/496c206ae4f945bca4bb328955f4feac/case/visualization.png": "2a0ddf630a5cc4a438de498ff05d79cb846d4a7e2cc237b7334384d148107504",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/0/U": "ac8dc8656ffd17a70714bd1c946b81a3e67396794c14e57c15e946e0d31a3d3e",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/0/p": "5e5e0ab93907a0e23395395ef83dc7f9061f8f837f422d63e7128e4aa55d1f72",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/103/U": "e90e039ce571eb1103bc408f508d615b8598acde4135ea064c150db2b6f229f2",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/103/p": "f800f3e8628a844812a6ea9bf4ec2d675a017c69899845a540ef03cec6d554b3",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/103/phi": "8e8c33283b289ebd4f168b2544a421cbf158dd2ffb393c7837d324567977fdf7",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/103/uniform/time": "a7af0224cd2efaf53c37aa1a89a05db7e598f7f1858e15751be70f28a4b5d8b0",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/Allrun": "9f9501e68900555a5f951abc7d60266790b970d95659619bc0e291ce73fda09a",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/constant/momentumTransport": "537c0472685e7c427698dd4381c08b0a313e1243624bbc4d878d6ff5840cf0ea",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/constant/physicalProperties": "628a1d1ebc58f8db8e74ca79fe2e94607509d97476ec3c86490e79f6a4ca0519",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/constant/polyMesh/boundary": "2034c8fbfb5ddd9021bac080a6708d2c4f5f3e277affddb16fe8b7f5d443ff30",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/constant/polyMesh/faces": "7c7a01ac4ef660918c8391101fc108876718592f6bd80ac5cd673ff0be6d4d5a",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/constant/polyMesh/neighbour": "cb98e4b91e1efbf09ab6931bc2d5bed172c3667b63fe7e6f681dbd51613f3f7a",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/constant/polyMesh/owner": "aed7868198c29343e85558767132003090dda4d69c10e3d07a0bd3ee75643715",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/constant/polyMesh/points": "2cc26a85a2040ee1d6da812394da71eed3be6f06a52376b08d6ff1dfd7b6af54",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/system/blockMeshDict": "aa6d8269320417cf6043d438e508eac82157f0e99723875568ffb98a1138e837",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/system/controlDict": "69de31d4e5b351efa85b722d81dbae39cff8de32f49274dae97cfec161005909",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/system/fvSchemes": "1c6007368b888132126e4e95b72400e9a11c89511ff277f3c046a786883661d0",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/system/fvSolution": "4f89964891e4fd5c3a712138250ab22da94a574fa7abeb07742274994992baad",
+        "real-runs/observed-full-final-20261004/attempts/b7cb69bcf8d146ca8c149047475c1a9b/outputs/system/sample": "51e16b9d8c28177129e5202e378b2c5903af1e73f59479ed9c45f0403d909c90",
+        "real-runs/observed-full-final-20261004/model-calls/call-001/metadata.json": "5f77413ca09801bc42ac5055b3b8ba79e2a18eaf285fba7f0329e285abad5ec7",
+        "real-runs/observed-full-final-20261004/model-calls/call-002/metadata.json": "77c49b527741f0eea5393949978726510994b835b464322d91d16f5b37c0de5d",
+        "real-runs/observed-full-final-20261004/model-calls/call-003/metadata.json": "e759ff5f58aa26b065ffc3b3630b5cb701bbd274a3f13192efe43a00aaee03a8",
+        "real-runs/observed-full-final-20261004/model-calls/call-004/metadata.json": "a99b2538e72c78e839e3a318a501e1b229c29462606fb0a1f6a83fae3692d73b",
+        "real-runs/observed-full-final-20261004/model-calls/call-005/metadata.json": "d2d38c257337003f54ec00fc8b2dc92b133b945c90b4c71f3c7cfd95ace6874f",
+        "real-runs/observed-full-final-20261004/model-calls/call-006/metadata.json": "74b743d48a15116c97b3cbfd2d9d629a791f9748344d835db70c7cf09a772961",
+        "real-runs/observed-full-final-20261004/model-calls/call-007/metadata.json": "81281b9b27135556ad7ce83c31ea7f868294ce06cb81bb147f3c40b98cef8817",
+        "real-runs/observed-full-final-20261004/model-calls/call-008/metadata.json": "a2d3ac1c2f213fe011dccf2a68c091845331fce6672dc6a25e1bb2d5853dd299",
+        "real-runs/observed-full-final-20261004/model-calls/call-009/metadata.json": "0562a756f21fb4d87b4cf138361963a36cc16c9c2609a1596c178cf55c210d93",
+        "real-runs/observed-full-final-20261004/model-calls/call-010/metadata.json": "f8e06bf668bcceabb85627a1f36f8ac393ba41759d288615302d34329abaa05c",
+        "real-runs/observed-full-final-20261004/model-calls/call-011/metadata.json": "7b29c5b2fee796a9b6b222c1063b4bc96b3faa9599ed27d46aea0d4578c360d6",
+        "real-runs/observed-full-final-20261004/model-calls/call-012/metadata.json": "e4099b441ebe9cd3da584ce2907ef083a79a2142573adb4748ce986cff1b07ca",
+        "real-runs/observed-full-final-20261004/model-calls/call-013/metadata.json": "f24d2837b77cf2f6809021949c2be329e9c31a567d727d1c7ac6140d0a2e4426",
+        "real-runs/observed-full-final-20261004/model-calls/call-014/metadata.json": "e52579c05067f4e9001a1d8cef06418ed8d96944bcef7e997433b53e45372653",
+        "real-runs/observed-full-final-20261004/model-calls/call-015/metadata.json": "bc622958eae447fa51faf02c9957f396a53c1dc8e4591591ff3c476602474758",
+        "real-runs/observed-full-final-20261004/model-calls/call-016/metadata.json": "405e4af357c3e0e6e279ceb34a0c23670aa55e07a2a0c36e311c94c00b3c0b8c",
+        "real-runs/observed-full-final-20261004/model-calls/call-017/metadata.json": "f74ba4690dc4f34da1cfe00cc7921299ad50b9f145963bb7fc6f78476d9fb152",
+        "real-runs/observed-full-final-20261004/observations/node-001.json": "9f9414a329dfe6ea6c80c960003a8d8ce50b1b73f78544793d5270ae003921f8",
+        "real-runs/observed-full-final-20261004/observations/node-002.json": "b79723bde3fa312bdac3f16cf5c457285965eab36623969c4e0086283e4fa775",
+        "real-runs/observed-full-final-20261004/observations/node-003.json": "e565475986e26908439f9f847b4a8ee989919866d1534f6be3bf71bb7ccfbd10",
+        "real-runs/observed-full-final-20261004/observations/node-004.json": "2ca9a4b2091ef20daa25b2edb4d5144d3eeb75d57dcbe11266bb1c777f11f0af",
+        "real-runs/observed-full-final-20261004/observations/node-005.json": "2bf0270c54710c0004b38c8c6cc64594e98d6c3d4d3fe0d28df9a8552400d73f",
+        "real-runs/observed-full-final-20261004/observations/node-006.json": "87a409a1960a48d8f8550ed7557989cf9ef46c515a19ebe9da8ba3bc4a7cd310",
+        "real-runs/observed-full-final-20261004/observations/node-007.json": "4387bad8165fbd153d9d2c293905e8209628a6f5f2915b1605e640c7de1e0b10",
+        "real-runs/observed-full-final-20261004/observations/node-008.json": "d9dfa305dd8a14b82f53307f6ec6b7f78b6a1461f335975cfa1824cded36ace3",
+        "real-runs/observed-full-final-20261004/observations/node-009.json": "cbddb0f29d1d4e8dc0a92727b3498d6f612a930541406281be06f8312d90e60b",
+        "real-runs/observed-full-final-20261004/observations/node-010.json": "dc4d1a078bccd6898fd9881eae13294a1e1be3fdf0eb6c66b444e8a015e34224",
+        "real-runs/observed-full-final-20261004/observations/node-011.json": "872fb2f6223b31c6f197ea4adc3794aaf0bbf010626c0be9fad40ce52bf7696a",
+        "real-runs/observed-full-final-20261004/observations/node-012.json": "0eb114b221887672d459ed97842f0823bc5a736d955bbe374ac5f23e40bb3c0c",
+        "real-runs/observed-full-final-20261004/observations/node-013.json": "dcf0a264871259f0ab9e9843e458101b03af54ce5bd2d3582a8c06e07f76449a",
+        "real-runs/observed-full-final-20261004/observations/sampling/pressure.xy": "5efad0eb825e5ed0c315565f82d14989c4305962502297afe5f93d2647dbb0ee",
+        "real-runs/observed-full-final-20261004/observations/sampling/profile.xy": "b4e8dac698945a343533a7fa6b31bea3d33f177c4857818b334ce8717eadc283",
+        "real-runs/observed-full-final-20261004/observations/sampling/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "real-runs/observed-full-final-20261004/observations/sampling/stdout.log": "5148a2365219ace8930a3cf314ae533df7fb03f74bac091e4601d0cca35519e0",
+        "real-runs/observed-full-final-20261004/observations/task-assessment.json": "15ed14a3d9d26e2ce7c8f89013828fc97e17f9190d95f941f4adc0571c426303",
+        "real-runs/observed-full-final-20261004/record.json": "8ae503cdfddd71ba3f1af6c41517cebf7c720670858faa013416f2bef660e802",
+        "real-runs/observed-full-final-20261004/summary.json": "7950c3d90b825c0d2235b02cd6e4c2fa310031bf8e0e696a6ba73e0efb321a9f"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "not_applicable",
+          "stale_results": "pass",
+          "completion": "pass"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 1,
+            "insufficient_evidence": 0,
+            "not_applicable": 0
+          },
+          "events": {
+            "e55": {
+              "status": "pass",
+              "reasons": [],
+              "zero_exit_with_fatal_log": false,
+              "fatal_lines": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "real-current-policy-normal",
+      "source_kind": "real_normal",
+      "basis": "A completed frozen L candidate run; this is an offline regression of old bytes, not a new heldout observation.",
+      "record": "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/record.json",
+      "case_dir": "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": false
+      },
+      "provenance": [
+        {
+          "path": "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/summary.json",
+          "role": "archived collection outcome and provenance labels"
+        },
+        {
+          "path": "real-runs/sampling-policy-study-awake-20261005/freeze.json",
+          "role": "original frozen protocol"
+        }
+      ],
+      "files": {
+        "real-runs/sampling-policy-study-awake-20261005/freeze.json": "bb9ff998990952230a779a90f75989f807a7709172cf6992b90343e25d5b3304",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/native-event-render-7b416855661e44639789e469e72ac7bb.json": "be007af74dac3de6ae88781d98ae64a694a8b3d773353b691820cc30076f12a8",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/native/command-calls/1e465cba7b07494d9f8b57c65ee7190d/decision.json": "31827e77ff0b5d29c5add6aaa37959b475e6212429a873fba687d0245fa46354",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/native/command-calls/1e465cba7b07494d9f8b57c65ee7190d/metadata.json": "d49d2542a3aa3a834a4c44bd0427eabf09734b590ebdb406e3afefafc1ec5ab1",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/native/command-calls/33ee926c58a64326942adb01d3820f6a/metadata.json": "38fb4efdc6c0ae723bf2b9238807c75c9fd1db21479f5f8c07dd43d90d53ce31",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/native/command-calls/6b2ac38516f64816ac32c57eb1c44b81/metadata.json": "90f62428b4ba83a80b3a3285ec42d973b83c90c8ae4c37aa7a52c3ce1546c0c8",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/native/execution.json": "0c344023cad016cdedcc8ab7d79306f2a78b43a2df8b950b3e5f51decff582ac",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/.simclinic/native/1ffa2330392942ea850e54a5cc1f5696/postprocessing/7b416855661e44639789e469e72ac7bb/case/visualization.png": "0d3e7c4590c13afe318b321c80a4b5b7af455831e456f958384ba0c1e43b8e65",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/0/U": "f1adb78bc4e52cdd523ae933bfcc860d353146bc30a2a332d2e66bf29688394a",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/0/p": "9e36642fbcd564dc3a690531d8edad04a5c9f2a76072cb0f2e402dd5c5a108d9",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/181/U": "1f217c769c17ab73adba6cc000fc76d8e9d0ebf28ad2f129f7600d702360a850",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/181/p": "245f6fed82912ea48d015eb81402691a6eb6540a991bb2431130f479b2417507",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/181/phi": "3301851e98cbef7aa99caf5e3afe91e7468a3761877ded7544e1aee1a194c6bf",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/181/uniform/time": "3a25f688498a9a6741fd511c3bf6a04310eaed3ac3f98d64b4510c21eadc7e81",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/Allrun": "9f9501e68900555a5f951abc7d60266790b970d95659619bc0e291ce73fda09a",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/constant/momentumTransport": "7498c38a3be52e135c3f5a82c90cc81cbe88a784f678ba1fb5fa24483c164844",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/constant/physicalProperties": "0c2cccd25f6ff7637351833f35ea078390e21633c99246122dc74f495fa94b0b",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/constant/polyMesh/boundary": "0ecbea69bfbbc517532f8dc69d720a10a4f34fefa7f43c39162a0917e85b126c",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/constant/polyMesh/faces": "1620be8b0affc931a51d9604c34c0e821d8da55b81af85be1e3c3647fde0ac6e",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/constant/polyMesh/neighbour": "b1d3a85b9ac6f2d2f5ea662c10391757ee3023e7a536f43f5b5a6623f8840fcf",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/constant/polyMesh/owner": "82f6e477a62d96bf703e9972d862b1026eb62cb0af5d85695dc05e79e9b05a4d",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/constant/polyMesh/points": "5e4680276b32eb04aec2b23c07b818bb883f7dac9e72a0717c9b911a1d8b6199",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/system/blockMeshDict": "3573dd4a5a885549dc06edd7caeccd2ccd0cc04c4148ca0119da032ec1fedc92",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/system/controlDict": "d2b31cd8f59615c6f2ff2387a628c44429efaf8368da7407829e827844ffd1fa",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/system/fvSchemes": "eea323dad9970e081a437cd9dfa4345d3d337ca75641f079b757d2f878822166",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/system/fvSolution": "5ba3a9db2f96035c0b8ef6e7bc8eccc6fe1c770d109ac11f984b2643960c44a4",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/attempts/1ffa2330392942ea850e54a5cc1f5696/outputs/system/sample": "3d64d7dacfc096e09ec3f20c6796688dc724b1c3a05261663a6f99c912e9109f",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-001/metadata.json": "48e3013098726d41b143d1c03884a83f3d10612629026a3910dd89ebc8273b1a",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-002/metadata.json": "796b6b92e94eeb22f1232d7e00acf2418d1b486cd8fcf9c53345d4be1c269772",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-003/metadata.json": "bacfd47b3691bb68d6f40610bb3276091ff7aa54c89c0369423afa87d7d8e2a0",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-004/metadata.json": "290329606eb16fccad40fb62265aa2e2032c9e36a2a3b3a8fc7bf3755631938f",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-005/metadata.json": "adf145fcbbbec2a172c19590b7c1fd32da35fed0f234a089ac07b6f64cecbb08",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-006/metadata.json": "affdbac9c40e8cbe927733da158c914735b4ea7aa3b122d25150df1112b9f5b9",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-007/metadata.json": "a6824a32c66d9141c3fb9f5e2d7dc393c7e57660a2df055bc60ff32f0d78f0b1",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-008/metadata.json": "b4e44a5441ec3295b12fb4f66a4369e68cbbe398be4dae0da9983870b765c215",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-009/metadata.json": "4fa2a8cd04ddc84d36e0cc94d2a69cdb82933b4ec304118ad90ecab6af2502aa",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-010/metadata.json": "057235b0a3a0d1524cf8e073e4f61b544ffe393e40c75bc884bf0e170fe2f1c4",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-011/metadata.json": "d54c60e7abf306ba7f4e1e3d2b50d078015fcdd5b680172a83a62ebac705683e",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-012/metadata.json": "6be5c8cc9d36fcb278e99d8292cf79d964a0ec44d7b64faf985c01c2b329bd97",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-013/metadata.json": "eb7338470d142f88263dca578a52cdaea0310e598fef727d960026310a96ccbe",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-014/metadata.json": "9be2f79767ab26f86ccea64c7373bfd010172061ddeb9d071f8ec1f189295ce0",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-015/metadata.json": "09e6ca103297f55b34cb82cb11da768395a3e05123d954a0082ea79cb4094c48",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-016/metadata.json": "ce2ac6ebbd3f1245329eb0ea166d07f521c6c69175bcb4d0d58604d9e166687f",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/model-calls/call-017/metadata.json": "d17d950ce6ee3611a823aa7c9c202b8f35ea04350cc05f8fa17a91582870015c",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-001.json": "b8050572597b485ca24123cedbe93b89c2d7cdb988d29bda44283fe3d488f3cf",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-002.json": "6661aa334b7d5f097d8ae1f8caf51008bd37e32eb47df757870e176d621236f7",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-003.json": "e787e499e35ece519d5df171206d5dc024f2803a4ac50de4f84093160a513e93",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-004.json": "a123599e9e38f12b59d804944563d5cf2997d83b0571cae94a78e4e2fcc5082d",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-005.json": "de0226192ffbac2c9c9a9e220a44124f01efb717e35612c884f10d2a6e33edb0",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-006.json": "648bdd3625df5d1b2f799ebb79e5e4929bfe13ea6d743f11313a8742ee365223",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-007.json": "e9829885b58649ed1cf1d1767ac24d4963e794c465b813564d5d5ecfe77fb0a0",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-008.json": "5466177a2c4400b1b3ae284b32fae89ab9dae380b736ce02256413b85a39b8f9",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-009.json": "21dcfdee94cb1ee29bacdf0b7b5c8d6237ee2b8cc53422ddb8e4f2a89d67982f",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-010.json": "c6676501250a9fb8b63198e562d5109655f16dba6beb19e306b3301f729c86c8",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-011.json": "b1e5c0dfc2e2d357ef0bf53a9b8770f519fbafd2b82287f53c4260f38be21d54",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-012.json": "349928e916267ceacaef1047a4fa7207a95e54612fe6d7e5b3e98d7097d8a437",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/node-013.json": "e865511e79873dbb4ad6c25f92be136e9e74e7f60a0ae34c0cb398988db9f134",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/sampling/gate-assessment.json": "d89a62dd0931d7deaf29e9ea8e15daeda60a0f92235594faf827e7e3b241c580",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/sampling/pressure.xy": "d47c1dc5b9147c24f3d9d581ccef9d91bd834d571f3df70a98196a6827f879f4",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/sampling/profile.xy": "9e5dd2f6725c234d77b95a1bbb174b615b27d90e24f4d313efd164657b526108",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/sampling/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/sampling/stdout.log": "f1be9fc9e09f8481daffb5295e2e9e5f8456e46c17a5ba91c25a7558d8b5d239",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/observations/task-assessment.json": "3c9edf352fcf47218bf5d62294c023e6169ac5788f23d54d9266c8a478a1b431",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/record.json": "4193d49bf3390ba149a66cab458a32b1804bf1c5b68b6edaadb67c90866c7777",
+        "real-runs/sampling-policy-study-awake-20261005/runs/L1-r1-candidate/summary.json": "737f7de7f40e46d10506fcfcc086e112659e0171bc2750717883f3d5bd36ea73"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "not_applicable",
+          "stale_results": "pass",
+          "completion": "pass"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 1,
+            "insufficient_evidence": 0,
+            "not_applicable": 0
+          },
+          "events": {
+            "e55": {
+              "status": "pass",
+              "reasons": [],
+              "zero_exit_with_fatal_log": false,
+              "fatal_lines": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "injected-recovery",
+      "source_kind": "injected_fault",
+      "basis": "Explicit recoverable injection; linked successful retry satisfies the unchanged acceptance contract.",
+      "record": "real-runs/observed-recovery-20261004/record.json",
+      "case_dir": "real-runs/observed-recovery-20261004",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": true
+      },
+      "provenance": [
+        {
+          "path": "real-runs/observed-recovery-20261004/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "real-runs/observed-recovery-20261004/summary.json",
+          "role": "archived collection outcome and provenance labels"
+        }
+      ],
+      "files": {
+        "real-runs/observed-recovery-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/command-calls/2bda5567246e40e383e6c288fcb3ced5/metadata.json": "33ded599a84ec38d8752d028e09d9165ba56b415b189e874e337d0d486da0f16",
+        "real-runs/observed-recovery-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/command-calls/31d8a728ba844dd39be78a5501c308b9/metadata.json": "3d18be23335ee8c18d0702e18352965d5657c8afa32babd32a18dc5e091d818e",
+        "real-runs/observed-recovery-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/command-calls/d79f6d2c76624aa68d0e8413d9bf68b8/decision.json": "c9183c5f2aaed6ac4e76687087580d7585b33bede69cfebbdd11a5a736fd3897",
+        "real-runs/observed-recovery-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/command-calls/d79f6d2c76624aa68d0e8413d9bf68b8/metadata.json": "0884cb49016fc57cda6f1c11eb10d2fc267c823537b8e86eb34c7ccb01816669",
+        "real-runs/observed-recovery-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/execution.json": "e93ec74a0d40bba3296bddfb64d4106268ff196fd7e19b52549dd3ca33474c9a",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native-event-render-0569a3cf9e0148179e2cfa9d71761ec7.json": "3a4d052a23a3780960624b266ac9366a0f17ce31add156151f9dfab9202ab42c",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/command-calls/be652c1728b54a0d8d5b098264d49ab3/metadata.json": "1ef45671a63faa6fbe32ad713ddf8246ad6a5cd777128e709381940b7149de19",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/command-calls/c909d0ab62244799a9104ec8caa4f7d7/decision.json": "7da9cd5f361bec3d6f6a76d7c624378115933f73210b61f1b4ff12065588087d",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/command-calls/c909d0ab62244799a9104ec8caa4f7d7/metadata.json": "925baaa69adc59af1171b173b8b7a9933c87ad568ccde4722edc1e069d64633c",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/command-calls/f3af8ecadb1948139fd553bd52382b90/metadata.json": "22bf3df74207fbb11a218d0ad475a9ad25b87cf3e00985cbe2906bd3979c5f94",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/execution.json": "775fcdf58d538f03d968926b2a9b5d832d949e5cb58a0f4cb26b7b4a53b99759",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/.simclinic/native/8cdc0f3024a9449ba63b0b673db1c95b/postprocessing/0569a3cf9e0148179e2cfa9d71761ec7/case/visualization.png": "2a0ddf630a5cc4a438de498ff05d79cb846d4a7e2cc237b7334384d148107504",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/0/U": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/0/p": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/103/U": "e90e039ce571eb1103bc408f508d615b8598acde4135ea064c150db2b6f229f2",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/103/p": "f800f3e8628a844812a6ea9bf4ec2d675a017c69899845a540ef03cec6d554b3",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/103/phi": "8e8c33283b289ebd4f168b2544a421cbf158dd2ffb393c7837d324567977fdf7",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/103/uniform/time": "a7af0224cd2efaf53c37aa1a89a05db7e598f7f1858e15751be70f28a4b5d8b0",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/Allrun": "2f77f82f975fcc498c020fb9badac45a1b90eede65d9ca3db09a0b60fdceace1",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/momentumTransport": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/physicalProperties": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/boundary": "2034c8fbfb5ddd9021bac080a6708d2c4f5f3e277affddb16fe8b7f5d443ff30",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/faces": "7c7a01ac4ef660918c8391101fc108876718592f6bd80ac5cd673ff0be6d4d5a",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/neighbour": "cb98e4b91e1efbf09ab6931bc2d5bed172c3667b63fe7e6f681dbd51613f3f7a",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/owner": "aed7868198c29343e85558767132003090dda4d69c10e3d07a0bd3ee75643715",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/points": "2cc26a85a2040ee1d6da812394da71eed3be6f06a52376b08d6ff1dfd7b6af54",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/blockMeshDict": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/controlDict": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/fvSchemes": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/fvSolution": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df",
+        "real-runs/observed-recovery-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/sample": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152",
+        "real-runs/observed-recovery-20261004/model-calls/call-001/metadata.json": "432fd4660773482165bc437e4f058ee9a41b4c53621b0d0af186c1864c6aac94",
+        "real-runs/observed-recovery-20261004/model-calls/call-002/metadata.json": "3afe85e39685ee8e0dc3ea0b686dfade27eadaf45a8be821a936b8eb7d8cb994",
+        "real-runs/observed-recovery-20261004/model-calls/call-003/metadata.json": "c7d70751bc89a8acb1a55db1f5e73d3536c846a3e9f2263c4f3ebd75ad05b60b",
+        "real-runs/observed-recovery-20261004/observations/node-001.json": "df6edc34191cdc98c34a8603c489aad3b62378e1a9fd013d511948dcf2b9d3be",
+        "real-runs/observed-recovery-20261004/observations/node-002.json": "4a9363c81d12e8d92eaaeb52e439744eb31f967518f80a97a2dff9a4049a0d31",
+        "real-runs/observed-recovery-20261004/observations/node-003.json": "304d3dd85e5667236a9e5d114237a5494445beab2b6dd5b06868ac6d4056829b",
+        "real-runs/observed-recovery-20261004/observations/node-004.json": "df5ac42a7b619a72f7ebf0275369b713e68551b17335d0e575dfdc43fb5267c4",
+        "real-runs/observed-recovery-20261004/observations/node-005.json": "e08baf38711ae45356876e5d04a12a810a558461d6123e5cc37c630d580df658",
+        "real-runs/observed-recovery-20261004/observations/node-006.json": "3a9fada32edd7d09486b18442b85a9c810c72040a230a39a61ebfd1a52fedfb4",
+        "real-runs/observed-recovery-20261004/observations/node-007.json": "2f4864a1c784fdf593be5699a1ba8f3c648d1bff66ac3d01fe3a2a3a7418acbc",
+        "real-runs/observed-recovery-20261004/observations/node-008.json": "2407b1e3e81db8c8c671570bd9f42b47a2f70f644bd620e2729a4e8565adcf37",
+        "real-runs/observed-recovery-20261004/observations/node-009.json": "d15a69f98527798d34acb2270d7ed3120d9d2ffe2e84fdb1ac8a5a7ae124287b",
+        "real-runs/observed-recovery-20261004/observations/node-010.json": "38e30cf9e2ff53a6654d6a45b33894a3a4ddaa8a3931f77cbb6e87f970748c14",
+        "real-runs/observed-recovery-20261004/observations/node-011.json": "c8fc738fe4aa5dd8ebf2780fd2338036fa9b41573731ae2a7fbf169849617f6c",
+        "real-runs/observed-recovery-20261004/observations/node-012.json": "abfb4e14b88608d646320bfb08410951653bced2b2151475fbd7adc95db0e6f1",
+        "real-runs/observed-recovery-20261004/observations/node-013.json": "eb4cef37e318b4343bc67d62ed4fc354836757a25e329aa18f648af9c7cfa530",
+        "real-runs/observed-recovery-20261004/observations/node-014.json": "dd19aeca036b66eaff69fe3c725affe73198c3cadc101b222eb0684be44daeef",
+        "real-runs/observed-recovery-20261004/observations/node-015.json": "1ffe52e0f9d290e70af44ff654baf7f9e14cbb6ff2624d9b84d75d90c73bae6a",
+        "real-runs/observed-recovery-20261004/observations/node-016.json": "e517684f9355377ee8c204b11b0de465de8610616c7385a92540983909dd0de6",
+        "real-runs/observed-recovery-20261004/observations/sampling/pressure.xy": "5efad0eb825e5ed0c315565f82d14989c4305962502297afe5f93d2647dbb0ee",
+        "real-runs/observed-recovery-20261004/observations/sampling/profile.xy": "b4e8dac698945a343533a7fa6b31bea3d33f177c4857818b334ce8717eadc283",
+        "real-runs/observed-recovery-20261004/observations/sampling/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "real-runs/observed-recovery-20261004/observations/sampling/stdout.log": "362de0deaf4780e58f4e6b1250cb0d8dc2b71c0a9ecbe484c10b972a922b8f8f",
+        "real-runs/observed-recovery-20261004/observations/task-assessment.json": "312073470536ff23fa843ac94ff76bb52f770c13d60cd72ab207161430c1501b",
+        "real-runs/observed-recovery-20261004/record.json": "7f12f09da57e619450f353efb9d1c7139d6660f900b7f5855c05fb896128c4d0",
+        "real-runs/observed-recovery-20261004/summary.json": "cb5dd42f9bcac76c8dc617b7b57fff8a7e118f439aede30ea3c8c6240508e9ee"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "pass",
+          "stale_results": "pass",
+          "completion": "pass"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 1,
+            "insufficient_evidence": 0,
+            "not_applicable": 0
+          },
+          "events": {
+            "e49": {
+              "status": "pass",
+              "reasons": [],
+              "zero_exit_with_fatal_log": false,
+              "fatal_lines": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "injected-exhausted",
+      "source_kind": "injected_fault",
+      "basis": "Explicit persistent injection repeats the same failed attempt; honest unsuccessful completion is not an incorrect success claim.",
+      "record": "real-runs/observed-exhausted-20261004/record.json",
+      "case_dir": "real-runs/observed-exhausted-20261004",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": true
+      },
+      "provenance": [
+        {
+          "path": "real-runs/observed-exhausted-20261004/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "real-runs/observed-exhausted-20261004/summary.json",
+          "role": "archived collection outcome and provenance labels"
+        }
+      ],
+      "files": {
+        "real-runs/observed-exhausted-20261004/attempts/05ad7562b9ef4e6cbbd54e134593862f/native/command-calls/21079c88ec07453ab7770c8b64aac2bc/decision.json": "fe9aec6c04eb9638e49ce29fc44a299a80f780a1415caec1771ae9b2937ec7e9",
+        "real-runs/observed-exhausted-20261004/attempts/05ad7562b9ef4e6cbbd54e134593862f/native/command-calls/21079c88ec07453ab7770c8b64aac2bc/metadata.json": "0fd3cf286820375e205072057753e9d1c6bae9291298f1593f0da3e21b5d50f9",
+        "real-runs/observed-exhausted-20261004/attempts/05ad7562b9ef4e6cbbd54e134593862f/native/command-calls/2de6d91947eb485d8a74c680951b1114/metadata.json": "93905130cbee51ae4fc7dab1c9f9a3ec8001debde0b9c2048beedbd7523a3d9d",
+        "real-runs/observed-exhausted-20261004/attempts/05ad7562b9ef4e6cbbd54e134593862f/native/command-calls/70113e8ea232497690c3c8be4d989e18/metadata.json": "f24fd0fcf42ce1bfe430e3be6d5764818c9a6c87341f1589501b29f2b8b6692e",
+        "real-runs/observed-exhausted-20261004/attempts/05ad7562b9ef4e6cbbd54e134593862f/native/execution.json": "95d46a1626af434447000da7610d72fa586a4c92ef3b2afac2779c8e4ec707c3",
+        "real-runs/observed-exhausted-20261004/attempts/f7b9df51b7754bcea83659285d2de305/native/command-calls/05c226405de8454ea219c0d6dadf1e45/metadata.json": "2a3c4e09eb8f57e6f06708104e7a99d1dc4f6d111d971987caaa72380547876a",
+        "real-runs/observed-exhausted-20261004/attempts/f7b9df51b7754bcea83659285d2de305/native/command-calls/1e35a98027424608bdf340bda7fc0b90/decision.json": "f67ed244cdb905fe48196a9ff35949c56bbd35e9732c38b0b80b79dc0a378737",
+        "real-runs/observed-exhausted-20261004/attempts/f7b9df51b7754bcea83659285d2de305/native/command-calls/1e35a98027424608bdf340bda7fc0b90/metadata.json": "c4322a8a72648751dcade789d909fc2bb1262a2892b72bc94c0dad3e29b52ef0",
+        "real-runs/observed-exhausted-20261004/attempts/f7b9df51b7754bcea83659285d2de305/native/command-calls/b601d7b458284235b0843c59b57f0cb7/metadata.json": "0bf371acf046ec7a6b0966d2c38ab7912726974c68f8fe0bedf7b7fb65dc2bf5",
+        "real-runs/observed-exhausted-20261004/attempts/f7b9df51b7754bcea83659285d2de305/native/execution.json": "2a55f593892ed0dc33ba6d4cdc2585214ed9e30bd0d5fba55842e27532d1af72",
+        "real-runs/observed-exhausted-20261004/fault-injections/attempt-1.json": "410bbc56c96a189ecdffa3ccdc1cb3e6343b560b7c5b8ae461133917cf0ddd70",
+        "real-runs/observed-exhausted-20261004/fault-injections/attempt-2.json": "410bbc56c96a189ecdffa3ccdc1cb3e6343b560b7c5b8ae461133917cf0ddd70",
+        "real-runs/observed-exhausted-20261004/model-calls/call-001/metadata.json": "d0077506b0abb890a78cf0b824c7bd73ce8feb9f116dc1d98b34191aa32f1195",
+        "real-runs/observed-exhausted-20261004/model-calls/call-002/metadata.json": "415644dd363671a0762f45507045cb7696ff155f9382131a559d6cc543b3fba1",
+        "real-runs/observed-exhausted-20261004/model-calls/call-003/metadata.json": "50451daf70d096e25a759e7f9df546213660279cd67220fb191b5f623a6a7eee",
+        "real-runs/observed-exhausted-20261004/model-calls/call-004/metadata.json": "3a2adc2c95f5ad60bc6a1320f36938af8c6c1329dc51c733edfe6c9a50fa20f8",
+        "real-runs/observed-exhausted-20261004/model-calls/call-005/metadata.json": "78067148206e154ec9393aa643a8a0d055d003875677cacaca8d44c04732a5c1",
+        "real-runs/observed-exhausted-20261004/observations/node-001.json": "4aad2ce3d9d0faa9ca41e8bf8bf7495d502fd469c8c8d122cdd715021c0e0fee",
+        "real-runs/observed-exhausted-20261004/observations/node-002.json": "8b3650f735c44c06e0a966063bf461623e7b7c4532590a2b85106f909590754a",
+        "real-runs/observed-exhausted-20261004/observations/node-003.json": "6fa132f164a2cb0d573ff3f2831fef752ae688a5adb77c13a828e20ebc9e9731",
+        "real-runs/observed-exhausted-20261004/observations/node-004.json": "e208828e92157fb363078507e1e24a34f008703a3619cb03331aff08e6711711",
+        "real-runs/observed-exhausted-20261004/observations/node-005.json": "2f44d00746b7a077aace212c3b21acac2f423c92214569e95bf0cc50a5e1bace",
+        "real-runs/observed-exhausted-20261004/observations/node-006.json": "56df6c84458ace7a6e7a4910fcc3ede1446ab1a20ed568d60d843553a59e07e2",
+        "real-runs/observed-exhausted-20261004/observations/node-007.json": "2c727a4886a594e2a83bc5304e09923d4b9fb1ac682490456c9f5501ec06ab67",
+        "real-runs/observed-exhausted-20261004/observations/node-008.json": "59b44a47f977e3ba61024d155ec000cf84bb306c9f2146fb4619b473ee9be98b",
+        "real-runs/observed-exhausted-20261004/observations/node-009.json": "06b97a67acbcd8fbd5c94d702eb8aa73711d409abb98661584de4e91bfd9d29a",
+        "real-runs/observed-exhausted-20261004/observations/node-010.json": "c7baaf609f09440aa969702591419f8c0a211d3efaae2b317f0660bb577fc2d4",
+        "real-runs/observed-exhausted-20261004/observations/node-011.json": "44962cdf29a1a3ad3b95bb2e89c1e58328ffb97283b0f923c24fdd2643bde518",
+        "real-runs/observed-exhausted-20261004/observations/node-012.json": "271dfd7046b8d7d7a218406148d4bbf8ce7b52a70c7eaa6c01aa2daaa8bc318e",
+        "real-runs/observed-exhausted-20261004/observations/node-013.json": "9934d740c5239943e5b63338b7a96a32f3a0603d6b95b17f3b2a9d18dd65cc16",
+        "real-runs/observed-exhausted-20261004/observations/node-014.json": "21a359e20cc14cea26f9e436e779ab065b0c4941a62351243d6c2604dd5661dd",
+        "real-runs/observed-exhausted-20261004/observations/node-015.json": "f8e1475dfdec66a041a138e82fa72c89895688f41848a0888759379fcfc02325",
+        "real-runs/observed-exhausted-20261004/observations/node-016.json": "af314619ed95ca2bfd21a8948a8c4098880722fc88db41d7dbc0d1431ff3cf65",
+        "real-runs/observed-exhausted-20261004/observations/node-017.json": "80a6bea7b7b0121f2774f87b6276924a6d54501b5359a9986b56a5d008d406c2",
+        "real-runs/observed-exhausted-20261004/observations/task-assessment.json": "2c600dbdf47251e0873236bd23f274ce155ff360351d69b03ae5177849dc4e4a",
+        "real-runs/observed-exhausted-20261004/record.json": "3c5503015a792f9d67dd6f9c0cae54f9567df907a73fd2b0a00f1902cba1b494",
+        "real-runs/observed-exhausted-20261004/summary.json": "c21b4e6df6b3ab97c7956399ea02e889d6bee394020455b9815de0eaf3b18abb"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "not_applicable",
+          "retries": "finding",
+          "stale_results": "not_applicable",
+          "completion": "not_applicable"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "real-sampling-fatal",
+      "source_kind": "real_failure",
+      "basis": "Original natural sample exit 0 with FOAM fatal evidence at stdout line 46; the original workflow honestly failed and reference coverage is incomplete.",
+      "record": "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/record.json",
+      "case_dir": "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": false
+      },
+      "provenance": [
+        {
+          "path": "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/summary.json",
+          "role": "archived collection outcome and provenance labels"
+        }
+      ],
+      "files": {
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/native-event-render-a057960d64b049578f27b8fb50a837fc.json": "b67c73aec9dacdb5d7c8986bb798c9ef4fa5d9e1e244c1c6317908a02bee1254",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/native/command-calls/39f4655e6a6848fe9d68930963ccdaae/decision.json": "87874e79ba041f8bb66da52fe0b626ce2b41faee98437f9c1f35b4c0b9fcbc64",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/native/command-calls/39f4655e6a6848fe9d68930963ccdaae/metadata.json": "b3b868925cae7c1d444d04a5978939f3c9ed78309b430db9686500de985ee693",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/native/command-calls/72c6952d863c47db8d168522c1a9770d/metadata.json": "48db4241f68a70cdf892ac8eb28065594d41450e9778ee6056a744ad40d7f4a3",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/native/command-calls/d3e0461141974525b6158c3846240c3b/metadata.json": "a4c33d356755f211587e0cc125aff676dc39a022d412959a7fedde93a528f960",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/native/execution.json": "af6ecc52202bc4a536274e47414b190f2e86c60d0790dac861fda82ede1858d9",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/.simclinic/native/989835a2aa124752b7860ca86cb96024/postprocessing/a057960d64b049578f27b8fb50a837fc/case/visualization.png": "070dd6f91abcc46e56cef6c9299b0730d09532da73548708046c5f1d836fa434",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/0/U": "840dbb51b904c80c729eff002590ded4bc1e8c90ccacb2296ef49b5dbf9f9000",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/0/p": "93d3726ff2d17b85a1548376783f7ea23b922ca524dca70029c4172c5586e450",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/144/U": "344e3841bb6ff008db3885941e1cf4bc6960094e0eaa20fa6fb24ea785e7c03d",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/144/p": "3fb3129cbc4c5ffd5a8bc55ff50bd5730875bdd5f4efee82c41c4a7949ff282c",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/144/phi": "348cc562d7224026053344a22d14ab45f796a975c2d0ae9fa7454a06fe227e54",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/144/uniform/time": "527ca37c0589330be41b61b8e362aa6fd81b66b1650f277a456fc69d0f20a706",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/Allrun": "9f9501e68900555a5f951abc7d60266790b970d95659619bc0e291ce73fda09a",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/momentumTransport": "5c3f6a489f733d5662edcf1891ffac6f0907262548f3a4c18c72963eee30be9f",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/physicalProperties": "04faa9b907ffc276d694422f78f7114a273e2da943569ca6c4eec462a1a122dc",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/boundary": "f74ccadc6edec6895fd3c72c3af9dc671bc67876dd3662c9243dab76fa9db99a",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/faces": "f99b0bc09bf0013aaaa5f4564c66c7fbaedd3a011f98ee0356aad5d7f933efca",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/neighbour": "8523d978e3984274b2b98f8dd77a49e5b530a8e43ca980985973ee175ebae041",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/owner": "d02d87631945e0293f5ce5a5594e277d524019d54fd5589239164676452bceb3",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/points": "9734d0ee06e46b5b1244af0520cc2beab11122cf70325a98931e9e02710aa84f",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/blockMeshDict": "f1a4a47b9eb168d6dfdff10e713b68991598ede0f370b0ca25031efe3ed376ea",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/controlDict": "c2e9559054470cb5d46f2c197ae92dc6408858519822d5589c4ccd19fa08e9bc",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/fvSchemes": "1c6007368b888132126e4e95b72400e9a11c89511ff277f3c046a786883661d0",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/fvSolution": "2e375bddef0842c45e5fdcc49c7a9a8200d686f4ed6787e8dcb81127080ad4e8",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/sample": "606cc9b550159b8bc7c40a573a4f5fb67dd228f61d59a8fa8051e86bf7458026",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-001/metadata.json": "c0eb84fabadb4c966ef4551704abb2f532f8ee684e6a4f8a7b6322ecc218d46c",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-002/metadata.json": "31a0cd26d19fdb5631849fad3c69ba81d928fff886d94695f76bf99a50ed9690",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-003/metadata.json": "5b1d8451611b0c013a8d4633ae379fce5dc3343f8afb972d415ee5a51ce70575",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-004/metadata.json": "b4564e5f07bec6f980807937c419730b6518b448a346dec53ee0e17033ad47c7",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-005/metadata.json": "7763d2048ca5920e2dcd47ee1cd9be5cb2985d990d0e07b84531f6a486e6a844",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-006/metadata.json": "437d396029a78e23bec41b368bb8bb364d7d13e8e581a875912a6e10341a7fdb",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-007/metadata.json": "bc8a80af30f1a1df03c669b273ac41ca8078b0b35722e7294d7bd6b18b7831fc",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-008/metadata.json": "e501627b23380ca73e6a8a6b27dc30e823207e55c2c5e87aaf593de352d5f3ae",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-009/metadata.json": "82860c624f782b58933ee56edbf3b90291ad91e09746d37e3f79c487776e305d",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-010/metadata.json": "0346413e58da980b3dfd1d9c48eb7f55167ac4c1b369a1300e3640fbc91d6f33",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-011/metadata.json": "b266761c0f64931a13d1d238906d27a77b6ce967a92387e1bc5e326f6c714ab7",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-012/metadata.json": "3b1492030577dc6f7a402c3ac554268e3a8c221f3187826aeb7ce667ca20029b",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-013/metadata.json": "02a7ca00e3bbf82ca9ab35e36173d2995feb5a644d087d167350b1aadf273e31",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-014/metadata.json": "a217833ffd030ad7a0d6ada60d8b0be7664a5e2bec238d1d657a1cb9d356d2b0",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-015/metadata.json": "7c8105f2204cd3a7d7084ed519bc7c83eded5f8e24944b9b2af4f9552c3b3c6f",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-016/metadata.json": "4c60be554cfc569ee991ce40df8c8693b8279f62537a392c261cca9f9166b7ff",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/model-calls/call-017/metadata.json": "f1198934e7fe1955759f6fdaa0b619098c40fe7b5ed8cb0ba3c4e0e8974d599a",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-001.json": "1c3b526224e237d1c09b48d98f614fbd9e11e3d98946a8a971270f5d6a0278c6",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-002.json": "1853bb8740ef5e0621a8f4fa6b01f5248946965d483eacee1e178c6bb5380b54",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-003.json": "93e834f09fb89ceabc0affcc75165de1045087d4919a864ad7efb1c229fc4a09",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-004.json": "037f25b535f212cb9b3a694cf139119d5d38068acdeb9717c5f1cbd99de52e92",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-005.json": "a5ed6f00aa7ba2568b147cdc339e89e0e0b36938f76ec965051828d78927eef0",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-006.json": "ddf3282eff87ecd886495cd4191b122d04082fec43e9cb8f48c9ecbb2d3510c5",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-007.json": "ad42bdf60fb327785d0d3926f87a26fd3c5e21d8e8c8627936c590630bbc7598",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-008.json": "0024a2d731612d08d665b83b83ce3470f1f60d91d04637d32825f527f38d30bc",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-009.json": "9eb7ddb00747d3fd73aea59b8d18bc595b7472806df838ae68b6891460fb0f15",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-010.json": "1d7237fee9ed15608ba33da4bc7828ae828c30c882b541b6d4f00f13b5734c65",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-011.json": "7c45f8c845b51826208ae569bb0ed2a75e7ac911c6f7e15fe1f75c3beb7ab820",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-012.json": "d11e2d875e72a8065a276b6dfc0d72512ae4a9694041e2b203301f2cffc1bec0",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/node-013.json": "5aab1f9f6b84d8a3f08f8aff44e416ab9f2c4eb9885eec20f4bc96968351a18f",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/sampling/pressure.xy": null,
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/sampling/profile.xy": null,
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/sampling/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/sampling/stdout.log": "14a22c7356d4c9cc2a9690e1b20bd66aa93f16fa3743a0ec1b5f0101d31b61f2",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/task-assessment.json": "04390dede5f16b9cd1fadc8aca21b8df626141b5a920c97bebd79bba4e1d9145",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/record.json": "67c01ae0ba8ab40ca133eb1915be5027440c8fb330918190b48518addf3b025d",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/summary.json": "eabd25c031e8257acaae4650ae9f0534762d6d98943f076088d0fa662b4ad83c"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "not_applicable",
+          "retries": "not_applicable",
+          "stale_results": "insufficient_evidence",
+          "completion": "not_applicable"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 1,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 0
+          },
+          "events": {
+            "e55": {
+              "status": "finding",
+              "reasons": [
+                "fatal_error_in_verified_log"
+              ],
+              "zero_exit_with_fatal_log": true,
+              "fatal_lines": [
+                46
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "injected-missing-profile",
+      "source_kind": "injected_fault",
+      "basis": "Explicit missing-profile development injection. Typed wrapper failure is preserved; offline exit/log/output evidence alone cannot promote missing outputs into an Agent behavior finding.",
+      "record": "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/record.json",
+      "case_dir": "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": true
+      },
+      "provenance": [
+        {
+          "path": "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/summary.json",
+          "role": "archived collection outcome and provenance labels"
+        }
+      ],
+      "files": {
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/native-event-render-d83aa06be99d477aa9bf5c8dbd7de0d8.json": "3ea11c0ef1091730205a955f21dfb162ca53838636bd772c000c02885d9a25bb",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/native/command-calls/32cdbb82c59847df81fcb7b68b90cb6d/metadata.json": "a17004c6f3f7e38b3ed32fa167ca006b4442970c9184209cc2c1fc55d5124135",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/native/command-calls/3b688af9af474f439e6d56988ec58f1f/decision.json": "17fa143564e1a4d2e36bcaf12857e23368f127f8c9d5d1fa716788d552493401",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/native/command-calls/3b688af9af474f439e6d56988ec58f1f/metadata.json": "1984cd00cef6726afec034a53a3f9621043ea46153df14915ae72e033aee94ab",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/native/command-calls/fd06e1b116c54058a807ef68b79cdd40/metadata.json": "dfa53ea3edeb4a2b94c9ce720cc066f86c482a8e1ce553bd1d53289c746f3943",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/native/execution.json": "39ae2ee7726a04b0085dd2b33f18b7882ddf304aea1815d70ce7883d90af6557",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/.simclinic/native/319b406c8aea4083aa890f8c90161145/postprocessing/d83aa06be99d477aa9bf5c8dbd7de0d8/case/visualization.png": "070dd6f91abcc46e56cef6c9299b0730d09532da73548708046c5f1d836fa434",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/0/U": "4465dbbb2ee32d28773d48b1dede495601a49261e994c1438fec907b476c8618",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/0/p": "e604334a13171aa12f0baba0074a7d376688e832d2054f0ed586218cfb273fdc",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/144/U": "344e3841bb6ff008db3885941e1cf4bc6960094e0eaa20fa6fb24ea785e7c03d",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/144/p": "3fb3129cbc4c5ffd5a8bc55ff50bd5730875bdd5f4efee82c41c4a7949ff282c",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/144/phi": "348cc562d7224026053344a22d14ab45f796a975c2d0ae9fa7454a06fe227e54",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/144/uniform/time": "527ca37c0589330be41b61b8e362aa6fd81b66b1650f277a456fc69d0f20a706",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/Allrun": "9f9501e68900555a5f951abc7d60266790b970d95659619bc0e291ce73fda09a",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/constant/momentumTransport": "7498c38a3be52e135c3f5a82c90cc81cbe88a784f678ba1fb5fa24483c164844",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/constant/physicalProperties": "0c2cccd25f6ff7637351833f35ea078390e21633c99246122dc74f495fa94b0b",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/constant/polyMesh/boundary": "f74ccadc6edec6895fd3c72c3af9dc671bc67876dd3662c9243dab76fa9db99a",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/constant/polyMesh/faces": "f99b0bc09bf0013aaaa5f4564c66c7fbaedd3a011f98ee0356aad5d7f933efca",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/constant/polyMesh/neighbour": "8523d978e3984274b2b98f8dd77a49e5b530a8e43ca980985973ee175ebae041",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/constant/polyMesh/owner": "d02d87631945e0293f5ce5a5594e277d524019d54fd5589239164676452bceb3",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/constant/polyMesh/points": "9734d0ee06e46b5b1244af0520cc2beab11122cf70325a98931e9e02710aa84f",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/system/blockMeshDict": "8eaac13abf82299e6e4847bc58f66272aed90a78af7e68950f305152bdd13f70",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/system/controlDict": "4e0451e324cae5f43bb1cf71983e808c379773c428c96692b0a618653d873575",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/system/fvSchemes": "44cb465ab4934564d3428dd565ef54c583853a4ba087e2b1010aab4f2fdd8c21",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/system/fvSolution": "77a49375bb466535c7a24181fa73fd5b425513cbad682933dd46955ad5cffae5",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/attempts/319b406c8aea4083aa890f8c90161145/outputs/system/sample": "a7fad02506913eb53725171b6405fae948b4864ca50ef19e117e205dc5501ffc",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/node-001.json": "9919f7904cd228a77c45e7e9248d08b087cd788d9b7dadbddaba4183ae254313",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/node-002.json": "8aa181756e76e51c9e77db499dbccec4ed360bd2e2c095a1a7fa284b860f8f9c",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/node-003.json": "e0741c9a0096b5ec55c981dfb1851b02da8dc03a323eadec2d95cb45ce1e404c",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/node-004.json": "e859612abc2153b4f3a440af734ac79c03bb26300963a49562837ef1e0eccb8c",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/node-005.json": "651a64fba8c6fc7f2b1b58ca6a14795a845f6da59660bddafb6d2b2419186f1c",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/node-006.json": "4899390d3523da7e04de2fc331803a793caa55602579a4577e31920974333219",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/node-007.json": "cab5bada19d59623aa952faaa6fc774629db58f415dd3bce7aa07f51d85bf9da",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/sampling/gate-assessment.json": "1a65ccc9e257eb146f264db44569032cae29b9c0c90882a265f18ceb221cc9c2",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/sampling/pressure.xy": null,
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/sampling/profile.xy": null,
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/sampling/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/sampling/stdout.log": "35ad8439db5339c2d1c6a9378b1bc9bb524f3308eadb00e091d0e2adc0be71ed",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/observations/task-assessment.json": "c698eb74cc065c71c5c94d4e6a5cc3325e7ff45e9c92d74cea4187ff5db4ef74",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/record.json": "568294fca72061720d4d8fbf704906482fb928ad4696b8241760c01ab59047e9",
+        "real-runs/sampling-missing-output-final-20261004/runs/missing-profile-sampling/summary.json": "62bda4ff3c1057d7fef30c4e6ff49b3d171da0642eb3c22753b194c3495e246c"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "not_applicable",
+          "retries": "not_applicable",
+          "stale_results": "insufficient_evidence",
+          "completion": "not_applicable"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 1,
+            "not_applicable": 0
+          },
+          "events": {
+            "e32": {
+              "status": "insufficient_evidence",
+              "reasons": [],
+              "zero_exit_with_fatal_log": false,
+              "fatal_lines": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ablated-event-export",
+      "source_kind": "evidence_ablation",
+      "basis": "Existing explicit incomplete export derived from the recovery run; missing events and coverage must remain unknown.",
+      "record": "real-runs/observed-missing-evidence-20261004/record.json",
+      "case_dir": "real-runs/observed-missing-evidence-20261004",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": true
+      },
+      "provenance": [
+        {
+          "path": "real-runs/observed-missing-evidence-20261004/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "real-runs/observed-missing-evidence-20261004/summary.json",
+          "role": "archived collection outcome and provenance labels"
+        },
+        {
+          "path": "real-runs/observed-recovery-20261004/record.json",
+          "role": "original complete source before event export ablation"
+        }
+      ],
+      "files": {
+        "real-runs/observed-missing-evidence-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/command-calls/2bda5567246e40e383e6c288fcb3ced5/metadata.json": "33ded599a84ec38d8752d028e09d9165ba56b415b189e874e337d0d486da0f16",
+        "real-runs/observed-missing-evidence-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/command-calls/31d8a728ba844dd39be78a5501c308b9/metadata.json": "3d18be23335ee8c18d0702e18352965d5657c8afa32babd32a18dc5e091d818e",
+        "real-runs/observed-missing-evidence-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/command-calls/d79f6d2c76624aa68d0e8413d9bf68b8/decision.json": "c9183c5f2aaed6ac4e76687087580d7585b33bede69cfebbdd11a5a736fd3897",
+        "real-runs/observed-missing-evidence-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/command-calls/d79f6d2c76624aa68d0e8413d9bf68b8/metadata.json": "0884cb49016fc57cda6f1c11eb10d2fc267c823537b8e86eb34c7ccb01816669",
+        "real-runs/observed-missing-evidence-20261004/attempts/61cf3f08b44b45b29452b96be53e7430/native/execution.json": "e93ec74a0d40bba3296bddfb64d4106268ff196fd7e19b52549dd3ca33474c9a",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native-event-render-0569a3cf9e0148179e2cfa9d71761ec7.json": "3a4d052a23a3780960624b266ac9366a0f17ce31add156151f9dfab9202ab42c",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/command-calls/be652c1728b54a0d8d5b098264d49ab3/metadata.json": "1ef45671a63faa6fbe32ad713ddf8246ad6a5cd777128e709381940b7149de19",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/command-calls/c909d0ab62244799a9104ec8caa4f7d7/decision.json": "7da9cd5f361bec3d6f6a76d7c624378115933f73210b61f1b4ff12065588087d",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/command-calls/c909d0ab62244799a9104ec8caa4f7d7/metadata.json": "925baaa69adc59af1171b173b8b7a9933c87ad568ccde4722edc1e069d64633c",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/command-calls/f3af8ecadb1948139fd553bd52382b90/metadata.json": "22bf3df74207fbb11a218d0ad475a9ad25b87cf3e00985cbe2906bd3979c5f94",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/native/execution.json": "775fcdf58d538f03d968926b2a9b5d832d949e5cb58a0f4cb26b7b4a53b99759",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/.simclinic/native/8cdc0f3024a9449ba63b0b673db1c95b/postprocessing/0569a3cf9e0148179e2cfa9d71761ec7/case/visualization.png": "2a0ddf630a5cc4a438de498ff05d79cb846d4a7e2cc237b7334384d148107504",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/0/U": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/0/p": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/103/U": "e90e039ce571eb1103bc408f508d615b8598acde4135ea064c150db2b6f229f2",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/103/p": "f800f3e8628a844812a6ea9bf4ec2d675a017c69899845a540ef03cec6d554b3",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/103/phi": "8e8c33283b289ebd4f168b2544a421cbf158dd2ffb393c7837d324567977fdf7",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/103/uniform/time": "a7af0224cd2efaf53c37aa1a89a05db7e598f7f1858e15751be70f28a4b5d8b0",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/Allrun": "2f77f82f975fcc498c020fb9badac45a1b90eede65d9ca3db09a0b60fdceace1",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/momentumTransport": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/physicalProperties": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/boundary": "2034c8fbfb5ddd9021bac080a6708d2c4f5f3e277affddb16fe8b7f5d443ff30",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/faces": "7c7a01ac4ef660918c8391101fc108876718592f6bd80ac5cd673ff0be6d4d5a",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/neighbour": "cb98e4b91e1efbf09ab6931bc2d5bed172c3667b63fe7e6f681dbd51613f3f7a",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/owner": "aed7868198c29343e85558767132003090dda4d69c10e3d07a0bd3ee75643715",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/constant/polyMesh/points": "2cc26a85a2040ee1d6da812394da71eed3be6f06a52376b08d6ff1dfd7b6af54",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/blockMeshDict": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/controlDict": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/fvSchemes": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/fvSolution": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df",
+        "real-runs/observed-missing-evidence-20261004/attempts/8cdc0f3024a9449ba63b0b673db1c95b/outputs/system/sample": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152",
+        "real-runs/observed-missing-evidence-20261004/model-calls/call-001/metadata.json": "432fd4660773482165bc437e4f058ee9a41b4c53621b0d0af186c1864c6aac94",
+        "real-runs/observed-missing-evidence-20261004/model-calls/call-002/metadata.json": "3afe85e39685ee8e0dc3ea0b686dfade27eadaf45a8be821a936b8eb7d8cb994",
+        "real-runs/observed-missing-evidence-20261004/model-calls/call-003/metadata.json": "c7d70751bc89a8acb1a55db1f5e73d3536c846a3e9f2263c4f3ebd75ad05b60b",
+        "real-runs/observed-missing-evidence-20261004/observations/node-001.json": "df6edc34191cdc98c34a8603c489aad3b62378e1a9fd013d511948dcf2b9d3be",
+        "real-runs/observed-missing-evidence-20261004/observations/node-002.json": "4a9363c81d12e8d92eaaeb52e439744eb31f967518f80a97a2dff9a4049a0d31",
+        "real-runs/observed-missing-evidence-20261004/observations/node-003.json": "304d3dd85e5667236a9e5d114237a5494445beab2b6dd5b06868ac6d4056829b",
+        "real-runs/observed-missing-evidence-20261004/observations/node-004.json": "df5ac42a7b619a72f7ebf0275369b713e68551b17335d0e575dfdc43fb5267c4",
+        "real-runs/observed-missing-evidence-20261004/observations/node-005.json": "e08baf38711ae45356876e5d04a12a810a558461d6123e5cc37c630d580df658",
+        "real-runs/observed-missing-evidence-20261004/observations/node-006.json": "3a9fada32edd7d09486b18442b85a9c810c72040a230a39a61ebfd1a52fedfb4",
+        "real-runs/observed-missing-evidence-20261004/observations/node-007.json": "2f4864a1c784fdf593be5699a1ba8f3c648d1bff66ac3d01fe3a2a3a7418acbc",
+        "real-runs/observed-missing-evidence-20261004/observations/node-008.json": "2407b1e3e81db8c8c671570bd9f42b47a2f70f644bd620e2729a4e8565adcf37",
+        "real-runs/observed-missing-evidence-20261004/observations/node-009.json": "d15a69f98527798d34acb2270d7ed3120d9d2ffe2e84fdb1ac8a5a7ae124287b",
+        "real-runs/observed-missing-evidence-20261004/observations/node-010.json": "38e30cf9e2ff53a6654d6a45b33894a3a4ddaa8a3931f77cbb6e87f970748c14",
+        "real-runs/observed-missing-evidence-20261004/observations/node-011.json": "c8fc738fe4aa5dd8ebf2780fd2338036fa9b41573731ae2a7fbf169849617f6c",
+        "real-runs/observed-missing-evidence-20261004/observations/node-012.json": "abfb4e14b88608d646320bfb08410951653bced2b2151475fbd7adc95db0e6f1",
+        "real-runs/observed-missing-evidence-20261004/observations/node-013.json": "eb4cef37e318b4343bc67d62ed4fc354836757a25e329aa18f648af9c7cfa530",
+        "real-runs/observed-missing-evidence-20261004/observations/node-014.json": "dd19aeca036b66eaff69fe3c725affe73198c3cadc101b222eb0684be44daeef",
+        "real-runs/observed-missing-evidence-20261004/observations/node-015.json": "1ffe52e0f9d290e70af44ff654baf7f9e14cbb6ff2624d9b84d75d90c73bae6a",
+        "real-runs/observed-missing-evidence-20261004/observations/node-016.json": "e517684f9355377ee8c204b11b0de465de8610616c7385a92540983909dd0de6",
+        "real-runs/observed-missing-evidence-20261004/observations/sampling/pressure.xy": "5efad0eb825e5ed0c315565f82d14989c4305962502297afe5f93d2647dbb0ee",
+        "real-runs/observed-missing-evidence-20261004/observations/sampling/profile.xy": "b4e8dac698945a343533a7fa6b31bea3d33f177c4857818b334ce8717eadc283",
+        "real-runs/observed-missing-evidence-20261004/observations/sampling/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "real-runs/observed-missing-evidence-20261004/observations/sampling/stdout.log": "362de0deaf4780e58f4e6b1250cb0d8dc2b71c0a9ecbe484c10b972a922b8f8f",
+        "real-runs/observed-missing-evidence-20261004/observations/task-assessment.json": "312073470536ff23fa843ac94ff76bb52f770c13d60cd72ab207161430c1501b",
+        "real-runs/observed-missing-evidence-20261004/record.json": "f6bf6dd903315f6d53929b562e09e6f439ec7bc3c329b4b50bc896d558884e4c",
+        "real-runs/observed-missing-evidence-20261004/summary.json": "9ad793a177ef4770d8f57658c89f5d7be63f24fc1020c04ff500b6b05a2b2381",
+        "real-runs/observed-recovery-20261004/record.json": "7f12f09da57e619450f353efb9d1c7139d6660f900b7f5855c05fb896128c4d0"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "insufficient_evidence",
+          "error_continuation": "insufficient_evidence",
+          "retries": "insufficient_evidence",
+          "stale_results": "insufficient_evidence",
+          "completion": "insufficient_evidence"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "incomplete-model-run",
+      "source_kind": "incomplete_run",
+      "basis": "Original model interruption before solving with incomplete collection; not a proven Agent behavior error.",
+      "record": "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/record.json",
+      "case_dir": "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": false
+      },
+      "provenance": [
+        {
+          "path": "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/summary.json",
+          "role": "archived collection outcome and provenance labels"
+        }
+      ],
+      "files": {
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-001/metadata.json": "639d415e471000079174b9f3dc8e041f128dc619ac52b6a3185e99803c0d9383",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-002/metadata.json": "b500e5a62d94f550b8db8aeb2d84a84888b032e2cdd03d2ce473f77845cefec4",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-003/metadata.json": "b4829386f490c7b886488620bd4ba3d2823c12561e2ba1747b670989ef80fc0c",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-004/metadata.json": "c26d71c2ec7cbfd67ccc71ff72dc9acc121455d122522922b1f84ac38be6b7fd",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-005/metadata.json": "a3445aa4a25f5c53635d2a56294bf91a526e24e738bec02f5927a1feca7d5899",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-006/metadata.json": "238bc35ae4ab92188a026e50b3556a1ea18939cd6e75cbd30fed5095d38b262b",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-007/metadata.json": "8e89d363d9f90d8c95fa293f5ef594abee5bac0811f2bd961cdc33a810c00724",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-008/metadata.json": "3877840409943d4a080852e71d686c0e66947d81b1ac33f7119581d6dd8a8060",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-009/metadata.json": "34fd009f1d82b4c0ea2cc9d25f7d69fe4de3eb591e33466087ae3ed2daa07c19",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-010/metadata.json": "02f24cbc946cd7a80dd61d52284589d0a0603ae10830cf192694924b96395f84",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/model-calls/call-011/metadata.json": "642ad556a84f1d7322b8838ffea700b77c5c4f37cf9895f2f8f3eb5ea7ed3301",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/observations/node-001.json": "b855a5c8588a6c51509cf943f8e106a5c394cae7b27bf002254a63a919c28640",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/observations/node-002.json": "d20a5d778b9f2307b5976cb5d03fa294dfd709120c477c585542c328081c71bc",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/observations/node-003.json": "7980365c40d1390033e8fae8e74ff2bec6b4a794dcd5c87ed0bab40823042f21",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/observations/node-004.json": "9b8fa000bf81f3c786f889527b6a06798c97751b15b844c98fb51ad96ccb4063",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/observations/node-005.json": "de67e4f046e9e328b9ef551621e689f8be64d19b92b3cb9482ca82079347fb77",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/record.json": "ee10336105bcd5b52e59c64cbf1156075cfb02ecdddeb2261384535bfbeb6165",
+        "real-runs/sampling-policy-study-20261004/runs/J1-r1-baseline/summary.json": "4ae5c00f52c4dc920646aa4e5068f15f15aa170b34b142e59e15d89d615e01e5"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "insufficient_evidence",
+          "error_continuation": "insufficient_evidence",
+          "retries": "insufficient_evidence",
+          "stale_results": "insufficient_evidence",
+          "completion": "insufficient_evidence"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "ablated-sampling-logs",
+      "source_kind": "evidence_ablation",
+      "basis": "Explicitly omit the natural-fatal run sampling stdout/stderr while retaining exit 0 and other registered bytes; without logs the old fatal cannot be confirmed.",
+      "record": "benchmarks/diagnostics-v1/data/sampling-logs-ablated/record.json",
+      "case_dir": "benchmarks/diagnostics-v1/data/sampling-logs-ablated",
+      "record_labels": {
+        "synthetic": false,
+        "fault_injection": false
+      },
+      "provenance": [
+        {
+          "path": "benchmarks/diagnostics-v1/data/sampling-logs-ablated/record.json",
+          "role": "normalized observation and identity contract"
+        },
+        {
+          "path": "benchmarks/diagnostics-v1/data/sampling-logs-ablated/derivation.json",
+          "role": "explicit log ablation recipe"
+        },
+        {
+          "path": "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/record.json",
+          "role": "original natural-fatal record before log ablation"
+        },
+        {
+          "path": "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/sampling/stdout.log",
+          "role": "original omitted fatal log, available only as lineage evidence"
+        },
+        {
+          "path": "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/sampling/stderr.log",
+          "role": "original omitted stderr, available only as lineage evidence"
+        }
+      ],
+      "files": {
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/native-event-render-a057960d64b049578f27b8fb50a837fc.json": "b67c73aec9dacdb5d7c8986bb798c9ef4fa5d9e1e244c1c6317908a02bee1254",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/native/command-calls/39f4655e6a6848fe9d68930963ccdaae/decision.json": "87874e79ba041f8bb66da52fe0b626ce2b41faee98437f9c1f35b4c0b9fcbc64",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/native/command-calls/39f4655e6a6848fe9d68930963ccdaae/metadata.json": "b3b868925cae7c1d444d04a5978939f3c9ed78309b430db9686500de985ee693",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/native/command-calls/72c6952d863c47db8d168522c1a9770d/metadata.json": "48db4241f68a70cdf892ac8eb28065594d41450e9778ee6056a744ad40d7f4a3",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/native/command-calls/d3e0461141974525b6158c3846240c3b/metadata.json": "a4c33d356755f211587e0cc125aff676dc39a022d412959a7fedde93a528f960",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/native/execution.json": "af6ecc52202bc4a536274e47414b190f2e86c60d0790dac861fda82ede1858d9",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/.simclinic/native/989835a2aa124752b7860ca86cb96024/postprocessing/a057960d64b049578f27b8fb50a837fc/case/visualization.png": "070dd6f91abcc46e56cef6c9299b0730d09532da73548708046c5f1d836fa434",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/0/U": "840dbb51b904c80c729eff002590ded4bc1e8c90ccacb2296ef49b5dbf9f9000",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/0/p": "93d3726ff2d17b85a1548376783f7ea23b922ca524dca70029c4172c5586e450",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/144/U": "344e3841bb6ff008db3885941e1cf4bc6960094e0eaa20fa6fb24ea785e7c03d",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/144/p": "3fb3129cbc4c5ffd5a8bc55ff50bd5730875bdd5f4efee82c41c4a7949ff282c",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/144/phi": "348cc562d7224026053344a22d14ab45f796a975c2d0ae9fa7454a06fe227e54",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/144/uniform/time": "527ca37c0589330be41b61b8e362aa6fd81b66b1650f277a456fc69d0f20a706",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/Allrun": "9f9501e68900555a5f951abc7d60266790b970d95659619bc0e291ce73fda09a",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/momentumTransport": "5c3f6a489f733d5662edcf1891ffac6f0907262548f3a4c18c72963eee30be9f",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/physicalProperties": "04faa9b907ffc276d694422f78f7114a273e2da943569ca6c4eec462a1a122dc",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/boundary": "f74ccadc6edec6895fd3c72c3af9dc671bc67876dd3662c9243dab76fa9db99a",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/faces": "f99b0bc09bf0013aaaa5f4564c66c7fbaedd3a011f98ee0356aad5d7f933efca",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/neighbour": "8523d978e3984274b2b98f8dd77a49e5b530a8e43ca980985973ee175ebae041",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/owner": "d02d87631945e0293f5ce5a5594e277d524019d54fd5589239164676452bceb3",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/constant/polyMesh/points": "9734d0ee06e46b5b1244af0520cc2beab11122cf70325a98931e9e02710aa84f",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/blockMeshDict": "f1a4a47b9eb168d6dfdff10e713b68991598ede0f370b0ca25031efe3ed376ea",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/controlDict": "c2e9559054470cb5d46f2c197ae92dc6408858519822d5589c4ccd19fa08e9bc",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/fvSchemes": "1c6007368b888132126e4e95b72400e9a11c89511ff277f3c046a786883661d0",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/fvSolution": "2e375bddef0842c45e5fdcc49c7a9a8200d686f4ed6787e8dcb81127080ad4e8",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/attempts/989835a2aa124752b7860ca86cb96024/outputs/system/sample": "606cc9b550159b8bc7c40a573a4f5fb67dd228f61d59a8fa8051e86bf7458026",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/derivation.json": "46157b5b4f20dc4c216b5186b23318bc96261454c3f88061337e77059731ad55",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-001/metadata.json": "c0eb84fabadb4c966ef4551704abb2f532f8ee684e6a4f8a7b6322ecc218d46c",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-002/metadata.json": "31a0cd26d19fdb5631849fad3c69ba81d928fff886d94695f76bf99a50ed9690",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-003/metadata.json": "5b1d8451611b0c013a8d4633ae379fce5dc3343f8afb972d415ee5a51ce70575",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-004/metadata.json": "b4564e5f07bec6f980807937c419730b6518b448a346dec53ee0e17033ad47c7",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-005/metadata.json": "7763d2048ca5920e2dcd47ee1cd9be5cb2985d990d0e07b84531f6a486e6a844",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-006/metadata.json": "437d396029a78e23bec41b368bb8bb364d7d13e8e581a875912a6e10341a7fdb",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-007/metadata.json": "bc8a80af30f1a1df03c669b273ac41ca8078b0b35722e7294d7bd6b18b7831fc",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-008/metadata.json": "e501627b23380ca73e6a8a6b27dc30e823207e55c2c5e87aaf593de352d5f3ae",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-009/metadata.json": "82860c624f782b58933ee56edbf3b90291ad91e09746d37e3f79c487776e305d",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-010/metadata.json": "0346413e58da980b3dfd1d9c48eb7f55167ac4c1b369a1300e3640fbc91d6f33",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-011/metadata.json": "b266761c0f64931a13d1d238906d27a77b6ce967a92387e1bc5e326f6c714ab7",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-012/metadata.json": "3b1492030577dc6f7a402c3ac554268e3a8c221f3187826aeb7ce667ca20029b",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-013/metadata.json": "02a7ca00e3bbf82ca9ab35e36173d2995feb5a644d087d167350b1aadf273e31",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-014/metadata.json": "a217833ffd030ad7a0d6ada60d8b0be7664a5e2bec238d1d657a1cb9d356d2b0",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-015/metadata.json": "7c8105f2204cd3a7d7084ed519bc7c83eded5f8e24944b9b2af4f9552c3b3c6f",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-016/metadata.json": "4c60be554cfc569ee991ce40df8c8693b8279f62537a392c261cca9f9166b7ff",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/model-calls/call-017/metadata.json": "f1198934e7fe1955759f6fdaa0b619098c40fe7b5ed8cb0ba3c4e0e8974d599a",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-001.json": "1c3b526224e237d1c09b48d98f614fbd9e11e3d98946a8a971270f5d6a0278c6",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-002.json": "1853bb8740ef5e0621a8f4fa6b01f5248946965d483eacee1e178c6bb5380b54",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-003.json": "93e834f09fb89ceabc0affcc75165de1045087d4919a864ad7efb1c229fc4a09",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-004.json": "037f25b535f212cb9b3a694cf139119d5d38068acdeb9717c5f1cbd99de52e92",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-005.json": "a5ed6f00aa7ba2568b147cdc339e89e0e0b36938f76ec965051828d78927eef0",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-006.json": "ddf3282eff87ecd886495cd4191b122d04082fec43e9cb8f48c9ecbb2d3510c5",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-007.json": "ad42bdf60fb327785d0d3926f87a26fd3c5e21d8e8c8627936c590630bbc7598",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-008.json": "0024a2d731612d08d665b83b83ce3470f1f60d91d04637d32825f527f38d30bc",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-009.json": "9eb7ddb00747d3fd73aea59b8d18bc595b7472806df838ae68b6891460fb0f15",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-010.json": "1d7237fee9ed15608ba33da4bc7828ae828c30c882b541b6d4f00f13b5734c65",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-011.json": "7c45f8c845b51826208ae569bb0ed2a75e7ac911c6f7e15fe1f75c3beb7ab820",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-012.json": "d11e2d875e72a8065a276b6dfc0d72512ae4a9694041e2b203301f2cffc1bec0",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/node-013.json": "5aab1f9f6b84d8a3f08f8aff44e416ab9f2c4eb9885eec20f4bc96968351a18f",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/sampling/pressure.xy": null,
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/sampling/profile.xy": null,
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/sampling/stderr.log": null,
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/sampling/stdout.log": null,
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/observations/task-assessment.json": "04390dede5f16b9cd1fadc8aca21b8df626141b5a920c97bebd79bba4e1d9145",
+        "benchmarks/diagnostics-v1/data/sampling-logs-ablated/record.json": "a6735324c41aab806b4434ee21a8114151b03d9d2729f23eafba96a77fe4f20e",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/sampling/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/observations/sampling/stdout.log": "14a22c7356d4c9cc2a9690e1b20bd66aa93f16fa3743a0ec1b5f0101d31b61f2",
+        "real-runs/content-interface-heldout-20261004/runs/I1-r2-baseline/record.json": "67c01ae0ba8ab40ca133eb1915be5027440c8fb330918190b48518addf3b025d"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "not_applicable",
+          "retries": "not_applicable",
+          "stale_results": "insufficient_evidence",
+          "completion": "not_applicable"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 1,
+            "not_applicable": 0
+          },
+          "events": {
+            "e55": {
+              "status": "insufficient_evidence",
+              "reasons": [],
+              "zero_exit_with_fatal_log": false,
+              "fatal_lines": []
+            }
+          }
+        }
+      }
+    }
+  ]
+}

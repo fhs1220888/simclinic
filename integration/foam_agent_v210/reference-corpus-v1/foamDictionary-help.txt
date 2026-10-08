@@ -1,0 +1,38 @@
+
+Usage: foamDictionary [OPTIONS] <dictionary file>
+options:
+  -add <value>      Add a new entry
+  -dict             Set, add or merge entry from a dictionary.
+  -diff <dict>      Write differences with respect to the specified dictionary
+  -entry <name>     report/select the named entry
+  -expand           Read the specified dictionary file, expand the macros etc.
+                    and write the resulting dictionary to standard output
+  -fileHandler <handler>
+                    override the fileHandler
+  -hostRoots <((host1 dir1) .. (hostN dirN))>
+                    slave root directories (per host) for distributed running
+  -includes         List the #include/#includeIfPresent files to standard output
+  -keywords         list keywords
+  -libs '("lib1.so" ... "libN.so")'
+                    pre-load libraries
+  -merge <value>    Merge entry
+  -noFunctionObjects
+                    do not execute functionObjects
+  -parallel         run in parallel
+  -remove           Remove the entry.
+  -roots <(dir1 .. dirN)>
+                    slave root directories for distributed running
+  -set <value>      Set entry value, add new entry or apply list of
+                    substitutions
+  -value            Print entry value
+  -writePrecision <label>
+                    Write with the specified precision
+  -srcDoc           display source code in browser
+  -doc              display application documentation in browser
+  -help             print the usage
+
+manipulates dictionaries
+
+Using: OpenFOAM-10 (see https://openfoam.org)
+Build: 10-c4cf895ad8fa
+

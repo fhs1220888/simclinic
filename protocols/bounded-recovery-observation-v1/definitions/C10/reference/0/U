@@ -1,0 +1,11 @@
+FoamFile
+{ version 2.0; format ascii; class volVectorField; object U; }
+
+dimensions [0 1 -1 0 0 0 0]; internalField uniform (0 0 0);
+boundaryField {
+west {type fixedValue; value nonuniform List<vector> 32 ((0.0005625 0 0) (0.0016875 0 0) (0.0028125 0 0) (0.0039375 0 0) (0.0050625 0 0) (0.0061875 0 0) (0.0073125 0 0) (0.0084375 0 0) (0.0095625 0 0) (0.0106875 0 0) (0.0118125 0 0) (0.0129375 0 0) (0.0140625 0 0) (0.0151875 0 0) (0.0163125 0 0) (0.0174375 0 0) (0.0185625 0 0) (0.0196875 0 0) (0.0208125 0 0) (0.0219375 0 0) (0.0230625 0 0) (0.0241875 0 0) (0.0253125 0 0) (0.0264375 0 0) (0.0275625 0 0) (0.0286875 0 0) (0.0298125 0 0) (0.0309375 0 0) (0.0320625 0 0) (0.0331875 0 0) (0.0343125 0 0) (0.0354375 0 0));}
+east {type zeroGradient;}
+south {type fixedValue; value uniform (0 0 0);}
+north {type fixedValue; value uniform (0.036 0 0);}
+frontAndBack {type empty;}
+}

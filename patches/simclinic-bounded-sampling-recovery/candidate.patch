@@ -1,0 +1,28 @@
+diff --git a/simclinic/domains/openfoam/bounded_sampling_candidate.py b/simclinic/domains/openfoam/bounded_sampling_candidate.py
+new file mode 100644
+--- /dev/null
++++ b/simclinic/domains/openfoam/bounded_sampling_candidate.py
+@@ -0,0 +1,23 @@
++"""Explicit opt-in for the frozen, bounded Couette sampling recovery policy.
++
++The baseline and candidate share the nine-file evaluator and acceptance rules.
++This factory chooses the already evaluated completion class; constructing it
++starts no model, solver, sampler, or filesystem mutation.
++"""
++from .input_contract import (
++    ContractReferenceCompletion,
++    RecoveringContractReferenceCompletion,
++)
++
++
++def completion_policy(recorder, reference, image, spec, *, enabled=False):
++    """Build one run's completion node; recovery is disabled by default.
++
++    Use a fresh node per run: the candidate keeps its one-retry budget on the
++    instance. The registered task must declare the nine-file v3 Couette input
++    contract. Only the evaluated missing-output recovery path can retry.
++    """
++    if type(enabled) is not bool:
++        raise TypeError("enabled must be an explicit bool")
++    policy = RecoveringContractReferenceCompletion if enabled else ContractReferenceCompletion
++    return policy(recorder, reference, image, spec)

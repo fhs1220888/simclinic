@@ -1,0 +1,19 @@
+--- a/src/services/input_writer.py
++++ b/src/services/input_writer.py
+@@ -3,6 +3,7 @@
+ from typing import Dict, List, Any, Optional, Callable
+ import shutil
+ from simclinic.agent_paths import case_input_path
++from simclinic.input_content import decode_foamfile_response
+ from utils import save_file, parse_context, retrieve_faiss, FoamPydantic, FoamfilePydantic, scan_case_directory, read_case_foamfiles, read_file
+ from . import global_llm_service
+ 
+@@ -190,7 +191,7 @@
+         else:
+             generation_response = global_llm_service.invoke(code_user_prompt, code_system_prompt)
+ 
+-        code_context = parse_context(generation_response)
++        code_context = decode_foamfile_response(generation_response, file_name=file_name, folder_name=folder_name)
+         save_file(file_path, code_context)
+         return FoamfilePydantic(file_name=file_name, folder_name=folder_name, content=code_context)
+ 

@@ -1,0 +1,1016 @@
+{
+  "schema_version": "1.0",
+  "protocol_id": "bounded-recovery-observation-v1",
+  "status": "frozen_design_only",
+  "execution_ready": false,
+  "execution_authorized": false,
+  "scope": "Fixed Foundation 10/simpleFoam steady incompressible single-phase Couette; exploratory local serial pilot",
+  "basis": {
+    "prior_freeze_sha256": "5fe1c82fe06adde350c10362dbe7af080cff010327a0752b33803858217bd3f8",
+    "candidate_manifest_sha256": "9f1e77465663e88f61cbafd7dbdb045bbe2d89ad4c128ed750c4ce34c8971b72",
+    "baseline_class": "ContractReferenceCompletion",
+    "candidate_class": "RecoveringContractReferenceCompletion",
+    "shared_input_policy": "foundation10-nine-file-couette-literals-v3"
+  },
+  "environment_basis": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "image": "openfoam/openfoam10-paraview510@sha256:d6ff1f9a2e7bc3c9177f373bebbdeb542fd8b49144afc24d5e3a3cd9bfae253d",
+    "image_id": "sha256:d6ff1f9a2e7bc3c9177f373bebbdeb542fd8b49144afc24d5e3a3cd9bfae253d",
+    "resources": {
+      "cpus": 2,
+      "memory": "2g",
+      "network": "none",
+      "platform": "linux/amd64"
+    },
+    "agent_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+    "model": "gpt-6.1-sol",
+    "model_reasoning_effort": "high",
+    "cli_version": "codex-cli 0.159.0-alpha.12.1",
+    "cli_sha256": "1180e2d56ea06ec583092acd933345685da3441cb1769a436d76dbf320613e75",
+    "installed_dependencies": [
+      "annotated-types==0.8.0",
+      "anyio==4.15.1",
+      "attrs==26.1.0",
+      "Authlib==1.8.0",
+      "botocore==1.40.46",
+      "certifi==2026.7.22",
+      "cffi==2.1.1",
+      "charset-normalizer==3.5.2",
+      "click==8.5.0",
+      "contourpy==1.4.0",
+      "cryptography==50.0.2",
+      "cycler==0.12.1",
+      "cyclopts==5.1.1",
+      "distro==1.9.0",
+      "dnspython==2.8.0",
+      "docstring_parser==0.18.0",
+      "email-validator==2.3.0",
+      "exceptiongroup==1.3.1",
+      "fastmcp==2.12.4",
+      "fonttools==4.66.1",
+      "h11==0.16.0",
+      "httpcore==1.0.9",
+      "httpcore2==2.13.1",
+      "httpx==0.28.1",
+      "httpx-sse==0.4.3",
+      "httpx2==2.13.1",
+      "idna==3.20",
+      "isodate==0.7.2",
+      "jmespath==1.1.0",
+      "joserfc==1.7.5",
+      "jsonpatch==1.33",
+      "jsonpointer==3.1.1",
+      "jsonschema==4.26.0",
+      "jsonschema-path==0.4.6",
+      "jsonschema-specifications==2025.9.1",
+      "kiwisolver==1.5.1",
+      "langchain-core==0.3.86",
+      "langgraph==0.2.76",
+      "langgraph-checkpoint==2.1.2",
+      "langgraph-sdk==0.1.74",
+      "langsmith==0.14.4",
+      "lazy-object-proxy==1.12.0",
+      "markdown-it-py==4.2.0",
+      "MarkupSafe==3.0.4",
+      "matplotlib==3.11.2",
+      "mcp==1.30.0",
+      "mdurl==0.1.2",
+      "more-itertools==11.1.0",
+      "numpy==2.5.3",
+      "openapi-core==0.23.1",
+      "openapi-pydantic==0.6.0",
+      "openapi-schema-validator==0.8.1",
+      "openapi-spec-validator==0.8.5",
+      "orjson==3.12.0",
+      "ormsgpack==1.12.2",
+      "packaging==25.0",
+      "pathable==0.5.0",
+      "pillow==12.3.0",
+      "platformdirs==4.12.3",
+      "pooch==1.9.0",
+      "pycparser==3.0",
+      "pydantic==2.13.5",
+      "pydantic-settings==2.15.0",
+      "pydantic_core==2.46.5",
+      "Pygments==2.21.0",
+      "PyJWT==2.15.1",
+      "pyparsing==3.3.3",
+      "pyperclip==1.11.0",
+      "python-dateutil==2.9.0.post0",
+      "python-dotenv==1.2.4",
+      "python-multipart==0.0.32",
+      "pyvista==0.46.5",
+      "PyYAML==6.0.3",
+      "referencing==0.37.0",
+      "regex==2026.9.29",
+      "requests==2.32.5",
+      "requests-toolbelt==1.0.0",
+      "rfc3339-validator==0.1.4",
+      "rich==15.0.0",
+      "rich-rst==2.2.0",
+      "rpds-py==2026.9.1",
+      "scooby==0.12.0",
+      "six==1.17.0",
+      "sniffio==1.3.1",
+      "sse-starlette==3.5.0",
+      "starlette==1.7.0",
+      "tenacity==9.1.4",
+      "tiktoken==0.11.0",
+      "truststore==0.10.4",
+      "typing-inspection==0.4.4",
+      "typing_extensions==4.16.0",
+      "urllib3==2.8.0",
+      "uuid_utils==0.17.1",
+      "uvicorn==0.54.0",
+      "vtk==9.5.2",
+      "websockets==17.2",
+      "Werkzeug==3.1.9",
+      "xxhash==4.0.1",
+      "zstandard==0.25.0"
+    ]
+  },
+  "environment_freeze_pending": true,
+  "development_tasks": [
+    {
+      "id": "C0-coarse",
+      "kind": "couette",
+      "wall_speed": 0.02,
+      "nx": 40,
+      "ny": 20
+    },
+    {
+      "id": "C0-fine",
+      "kind": "couette",
+      "wall_speed": 0.02,
+      "nx": 80,
+      "ny": 40
+    }
+  ],
+  "heldout_tasks": [
+    {
+      "id": "C7",
+      "kind": "couette",
+      "wall_speed": 0.024,
+      "nx": 58,
+      "ny": 29
+    },
+    {
+      "id": "C8",
+      "kind": "couette",
+      "wall_speed": 0.028,
+      "nx": 60,
+      "ny": 30
+    },
+    {
+      "id": "C9",
+      "kind": "couette",
+      "wall_speed": 0.032,
+      "nx": 62,
+      "ny": 31
+    },
+    {
+      "id": "C10",
+      "kind": "couette",
+      "wall_speed": 0.036,
+      "nx": 64,
+      "ny": 32
+    }
+  ],
+  "exclude_used_tasks": [
+    "C0",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "F0",
+    "H/I/J/K/L",
+    "all catalogued original and mutated input combinations"
+  ],
+  "counts": {
+    "development": 4,
+    "natural": 48,
+    "injected": 24,
+    "total": 76,
+    "natural_repeats_per_task_arm": 6,
+    "injected_repeats_per_task_arm": 3
+  },
+  "entries": [
+    {
+      "id": "C0-coarse-baseline",
+      "stage": "development",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C0-coarse"
+    },
+    {
+      "id": "C0-coarse-candidate",
+      "stage": "development",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C0-coarse"
+    },
+    {
+      "id": "C0-fine-candidate",
+      "stage": "development",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C0-fine"
+    },
+    {
+      "id": "C0-fine-baseline",
+      "stage": "development",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C0-fine"
+    },
+    {
+      "id": "C7-r1-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r1-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C8-r1-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r1-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C9-r1-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r1-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C10-r1-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r1-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r2-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 2,
+      "arm": "candidate",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r2-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 2,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C9-r2-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 2,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r2-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 2,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C8-r2-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 2,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r2-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 2,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C7-r2-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 2,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r2-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 2,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r3-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 3,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r3-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 3,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C8-r3-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 3,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r3-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 3,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C9-r3-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 3,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r3-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 3,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C10-r3-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 3,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r3-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 3,
+      "arm": "candidate",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r4-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 4,
+      "arm": "candidate",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r4-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 4,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C9-r4-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 4,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r4-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 4,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C8-r4-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 4,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r4-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 4,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C7-r4-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 4,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r4-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 4,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r5-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 5,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r5-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 5,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C8-r5-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 5,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r5-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 5,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C9-r5-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 5,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r5-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 5,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C10-r5-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 5,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r5-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 5,
+      "arm": "candidate",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r6-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 6,
+      "arm": "candidate",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r6-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 6,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C9-r6-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 6,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r6-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 6,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C8-r6-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 6,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r6-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 6,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C7-r6-natural-baseline",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 6,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r6-natural-candidate",
+      "stage": "natural",
+      "scenario": "unmodified",
+      "repeat": 6,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r1-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r1-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C8-r1-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r1-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C9-r1-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r1-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C10-r1-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 1,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r1-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 1,
+      "arm": "candidate",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r2-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 2,
+      "arm": "candidate",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r2-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 2,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C9-r2-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 2,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r2-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 2,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C8-r2-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 2,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r2-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 2,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C7-r2-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 2,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r2-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 2,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r3-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 3,
+      "arm": "candidate",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C7-r3-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 3,
+      "arm": "baseline",
+      "spec_id": "C7"
+    },
+    {
+      "id": "C8-r3-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 3,
+      "arm": "baseline",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C8-r3-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 3,
+      "arm": "candidate",
+      "spec_id": "C8"
+    },
+    {
+      "id": "C9-r3-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 3,
+      "arm": "candidate",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C9-r3-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 3,
+      "arm": "baseline",
+      "spec_id": "C9"
+    },
+    {
+      "id": "C10-r3-injected-baseline",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 3,
+      "arm": "baseline",
+      "spec_id": "C10"
+    },
+    {
+      "id": "C10-r3-injected-candidate",
+      "stage": "injected",
+      "scenario": "transient_missing",
+      "repeat": 3,
+      "arm": "candidate",
+      "spec_id": "C10"
+    }
+  ],
+  "schedule": [
+    "C0-coarse-baseline",
+    "C0-coarse-candidate",
+    "C0-fine-candidate",
+    "C0-fine-baseline",
+    "C7-r1-natural-candidate",
+    "C7-r1-natural-baseline",
+    "C8-r1-natural-baseline",
+    "C8-r1-natural-candidate",
+    "C9-r1-natural-candidate",
+    "C9-r1-natural-baseline",
+    "C10-r1-natural-baseline",
+    "C10-r1-natural-candidate",
+    "C10-r2-natural-candidate",
+    "C10-r2-natural-baseline",
+    "C9-r2-natural-baseline",
+    "C9-r2-natural-candidate",
+    "C8-r2-natural-candidate",
+    "C8-r2-natural-baseline",
+    "C7-r2-natural-baseline",
+    "C7-r2-natural-candidate",
+    "C7-r3-natural-candidate",
+    "C7-r3-natural-baseline",
+    "C8-r3-natural-baseline",
+    "C8-r3-natural-candidate",
+    "C9-r3-natural-candidate",
+    "C9-r3-natural-baseline",
+    "C10-r3-natural-baseline",
+    "C10-r3-natural-candidate",
+    "C10-r4-natural-candidate",
+    "C10-r4-natural-baseline",
+    "C9-r4-natural-baseline",
+    "C9-r4-natural-candidate",
+    "C8-r4-natural-candidate",
+    "C8-r4-natural-baseline",
+    "C7-r4-natural-baseline",
+    "C7-r4-natural-candidate",
+    "C7-r5-natural-candidate",
+    "C7-r5-natural-baseline",
+    "C8-r5-natural-baseline",
+    "C8-r5-natural-candidate",
+    "C9-r5-natural-candidate",
+    "C9-r5-natural-baseline",
+    "C10-r5-natural-baseline",
+    "C10-r5-natural-candidate",
+    "C10-r6-natural-candidate",
+    "C10-r6-natural-baseline",
+    "C9-r6-natural-baseline",
+    "C9-r6-natural-candidate",
+    "C8-r6-natural-candidate",
+    "C8-r6-natural-baseline",
+    "C7-r6-natural-baseline",
+    "C7-r6-natural-candidate",
+    "C7-r1-injected-candidate",
+    "C7-r1-injected-baseline",
+    "C8-r1-injected-baseline",
+    "C8-r1-injected-candidate",
+    "C9-r1-injected-candidate",
+    "C9-r1-injected-baseline",
+    "C10-r1-injected-baseline",
+    "C10-r1-injected-candidate",
+    "C10-r2-injected-candidate",
+    "C10-r2-injected-baseline",
+    "C9-r2-injected-baseline",
+    "C9-r2-injected-candidate",
+    "C8-r2-injected-candidate",
+    "C8-r2-injected-baseline",
+    "C7-r2-injected-baseline",
+    "C7-r2-injected-candidate",
+    "C7-r3-injected-candidate",
+    "C7-r3-injected-baseline",
+    "C8-r3-injected-baseline",
+    "C8-r3-injected-candidate",
+    "C9-r3-injected-candidate",
+    "C9-r3-injected-baseline",
+    "C10-r3-injected-baseline",
+    "C10-r3-injected-candidate"
+  ],
+  "budgets": {
+    "usage_token_total": 22000000,
+    "stage_token_boundaries": {
+      "development": 1500000,
+      "natural": 13500000,
+      "injected": 7000000
+    },
+    "reserve_before_run": 450000,
+    "model_calls_per_run": 32,
+    "model_timeout_seconds": 240,
+    "shared_reviewer_limit": 2,
+    "model_render_fallback_limit": 0,
+    "solver_timeout_seconds": 180,
+    "sampler_timeout_seconds": 120,
+    "wall_seconds_total": 21600,
+    "stage_wall_seconds": {
+      "development": 1800,
+      "natural": 14400,
+      "injected": 5400
+    },
+    "semantics": "Prelaunch reserve and stop-after-known-usage soft boundaries; one request may overshoot; never a guaranteed billed-token hard cap",
+    "stop_unknown_usage": true,
+    "extend_to_obtain_failures": false,
+    "model_cost": null
+  },
+  "recovery": {
+    "trigger": "sampling_missing_output",
+    "first_exit_code": 0,
+    "maximum_extra_sampler_calls": 1,
+    "current_run_input_and_hash_required": true,
+    "fresh_verified_workspace": true,
+    "solver_retry_by_recovery": false,
+    "physics_numerics_acceptance_changes": false,
+    "retain_first_failure": true,
+    "retain_all_consumption": true,
+    "second_failure_terminates": true
+  },
+  "natural": {
+    "injection_enabled": false,
+    "candidate_recovery_enabled": true,
+    "baseline_recovery_enabled": false,
+    "first_sample_denominator": "one first sample function-call attempt per started full task, including launch failure; extra samples never enter M; actual launch status reported separately",
+    "eligibility_evidence_shared_before_branch": true,
+    "zero_eligible_result": "natural_recovery_benefit_not_assessable",
+    "frequency_scope": "observed pilot window and fixed parameter mix; no population rate guarantee",
+    "execution_started_field_is_not_launch_proof": true
+  },
+  "injected": {
+    "rule": "Before removal the original complete sampler gate must pass: exit zero, UTF8 nonfatal logs, current verified identity/workspace, profile.xy and pressure.xy both unique new safe nonempty and parseable with the original measurement reader; reference tolerance pass not required; archive intervention then remove profile exactly once",
+    "injection_count_per_task": 1,
+    "natural_failure": false,
+    "new_case_per_run": true,
+    "not_armed_if_first_process_or_output_invalid": true,
+    "failed_injection_is_not_expected_missing_output": true,
+    "noncomparable_intervention_stops_phase": true,
+    "require_original_full_gate_pass_before_mutation": true
+  },
+  "metrics": {
+    "primary": "complete_task_successes / all_started_tasks, arm x stage; candidate-minus-baseline percentage-point difference",
+    "frequency": [
+      "F/M",
+      "E/M",
+      "E/N"
+    ],
+    "denominators": {
+      "N": "all started full tasks",
+      "M": "tasks reaching first sample function-call attempt, including launch failure; actual launch status separate",
+      "F": "confirmed first sampling_missing_output after exit zero and verified nonfatal logs",
+      "E": "F plus shared current-run/input/byte eligibility assessment",
+      "S": "complete original-quality successes",
+      "A": "candidate bounded retries actually started",
+      "R_sample": "A whose extra sampler passes",
+      "R_full": "eligible candidate tasks ending in complete original-quality success"
+    },
+    "unknown_and_not_reached_separate": true,
+    "natural_injected_never_pooled": true,
+    "recovery": [
+      "A/E",
+      "R_sample/A",
+      "R_full/E"
+    ],
+    "consumption": [
+      "all-started totals and known lower bounds",
+      "total/all-started",
+      "total/full-successes or null if zero/unknown",
+      "all-run distributions and failure/recovery strata",
+      "both-successful matched pairs as conditional secondary table only"
+    ],
+    "unknown_bounds": {
+      "U_F": "M with unknown first missing-output classification",
+      "U_E": "confirmed F with unknown recovery eligibility; disjoint from U_F",
+      "known_first_subset": "F/(M-U_F)",
+      "first_missing_range": [
+        "F/M",
+        "(F+U_F)/M"
+      ],
+      "eligibility_range": [
+        "E/M",
+        "(E+U_F+U_E)/M"
+      ],
+      "zero_denominator": null,
+      "confidence_interval": false
+    }
+  },
+  "reporting": {
+    "unstarted_not_counted_as_failed": true,
+    "partial_prefix_not_complete_comparison": true,
+    "missing_quality_not_pass": true,
+    "unknown_consumption_null": true,
+    "first_failure_not_regraded": true,
+    "false_completion_and_ineffective_retry_separate": true,
+    "statistical_significance_claimed": false,
+    "stable_savings_or_overall_optimization_proven": false,
+    "cross_physics_generalization": false,
+    "all_heldout_tasks_development_after_start": true,
+    "fully_recorded_sampler_timeout_or_unknown_exit_continues_as_task_outcome": true
+  },
+  "execution_prerequisites": [
+    "New observer/driver separates honest task failure from backend/infrastructure/collection failure",
+    "Common post-first-sample eligibility evidence works for both arms without extra baseline sampling",
+    "Machine schema and scorer preserve unknown/missing values and all-started denominators",
+    "No-injection natural mode and one-shot injected mode verified separately; actual intervention eligibility retained",
+    "Fresh execution freeze pins current runtime/native/corpus/task bytes, actual Python/CLI/image/resources and complete dependency list",
+    "All four C0 development checks pass under the new execution freeze before heldout stage",
+    "Human separately authorizes the proposed 76-run cost envelope; this design grants no execution authorization",
+    "First-sample function-entry and actual launch/failure evidence; legacy execution_started alone is insufficient",
+    "Injected qualification validates both required outputs and original full gate before mutation; legacy profile-only injector is not sufficient",
+    "Fully recorded sampler timeout/unknown must not be misclassified as incomplete evidence collection"
+  ]
+}

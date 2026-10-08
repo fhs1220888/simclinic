@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+blockMesh > log.blockMesh 2>&1
+checkMesh > log.checkMesh 2>&1
+simpleFoam > log.simpleFoam 2>&1

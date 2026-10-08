@@ -1,0 +1,76 @@
+{
+  "id": "analytic-C8",
+  "objective": "Generate and run an OpenFOAM Foundation 10 simpleFoam case locally.\nSteady incompressible single-phase laminar flow; length 1 m, height 0.1 m,\nthickness 0.01 m, uniform mesh 60 x 30 x 1, empty frontAndBack.\nnu=0.001 m^2/s. Plane Couette flow: north wall tangential speed 0.028 m/s, south wall stationary; west inlet Ux=0.028*y/0.1, Uy=Uz=0; east velocity zeroGradient and kinematic pressure fixedValue 0. Other pressure boundaries zeroGradient.\nUse initial internal U=(0 0 0) and p=0. Generate the nine declared reference\nfiles with west/east/south/north patches. Preserve all numerical dictionaries\nand sampling points in the matching development template (writeInterval 100,\nsolver/residual controls unchanged); adapt only the\nexplicit wall speed/inlet profile or uniform vector and mesh counts. The old\nPoiseuille reference is not the task. Allrun must have exactly:\nset -eu\nblockMesh > log.blockMesh 2>&1\ncheckMesh > log.checkMesh 2>&1\nsimpleFoam > log.simpleFoam 2>&1\nNo extra executable commands or controlDict function objects. Render U as PNG.\nAcceptance: execution exit zero and End; SIMPLE residualControl p/U 1e-7;\nsteady evidence is either the SIMPLE convergence marker, or two archived\npositive-time states whose max U change/declared velocity scale and max p\nchange/declared kinematic pressure scale are both <=1e-7. Report the original\nSIMPLE marker separately, including false. Do not treat End alone as steady.\nlocal continuity <=1e-7; all-component velocity relative L2 over both fixed\nsampling lines <=0.02; norm of x/y kinematic pressure slopes divided by the\nfixed scale 0.0028 m/s^2 <=0.03. Reference pressure\ngradient is zero: never divide by zero or substitute the Poiseuille gradient.\nNo threshold or physical-parameter changes to force acceptance.\n\nInput policy foundation10-nine-file-couette-literals-v3: literal dictionaries only. Decimal/scientific scalar notation and comments may vary; all other physical and numerical values remain exact. Integer labels remain integer literals. Constant nu=0.001 may omit dimensions or state [0 2 -1 0 0 0 0]. West Ux at face i must equal wall_speed*(2*i+1)/(2*ny), within half a unit of the exact value at 12 significant digits; higher precision is allowed. Uy=Uz=0 exactly. Header class/object/format stay checked. Unknown directives, expressions or duplicate entries give insufficient evidence. Raw bytes still define input identity.\n",
+  "required_preflight": [
+    "checkMesh"
+  ],
+  "acceptance": [
+    {
+      "id": "execution_end",
+      "stage": "execution",
+      "operator": "eq",
+      "target": true,
+      "description": "求解退出成功且 End 已观测"
+    },
+    {
+      "id": "steady_evidence",
+      "stage": "numerical",
+      "operator": "eq",
+      "target": true,
+      "description": "SIMPLE 标记或两份正时间全场快照的 U/p 归一化变化均 <=1e-7；原标记单列"
+    },
+    {
+      "id": "local_continuity",
+      "stage": "numerical",
+      "operator": "le",
+      "target": 1e-07,
+      "description": "末步局部连续性误差"
+    },
+    {
+      "id": "profile_error",
+      "stage": "reference",
+      "operator": "le",
+      "target": 0.02,
+      "description": "两条固定采样线全部速度分量相对 L2 误差"
+    },
+    {
+      "id": "pressure_gradient_error",
+      "stage": "reference",
+      "operator": "le",
+      "target": 0.03,
+      "description": "零参考压强梯度的两方向斜率范数/预声明非零特征尺度；不是除以零参考值"
+    },
+    {
+      "id": "task_inputs_verified",
+      "stage": "execution",
+      "operator": "eq",
+      "target": true,
+      "description": "生成输入符合当前解析参考任务"
+    },
+    {
+      "id": "rendered_velocity",
+      "stage": "execution",
+      "operator": "eq",
+      "target": true,
+      "description": "当前运行已生成所要求的 U 图片"
+    }
+  ],
+  "reference_contract": {
+    "kind": "couette",
+    "pressure_gradient": [
+      0,
+      0
+    ],
+    "pressure_metric": "norm_of_xy_slopes_over_declared_nonzero_scale",
+    "pressure_scale": 0.0027999999999999995,
+    "zero_reference_division": false,
+    "velocity_metric": "all_components_relative_l2_over_both_lines",
+    "steady_metric": "SIMPLE_marker_or_two_verified_positive_time_full_fields",
+    "field_change_tolerance": 1e-07,
+    "output_write_interval": 100,
+    "velocity_scale": 0.028,
+    "kinematic_pressure_scale": 0.0027999999999999995,
+    "input_matching_policy": "foundation10-nine-file-couette-literals-v3",
+    "inlet_significant_digits": 12
+  }
+}

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simclinic"
+version = "0.11.0"
+description = "Evidence-based offline diagnostics for simulation agents"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+simclinic = "simclinic.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["simclinic*"]

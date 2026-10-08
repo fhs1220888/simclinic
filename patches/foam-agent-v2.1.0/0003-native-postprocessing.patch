@@ -1,0 +1,408 @@
+--- a/src/main.py
++++ b/src/main.py
+@@ -23,7 +23,7 @@
+ from logger import close_logging
+ import json
+ 
+-def create_foam_agent_graph() -> StateGraph:
++def create_foam_agent_graph(entrypoint="planner") -> StateGraph:
+     """Create the OpenFOAM agent workflow graph."""
+     
+     # Create the graph
+@@ -39,7 +39,9 @@
+     workflow.add_node("visualization", visualization_node)
+     
+     # Add edges
+-    workflow.add_edge(START, "planner")
++    if entrypoint not in {"planner", "local_runner"}:
++        raise ValueError("Supported entrypoints: planner or local_runner")
++    workflow.add_edge(START, entrypoint)
+     workflow.add_conditional_edges("planner", route_after_planner)
+     workflow.add_edge("meshing", "input_writer")
+     workflow.add_conditional_edges("input_writer", route_after_input_writer)
+@@ -119,8 +121,10 @@
+         termination_reason = result.get("termination_reason")
+         if termination_reason == "max_review_loop_reached":
+             print("<workflow_end>Workflow finished after reaching the maximum review loop limit.</workflow_end>")
++        elif result.get("error_logs") or termination_reason in {"postprocess_failed", "postprocess_rejected"}:
++            print("<workflow_end>Workflow failed; results must not be reported as completed.</workflow_end>")
+         else:
+-            print("<workflow_end>Workflow completed successfully!</workflow_end>")
++            print("<workflow_end>Workflow execution completed; CFD acceptance requires separate verification.</workflow_end>")
+ 
+         # Print final statistics
+         if result.get("llm_service"):
+--- a/src/mcp/fastmcp_server.py
++++ b/src/mcp/fastmcp_server.py
+@@ -284,6 +284,8 @@
+     status: str = Field(description="Run status: 'success' or 'failed'")
+     errors: List[str] = Field(description="List of errors found")
+     log_files: Dict[str, str] = Field(description="Paths to log files")
++    run_id: str = Field(description="Generation-time execution ID")
++    input_version: str = Field(description="Generation-time input hash")
+ 
+ 
+ @mcp.tool(name="run")
+@@ -304,6 +306,8 @@
+         if not os.path.exists(request.case_dir):
+             raise ValueError(f"Case directory does not exist: {request.case_dir}")
+         
++        from simclinic.foam_runtime import begin_run, finish_run
++        context = begin_run(request.case_dir)
+         # Run locally
+         error_logs = run_allrun_and_collect_errors(
+             case_dir=request.case_dir,
+@@ -311,6 +315,7 @@
+             max_retries=3
+         )
+         
++        error_logs = finish_run(request.case_dir, context, error_logs)
+         # Convert error logs to strings if they're dictionaries
+         errors = []
+         for err in error_logs:
+@@ -340,7 +345,9 @@
+         return RunSimulationResponse(
+             status=status,
+             errors=errors,
+-            log_files=log_files
++            log_files=log_files,
++            run_id=context["run_id"],
++            input_version=context["input_version"]
+         )
+             
+     except Exception as e:
+@@ -548,6 +555,8 @@
+     case_dir: str = Field(description="Path to the case directory")
+     quantity: str = Field(description="Quantity to visualize (e.g., 'velocity', 'pressure')")
+     visualization_type: str = Field(default="pyvista", description="Visualization type")
++    expected_run_id: str = Field(description="Current run ID from the execution orchestrator")
++    expected_input_version: str = Field(description="Current input hash from the execution orchestrator")
+ 
+ 
+ class VisualizationResponse(BaseModel):
+@@ -573,28 +582,18 @@
+         if not os.path.exists(request.case_dir):
+             raise ValueError(f"Case directory does not exist: {request.case_dir}")
+         
+-        # Ensure foam file exists
+-        foam_file = ensure_foam_file(request.case_dir)
+-        
+-        # Generate visualization script
+-        script = generate_pyvista_script(
+-            case_dir=request.case_dir,
+-            foam_file=foam_file,
+-            user_requirement=request.quantity,
+-            previous_errors=[]
+-        )
+-        
+-        # Run visualization script
+-        ok, img, errs = run_pyvista_script(request.case_dir, script)
+-        
+-        if ok and img:
+-            artifacts = [img]
+-        else:
+-            # Try to fix the script
+-            fixed = fix_pyvista_script(foam_file, script, errs)
+-            ok2, img2, errs2 = run_pyvista_script(request.case_dir, fixed)
+-            artifacts = [img2] if ok2 and img2 else []
+-        
++        from nodes.visualization_node import visualization_node
++        state = visualization_node({
++            "case_dir": request.case_dir, "user_requirement": request.quantity,
++            "config": global_config,
++            "simclinic_context": {"run_id": request.expected_run_id,
++                                 "input_version": request.expected_input_version},
++        })
++        if not state.get("pyvista_visualization", {}).get("success"):
++            raise ValueError(str(state.get("visualization_summary")))
++        artifacts = state["plot_outputs"]
++        script = state["pyvista_visualization"]["script"]
++
+         await ctx.info(f"Generated {len(artifacts)} visualization artifact(s)")
+         
+         return VisualizationResponse(
+--- a/src/nodes/local_runner_node.py
++++ b/src/nodes/local_runner_node.py
+@@ -6,6 +6,7 @@
+ 
+ from services.run_local import run_allrun_and_collect_errors
+ from logger import log_review
++from simclinic.foam_runtime import begin_run, finish_run
+ 
+ 
+ def local_runner_node(state):
+@@ -20,7 +21,9 @@
+     print("<runner>")
+ 
+     # Execute using service and collect errors
++    context = begin_run(case_dir)
+     error_logs = run_allrun_and_collect_errors(case_dir, max_time_limit)
++    error_logs = finish_run(case_dir, context, error_logs)
+ 
+     if len(error_logs) > 0:
+         print("Errors detected in the Allrun execution.")
+@@ -33,6 +36,9 @@
+     # Return updated state
+     return {
+         **state,
+-        "error_logs": error_logs
++        "error_logs": error_logs,
++        "simclinic_context": context,
++        "plot_outputs": [], "plot_configs": [],
++        "pyvista_visualization": {}, "visualization_summary": {}
+     }
+         
+\ No newline at end of file
+--- a/src/nodes/reviewer_node.py
++++ b/src/nodes/reviewer_node.py
+@@ -16,6 +16,8 @@
+         print("</reviewer>")
+         return state
+ 
++    if state.get("loop_count", 0) >= state["config"].max_loop:
++        return {**state, "termination_reason": "max_review_loop_reached"}
+     # Log error logs to review.log
+     log_review(str(state["error_logs"]), "error_logs")
+ 
+--- a/src/nodes/visualization_node.py
++++ b/src/nodes/visualization_node.py
+@@ -1,5 +1,7 @@
+ # visualization_node.py
+ import os
++from simclinic.foam_runtime import verified_workspace
++from simclinic.result_guard import ResultRejected
+ from services.visualization import (
+     ensure_foam_file,
+     generate_deterministic_pyvista_script,
+@@ -25,7 +27,7 @@
+         return "U"
+     return "U"
+ 
+-def visualization_node(state):
++def _visualization_in_workspace(state):
+     """Visualization node: create a minimal PyVista screenshot for an OpenFOAM case.
+ 
+     Design goals:
+@@ -227,3 +229,20 @@
+         },
+         "pyvista_visualization": {"success": False, "error": error_message, "error_logs": error_logs},
+     }
++
++
++def visualization_node(state):
++    """The native node consumes only the current run's verified snapshot."""
++    try:
++        with verified_workspace(state.get("case_dir"), state.get("simclinic_context")) as work:
++            result = _visualization_in_workspace({**state, "case_dir": str(work)})
++        result["case_dir"] = state["case_dir"]
++        if not result.get("pyvista_visualization", {}).get("success"):
++            result["termination_reason"] = "postprocess_failed"
++        return result
++    except (ResultRejected, OSError, ValueError) as exc:
++        error = {"code": getattr(exc, "code", "provenance_error"), "error": str(exc)}
++        return {**state, "plot_configs": [], "plot_outputs": [],
++                "visualization_summary": error,
++                "pyvista_visualization": {"success": False, **error},
++                "termination_reason": "postprocess_rejected"}
+--- a/src/router_func.py
++++ b/src/router_func.py
+@@ -161,7 +161,8 @@
+         if requires_visualization is None:
+             requires_visualization = llm_requires_visualization(state)
+             state["requires_visualization"] = requires_visualization
+-        return "visualization" if requires_visualization else END
++        # Exhausted solver errors must never proceed to postprocessing.
++        return END
+ 
+     print(f"<router>Loop {loop_count}: Continuing to fix errors.</router>")
+     return "input_writer"
+--- a/src/services/__init__.py
++++ b/src/services/__init__.py
+@@ -1,6 +1,16 @@
+-# Namespace package for service-layer wrappers
++"""Delay backend initialization until an actual model call."""
+ from utils import LLMService
+ from config import Config
+ 
+-# Global LLM service instance for services
+-global_llm_service = LLMService(Config())
+\ No newline at end of file
++
++class LazyLLMService:
++    def __init__(self):
++        self.service = None
++
++    def __getattr__(self, name):
++        if self.service is None:
++            self.service = LLMService(Config())
++        return getattr(self.service, name)
++
++
++global_llm_service = LazyLLMService()
+--- a/src/services/visualization.py
++++ b/src/services/visualization.py
+@@ -4,6 +4,9 @@
+ from typing import List, Tuple, Optional
+ from utils import save_file
+ from . import global_llm_service
++from pathlib import Path
++from simclinic.foam_runtime import verify_workspace, record_image
++from simclinic.result_guard import ResultRejected
+ 
+ 
+ def ensure_foam_file(case_dir: str) -> str:
+@@ -104,11 +107,18 @@
+       - If expected_png is provided, we only consider success if that file exists after execution.
+       - Apply a timeout so headless/VTK hangs don't block forever.
+     """
++    verify_workspace(case_dir)
++    for name in (filename, expected_png):
++        if name is None or Path(name).is_absolute() or ".." in Path(name).parts:
++            raise ResultRejected("unsafe_output", "Explicit relative script and PNG paths are required.")
+     script_path = os.path.join(case_dir, filename)
+     save_file(script_path, script)
+ 
+     expected_png_abs = os.path.abspath(os.path.join(case_dir, expected_png)) if expected_png else None
+ 
++    # Every attempt must create its own image; stale PNGs cannot prove success.
++    if os.path.lexists(expected_png_abs):
++        os.unlink(expected_png_abs)
+     try:
+         completed = subprocess.run(
+             [sys.executable, script_path],
+@@ -119,8 +129,12 @@
+             timeout=timeout_s,
+         )
+ 
++        Path(case_dir, "render.stdout.log").write_bytes(completed.stdout)
++        Path(case_dir, "render.stderr.log").write_bytes(completed.stderr)
++        verify_workspace(case_dir)
+         if expected_png_abs:
+             if os.path.exists(expected_png_abs) and os.path.getsize(expected_png_abs) > 0:
++                record_image(case_dir, expected_png_abs)
+                 return True, expected_png_abs, []
+             return False, "", [
+                 "Visualization script executed but expected PNG was not created",
+@@ -132,6 +146,8 @@
+             "Visualization script executed but no expected_png was specified; please pass expected_png for deterministic artifact detection"
+         ]
+ 
++    except ResultRejected:
++        raise
+     except subprocess.TimeoutExpired as e:
+         out = e.stdout.decode() if isinstance(e.stdout, bytes) else str(e.stdout)
+         err = e.stderr.decode() if isinstance(e.stderr, bytes) else str(e.stderr)
+--- a/src/utils.py
++++ b/src/utils.py
+@@ -5,25 +5,14 @@
+ import signal
+ from typing import Optional, Any, Type, TypedDict, List, Dict
+ from pydantic import BaseModel, Field
+-from langchain.chat_models import init_chat_model
+-from langchain_community.vectorstores import FAISS
+-from langchain_openai.embeddings import OpenAIEmbeddings
+ import tiktoken
+-from langchain_aws import ChatBedrock, ChatBedrockConverse
+-from langchain_anthropic import ChatAnthropic
+ from pathlib import Path
+-import tracking_aws
+ import requests
+ import time
+ import random
+ from botocore.exceptions import ClientError
+ import shutil
+ from config import Config
+-from langchain_ollama import ChatOllama
+-try:
+-    from langchain_huggingface import HuggingFaceEmbeddings
+-except ImportError:
+-    HuggingFaceEmbeddings = None
+ 
+ 
+ # Global dictionary to store loaded FAISS databases
+@@ -41,8 +30,13 @@
+     model = cfg.embedding_model
+ 
+     if provider == "openai":
++        from langchain_openai.embeddings import OpenAIEmbeddings
+         return OpenAIEmbeddings(model=model)
+     if provider == "huggingface":
++        try:
++            from langchain_huggingface import HuggingFaceEmbeddings
++        except ImportError:
++            HuggingFaceEmbeddings = None
+         if HuggingFaceEmbeddings is None:
+             raise ImportError(
+                 "langchain-huggingface is not installed. Please install it to use HuggingFace embeddings."
+@@ -57,6 +51,7 @@
+ 
+ def load_faiss_dbs(config: Optional[Config] = None):
+     cfg = config or Config()
++    from langchain_community.vectorstores import FAISS
+     embedding_model = get_embedding_model(cfg)
+ 
+     base_dir = Path(__file__).resolve().parent.parent / "database" / "faiss"
+@@ -92,7 +87,8 @@
+ 
+ # Default DB cache (uses default Config()). If you change embedding settings at runtime,
+ # call load_faiss_dbs(custom_config) and replace FAISS_DB_CACHE.
+-FAISS_DB_CACHE = load_faiss_dbs()
++# Load RAG only when retrieval is actually requested.
++_FAISS_DB_LOADED = False
+ 
+ class FoamfilePydantic(BaseModel):
+     file_name: str = Field(description="Name of the OpenFOAM input file")
+@@ -473,6 +469,8 @@
+         
+         # Initialize the LLM
+         if self.model_provider.lower() == "bedrock":
++            import tracking_aws
++            from langchain_aws import ChatBedrockConverse
+             bedrock_runtime = tracking_aws.new_default_client()
+             self.llm = ChatBedrockConverse(
+                 client=bedrock_runtime, 
+@@ -481,11 +479,13 @@
+                 max_tokens=8192
+             )
+         elif self.model_provider.lower() == "anthropic":
++            from langchain_anthropic import ChatAnthropic
+             self.llm = ChatAnthropic(
+                 model=self.model_version, 
+                 temperature=self.temperature
+             )
+         elif self.model_provider.lower() == "openai":
++            from langchain.chat_models import init_chat_model
+             # Usage-based API access (requires OPENAI_API_KEY or equivalent OpenAI SDK config)
+             self.llm = init_chat_model(
+                 self.model_version,
+@@ -515,6 +515,7 @@
+                 stream=True,
+             )
+         elif self.model_provider.lower() == "ollama":
++            from langchain_ollama import ChatOllama
+             try:
+                 response = requests.get("http://localhost:11434/api/version", timeout=2)
+                 # If request successful, service is running
+@@ -756,6 +757,11 @@
+     cluster_info: Optional[dict]
+     slurm_script_path: Optional[str]
+     termination_reason: Optional[str]
++    simclinic_context: Optional[dict]
++    plot_configs: Optional[list]
++    plot_outputs: Optional[list]
++    visualization_summary: Optional[dict]
++    pyvista_visualization: Optional[dict]
+ 
+ def tokenize(text: str) -> str:
+     # Replace underscores with spaces
+@@ -1089,6 +1095,10 @@
+     Retrieve a similar case from a FAISS database.
+     """
+ 
++    global FAISS_DB_CACHE, _FAISS_DB_LOADED
++    if not _FAISS_DB_LOADED and not FAISS_DB_CACHE:
++        FAISS_DB_CACHE = load_faiss_dbs()
++        _FAISS_DB_LOADED = True
+     if database_name not in FAISS_DB_CACHE:
+         raise ValueError(f"Database '{database_name}' is not loaded.")
+ 

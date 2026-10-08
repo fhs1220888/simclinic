@@ -1,0 +1,242 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "simclinic-public-synthetic",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "synthetic-healthy",
+      "source_kind": "synthetic",
+      "basis": "Complete synthetic tool/decision/reference/acceptance coverage; no retry is required.",
+      "record": "fixtures/healthy/record.json",
+      "case_dir": "fixtures/healthy/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/healthy/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/healthy/case/log.simpleFoam": "380af312aedc363e53b49b18c04d6f7ca27ebeb28bf4a0b8b5a5c3199c291dcc",
+        "fixtures/healthy/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/healthy/record.json": "0dd175235592c821adff4dae66fc98e3408fd23288e3419fd7efd008c06f680d"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "not_applicable",
+          "stale_results": "pass",
+          "completion": "pass"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-five-faults",
+      "source_kind": "synthetic",
+      "basis": "Declared synthetic omissions, unrecovered error, unchanged repeat, old-result identity and unmet completion criteria exercise all five checks.",
+      "record": "fixtures/faults/record.json",
+      "case_dir": "fixtures/faults/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/faults/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/faults/case/results.json": "d98b8bdefd29f70f715482d90d2666c80fae9935a938ee9cb788146783a5cdb6",
+        "fixtures/faults/record.json": "4dc3ea215e3db07f46bc8c9af884382e466d3b74910955cb339092810221c0cd"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "finding",
+          "error_continuation": "finding",
+          "retries": "finding",
+          "stale_results": "finding",
+          "completion": "finding"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-unknown",
+      "source_kind": "synthetic",
+      "basis": "Incomplete synthetic coverage and unknown identities must remain insufficient evidence, never Agent errors.",
+      "record": "fixtures/missing/record.json",
+      "case_dir": "fixtures/missing/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/missing/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/missing/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/missing/record.json": "8368201249286f62907358618b737465217085a35e10a2c60a9ce9dd80016d52"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "insufficient_evidence",
+          "error_continuation": "insufficient_evidence",
+          "retries": "insufficient_evidence",
+          "stale_results": "insufficient_evidence",
+          "completion": "insufficient_evidence"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-stale",
+      "source_kind": "synthetic",
+      "basis": "The current input references an old run/input result; required completion evidence cannot use that result.",
+      "record": "fixtures/stale/record.json",
+      "case_dir": "fixtures/stale/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/stale/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/stale/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/stale/record.json": "ea6e8272acf775de2dc97275c16a8c4f64be4dc634fea96e63ff95407f247263"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "not_applicable",
+          "stale_results": "finding",
+          "completion": "finding"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-recovered",
+      "source_kind": "synthetic",
+      "basis": "Explicit successful retry lineage resolves the prior error; original and changed attempts remain recorded.",
+      "record": "fixtures/recovered/record.json",
+      "case_dir": "fixtures/recovered/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/recovered/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/recovered/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/recovered/record.json": "cc183730840313ac1d615624ec698839109b4eb6973f5224db03df5dce3b41c8"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "pass",
+          "error_continuation": "pass",
+          "retries": "pass",
+          "stale_results": "pass",
+          "completion": "pass"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    },
+    {
+      "id": "synthetic-not-applicable",
+      "source_kind": "synthetic",
+      "basis": "Complete declared coverage with no applicable work or acceptance criteria.",
+      "record": "fixtures/not-applicable/record.json",
+      "case_dir": "fixtures/not-applicable/case",
+      "record_labels": {
+        "synthetic": true,
+        "fault_injection": null
+      },
+      "provenance": [
+        {
+          "path": "fixtures/not-applicable/record.json",
+          "role": "normalized observation and identity contract"
+        }
+      ],
+      "files": {
+        "fixtures/not-applicable/case/results.json": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade",
+        "fixtures/not-applicable/record.json": "24a1e8dd057eaf998ed2a3a1ceeb008f5c4b769fd5ed97c857097cbad905e6b9"
+      },
+      "expected": {
+        "behavior": {
+          "preflight": "not_applicable",
+          "error_continuation": "not_applicable",
+          "retries": "not_applicable",
+          "stale_results": "not_applicable",
+          "completion": "not_applicable"
+        },
+        "sampling": {
+          "summary": {
+            "finding": 0,
+            "pass": 0,
+            "insufficient_evidence": 0,
+            "not_applicable": 1
+          },
+          "events": {}
+        }
+      }
+    }
+  ]
+}

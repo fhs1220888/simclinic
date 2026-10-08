@@ -1,0 +1,62 @@
+{
+  "target": "SimClinic registered completion/runtime integration, not upstream Foam-Agent sources",
+  "version": "0.11.0",
+  "basis": "Explicit per-file hashes from archived runtimes plus prior version metadata; no public release tag assumed",
+  "files": {
+    "simclinic/session.py": {
+      "basis": "real-runs/content-interface-heldout-20261004/common-runtime/simclinic/session.py",
+      "base_sha256": "decb72c4b653d0dcaa143feda3775fc7aa88c03740bc9a94b438e121d811e158",
+      "delivered_sha256": "cdda8a4354da16bcf82d8c87a5ee6a97324a12ab361a2be45b6b9c7ceea3cd4c",
+      "new_file": false
+    },
+    "scripts/run_observed_agent.py": {
+      "basis": "real-runs/observed-full-final-20261004/runtime-source/scripts/run_observed_agent.py",
+      "base_sha256": "2cdffe26da6a068335a5038c5d8e448e658475bb8fc2f01f222d21dc97c72dcd",
+      "delivered_sha256": "ea39f861074bb8ac95c326f1a36044644e1ceb49169d6f11c027ee0a927c9221",
+      "new_file": false
+    },
+    "simclinic/__init__.py": {
+      "basis": "Delivery metadata with prior version 0.10.0",
+      "base_sha256": "fc6d34cb30f8382ba724eae58f746c3a4f48f1ea641f977181eb41dc14a9ea7c",
+      "delivered_sha256": "1ae811d3c8c463530d555154ce7546ab4c024cdb0d6bc2f97cd1059cd1302196",
+      "new_file": false
+    },
+    "pyproject.toml": {
+      "basis": "Delivery metadata with prior version 0.10.0",
+      "base_sha256": "cf59020ec55c6733cf7587109c0cf3229ffdc1132bd54451a42e8667bef199af",
+      "delivered_sha256": "429ce8e52cf29c3d5f865b5c4aaf12c694a1917ef6b5e4992462a8fac9cb531c",
+      "new_file": false
+    },
+    "simclinic/domains/openfoam/sampling_gate.py": {
+      "basis": "New file",
+      "base_sha256": null,
+      "delivered_sha256": "66843d83510cf0c19971cf981e3f0d8929987fc426139a594da6c3919a768657",
+      "new_file": true
+    },
+    "tests/test_sampling_gate.py": {
+      "basis": "New file",
+      "base_sha256": null,
+      "delivered_sha256": "e44ae9f4d4b6f162d193bf44afecd8e4c499f7097c81e36c3589bb1fc5e0c4e1",
+      "new_file": true
+    },
+    "scripts/run_sampling_gate_regression.py": {
+      "basis": "New file",
+      "base_sha256": null,
+      "delivered_sha256": "34e0c07c880280586978c05df529d5f81c23eacc69e01106a97d0f3bd87b7456",
+      "new_file": true
+    },
+    "scripts/verify_sampling_gate_regression.py": {
+      "basis": "New file",
+      "base_sha256": null,
+      "delivered_sha256": "3ae4e767948a9c2210e521c3bbe7b88f5c243f08d66d814f249821db8dd3b569",
+      "new_file": true
+    }
+  },
+  "patch_sha256": "47964a524d94f7c2efa4ce7fa55d6b696a955344271c0b72be89a60db7bd23cc",
+  "applied_in_temporary_directory": true,
+  "delivered_bytes_verified": true,
+  "reverse_restored_basis": true,
+  "temporary_environment_removed": true,
+  "new_model_calls": 0,
+  "new_simulations": 0
+}

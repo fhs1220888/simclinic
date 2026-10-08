@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0",
+  "record_id": "synthetic-recovered",
+  "synthetic": true,
+  "run_id": "run-new",
+  "input_version": "sha256:input-v2",
+  "environment": {
+    "distribution": "OpenFOAM Foundation",
+    "version": "10",
+    "solver": "simpleFoam",
+    "regime": "steady-incompressible-single-phase",
+    "runtime_digest": "synthetic-env-v1"
+  },
+  "agent": {
+    "name": "synthetic-agent",
+    "version": "fixture-v1"
+  },
+  "task": {
+    "id": "synthetic-channel",
+    "objective": "合成通道测试；不代表真实 CFD 求解。",
+    "required_preflight": [
+      "validate_case",
+      "checkMesh"
+    ],
+    "acceptance": [
+      {
+        "id": "ended",
+        "description": "执行结束证据",
+        "stage": "execution",
+        "operator": "eq",
+        "target": true
+      },
+      {
+        "id": "residual",
+        "description": "合成稳态监测量阈值（不是线性求解器残差）",
+        "stage": "numerical",
+        "operator": "le",
+        "target": 1e-05
+      },
+      {
+        "id": "reference_error",
+        "description": "合成参考量相对误差",
+        "stage": "reference",
+        "operator": "le",
+        "target": 0.02
+      }
+    ]
+  },
+  "coverage": {
+    "tools": true,
+    "decisions": true,
+    "references": true,
+    "acceptance": true
+  },
+  "metrics": {
+    "wall_seconds": null,
+    "solver_seconds": null,
+    "model_tokens": null,
+    "model_cost": null
+  },
+  "artifacts": [
+    {
+      "id": "results",
+      "path": "results.json",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "sha256": "2e83ddea8247bd7230b33116f6bfa66f5e5f88b65a3168e0a84a86ff9ee92ade"
+    }
+  ],
+  "events": [
+    {
+      "id": "validate",
+      "kind": "tool",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "phase": "preflight",
+      "operation": "validate_case",
+      "outcome": "pass",
+      "exit_code": 0,
+      "input_fingerprint": "state-v2",
+      "error_category": null,
+      "arguments": {}
+    },
+    {
+      "id": "handled-validate",
+      "kind": "decision",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "handles": [
+        "validate"
+      ]
+    },
+    {
+      "id": "mesh",
+      "kind": "tool",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "phase": "preflight",
+      "operation": "checkMesh",
+      "outcome": "pass",
+      "exit_code": 0,
+      "input_fingerprint": "state-v2",
+      "error_category": null,
+      "arguments": {}
+    },
+    {
+      "id": "handled-mesh",
+      "kind": "decision",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "handles": [
+        "mesh"
+      ]
+    },
+    {
+      "id": "solve",
+      "kind": "tool",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "phase": "solve",
+      "operation": "simpleFoam",
+      "outcome": "fail",
+      "exit_code": 1,
+      "input_fingerprint": "state-v2",
+      "error_category": "tool_wrapper_error",
+      "arguments": {}
+    },
+    {
+      "id": "retry",
+      "kind": "tool",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "phase": "solve",
+      "operation": "simpleFoam",
+      "outcome": "pass",
+      "exit_code": 0,
+      "input_fingerprint": "state-v3",
+      "error_category": null,
+      "arguments": {
+        "wrapper": "fixed"
+      },
+      "retry_of": "solve"
+    },
+    {
+      "id": "result-ref",
+      "kind": "reference",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "artifact_id": "results"
+    },
+    {
+      "id": "m-ended",
+      "kind": "measurement",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "criterion_id": "ended",
+      "value": true,
+      "artifact_id": "results"
+    },
+    {
+      "id": "m-residual",
+      "kind": "measurement",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "criterion_id": "residual",
+      "value": 2e-06,
+      "artifact_id": "results"
+    },
+    {
+      "id": "m-reference",
+      "kind": "measurement",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "criterion_id": "reference_error",
+      "value": 0.01,
+      "artifact_id": "results"
+    },
+    {
+      "id": "complete",
+      "kind": "claim",
+      "run_id": "run-new",
+      "input_version": "sha256:input-v2",
+      "claim_type": "completion",
+      "success": true
+    }
+  ]
+}

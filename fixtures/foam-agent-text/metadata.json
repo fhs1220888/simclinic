@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "record_id": "synthetic-foam-agent-import",
+  "synthetic": true,
+  "run_id": null,
+  "input_version": null,
+  "environment": {
+    "distribution": "OpenFOAM Foundation",
+    "version": "10",
+    "solver": "simpleFoam",
+    "regime": "steady-incompressible-single-phase",
+    "runtime_digest": "synthetic-env-v1"
+  },
+  "agent": {
+    "name": "Foam-Agent",
+    "version": null,
+    "note": "synthetic logger-shape only"
+  },
+  "task": {
+    "id": "synthetic-channel",
+    "objective": "合成通道测试；不代表真实 CFD 求解。",
+    "required_preflight": [
+      "validate_case",
+      "checkMesh"
+    ],
+    "acceptance": [
+      {
+        "id": "ended",
+        "description": "执行结束证据",
+        "stage": "execution",
+        "operator": "eq",
+        "target": true
+      },
+      {
+        "id": "residual",
+        "description": "合成稳态监测量阈值（不是线性求解器残差）",
+        "stage": "numerical",
+        "operator": "le",
+        "target": 1e-05
+      },
+      {
+        "id": "reference_error",
+        "description": "合成参考量相对误差",
+        "stage": "reference",
+        "operator": "le",
+        "target": 0.02
+      }
+    ]
+  },
+  "coverage": {
+    "tools": true,
+    "decisions": true,
+    "references": true,
+    "acceptance": true
+  },
+  "metrics": {
+    "wall_seconds": null,
+    "solver_seconds": null,
+    "model_tokens": null,
+    "model_cost": null
+  },
+  "artifacts": [],
+  "events": []
+}

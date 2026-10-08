@@ -1,0 +1,244 @@
+--- a/src/main.py
++++ b/src/main.py
+@@ -23,20 +23,34 @@
+ from logger import close_logging
+ import json
+ 
+-def create_foam_agent_graph(entrypoint="planner") -> StateGraph:
++def create_foam_agent_graph(entrypoint="planner", observer=None) -> StateGraph:
+     """Create the OpenFOAM agent workflow graph."""
+     
+     # Create the graph
+     workflow = StateGraph(GraphState)
+     
++    def observed(name, function):
++        if observer is None:
++            return function
++        def invoke(state):
++            observer("start", name, state)
++            try:
++                result = function(state)
++            except Exception as exc:
++                observer("error", name, {"exception_type": type(exc).__name__})
++                raise
++            observer("end", name, result)
++            return result
++        return invoke
++
+     # Add nodes
+-    workflow.add_node("planner", planner_node)
+-    workflow.add_node("meshing", meshing_node)
+-    workflow.add_node("input_writer", input_writer_node)
+-    workflow.add_node("local_runner", local_runner_node)
+-    workflow.add_node("hpc_runner", hpc_runner_node)
+-    workflow.add_node("reviewer", reviewer_node)
+-    workflow.add_node("visualization", visualization_node)
++    workflow.add_node("planner", observed("planner", planner_node))
++    workflow.add_node("meshing", observed("meshing", meshing_node))
++    workflow.add_node("input_writer", observed("input_writer", input_writer_node))
++    workflow.add_node("local_runner", observed("local_runner", local_runner_node))
++    workflow.add_node("hpc_runner", observed("hpc_runner", hpc_runner_node))
++    workflow.add_node("reviewer", observed("reviewer", reviewer_node))
++    workflow.add_node("visualization", observed("visualization", visualization_node))
+     
+     # Add edges
+     if entrypoint not in {"planner", "local_runner"}:
+@@ -52,7 +66,7 @@
+     
+     return workflow
+ 
+-def initialize_state(user_requirement: str, config: Config, custom_mesh_path: Optional[str] = None) -> GraphState:
++def initialize_state(user_requirement: str, config: Config, custom_mesh_path: Optional[str] = None, llm_service=None) -> GraphState:
+     case_stats = json.load(open(f"{config.database_path}/raw/openfoam_case_stats.json", "r"))
+     # mesh_type = "custom_mesh" if custom_mesh_path else "standard_mesh"
+     state = GraphState(
+@@ -66,7 +80,7 @@
+         error_command=None,
+         error_content=None,
+         loop_count=0,
+-        llm_service=LLMService(config),
++        llm_service=llm_service if llm_service is not None else LLMService(config),
+         case_stats=case_stats,
+         tutorial_reference=None,
+         case_path_reference=None,
+--- a/src/nodes/input_writer_node.py
++++ b/src/nodes/input_writer_node.py
+@@ -80,7 +80,7 @@
+         subtasks=state["subtasks"],
+         user_requirement=state["user_requirement"],
+         tutorial_reference=state["tutorial_reference"],
+-        case_solver=state['case_stats']['case_solver'],
++        case_solver=state['case_solver'],
+         generation_mode=getattr(config, "input_writer_generation_mode", "sequential_dependency"),
+         similar_case_advice=state.get("similar_case_advice"),
+         reuse_generated_dir=getattr(config, "reuse_generated_dir", ""),
+@@ -101,6 +101,7 @@
+         allrun_reference=state["allrun_reference"],
+         mesh_type=mesh_type,
+         mesh_commands=mesh_commands,
++        user_requirement=state["user_requirement"],
+     )
+ 
+     print("</input_writer>")
+--- a/src/nodes/planner_node.py
++++ b/src/nodes/planner_node.py
+@@ -59,8 +59,7 @@
+     
+     # Handle case directory creation/cleanup
+     if os.path.exists(case_dir):
+-        print(f"Warning: Case directory {case_dir} already exists. Overwriting.")
+-        shutil.rmtree(case_dir)
++        raise ValueError("Use a fresh case directory; existing cases are never overwritten.")
+     os.makedirs(case_dir)
+ 
+     # Initialize logging now that case_dir exists
+--- a/src/nodes/visualization_node.py
++++ b/src/nodes/visualization_node.py
+@@ -1,5 +1,6 @@
+ # visualization_node.py
+ import os
++from simclinic.rendering_request import choose_field
+ from simclinic.foam_runtime import verified_workspace
+ from simclinic.result_guard import ResultRejected
+ from services.visualization import (
+@@ -15,17 +16,7 @@
+ 
+ def _guess_primary_field(user_requirement: str) -> str:
+     """Very small heuristic; keep deterministic and conservative."""
+-    if not user_requirement:
+-        return "U"
+-    text = user_requirement
+-    # Prefer explicit mentions
+-    if " p " in f" {text} " or "pressure" in text.lower():
+-        return "p"
+-    if "temperature" in text.lower():
+-        return "T"
+-    if "u" in text.lower() or "velocity" in text.lower():
+-        return "U"
+-    return "U"
++    return choose_field(user_requirement)
+ 
+ def _visualization_in_workspace(state):
+     """Visualization node: create a minimal PyVista screenshot for an OpenFOAM case.
+@@ -66,7 +57,7 @@
+ 
+     foam_file = ensure_foam_file(case_dir)
+ 
+-    max_loop = getattr(state.get("config"), "max_loop", 2)
++    max_loop = getattr(state.get("config"), "visualization_max_loop", getattr(state.get("config"), "max_loop", 2))
+     timeout_s = 180
+ 
+     # Deterministic artifact path (relative to case_dir)
+--- a/src/services/__init__.py
++++ b/src/services/__init__.py
+@@ -14,3 +14,8 @@
+ 
+ 
+ global_llm_service = LazyLLMService()
++
++
++def configure_llm(service):
++    """Inject a real backend through the shared native service interface."""
++    global_llm_service.service = service
+--- a/src/services/input_writer.py
++++ b/src/services/input_writer.py
+@@ -2,6 +2,7 @@
+ import re
+ from typing import Dict, List, Any, Optional, Callable
+ import shutil
++from simclinic.agent_paths import case_input_path
+ from utils import save_file, parse_context, retrieve_faiss, FoamPydantic, FoamfilePydantic, scan_case_directory, read_case_foamfiles, read_file
+ from . import global_llm_service
+ 
+@@ -97,6 +98,9 @@
+             "Expected one of: sequential_dependency, parallel_no_context"
+         )
+ 
++    # Validate the whole plan before spending calls or creating files.
++    for subtask in subtasks:
++        case_input_path(case_dir, subtask["folder_name"], subtask["file_name"])
+     subtasks = sorted(subtasks, key=compute_priority)
+     written_files = []
+     dir_structure = {}
+@@ -162,7 +166,7 @@
+             raise ValueError(f"Invalid subtask format: {subtask}")
+ 
+         # Target output path (this run)
+-        file_path = os.path.join(case_dir, folder_name, file_name)
++        file_path = str(case_input_path(case_dir, folder_name, file_name))
+         os.makedirs(os.path.dirname(file_path), exist_ok=True)
+ 
+         # Optional reuse: if a pre-generated file exists, copy it into output and
+@@ -314,7 +318,7 @@
+     
+     # Parse allrun helper function
+     def parse_allrun(text: str) -> str:
+-        match = re.search(r'```(.*?)```', text, re.DOTALL)
++        match = re.search(r'```(?:bash|sh|shell)?[ \t]*\n(.*?)```', text, re.DOTALL)
+         return match.group(1).strip() if match else text
+     
+     # CommandsPydantic class for structured response
+@@ -539,7 +543,7 @@
+             print(f"Warning: Skipping unplanned rewrite file: {rel_path}")
+             continue
+ 
+-        file_path = os.path.join(case_dir, foamfile.folder_name, foamfile.file_name)
++        file_path = str(case_input_path(case_dir, foamfile.folder_name, foamfile.file_name))
+         os.makedirs(os.path.dirname(file_path), exist_ok=True)
+         save_file(file_path, foamfile.content)
+ 
+--- a/src/services/plan.py
++++ b/src/services/plan.py
+@@ -195,7 +195,7 @@
+ 
+     recall_k = max(10, int(searchdocs))
+     faiss_structure_all = retrieve_faiss("openfoam_tutorials_structure", case_info, topk=recall_k)
+-    print(f"Retrieved {len(faiss_structure_all)} candidates from FAISS.")
++    print(f"Retrieved {len(faiss_structure_all)} candidates from the configured reference adapter.")
+ 
+     # Hard constraint: domain must match
+     domain_matched = [c for c in faiss_structure_all if c.get("case_domain") == case_domain]
+@@ -242,6 +242,9 @@
+         "Your final output must strictly follow the JSON schema below and include no additional keys or information:\n\n"
+         "```\n{\n  \"subtasks\": [\n    {\n      \"file_name\": \"<string>\",\n      \"folder_name\": \"<string>\"\n    }\n    // ... more subtasks\n  ]\n}\n```\n\n"
+         "Make sure that your output is valid JSON and strictly adheres to the provided schema."
++        "Only include OpenFOAM dictionaries and initial fields in folders 0, constant and system. "
++        "Allrun is generated by a separate service; rendering/validation are separate nodes. "
++        "Never include Allrun, Python scripts, images, logs, or files in the case root in subtasks."
+         "Make sure you generate all the necessary files for the user's requirements."
+     )
+ 
+--- a/src/utils.py
++++ b/src/utils.py
+@@ -920,6 +920,9 @@
+     return FoamPydantic(list_foamfile=foamfile_list)
+ 
+ def run_command(script_path: str, out_file: str, err_file: str, working_dir: str, max_time_limit: int) -> dict:
++    if os.getenv("SIMCLINIC_DOCKER_IMAGE"):
++        from simclinic.foam_execution import run_container
++        return run_container(script_path, out_file, err_file, working_dir, max_time_limit)
+     print(f"Executing script {script_path} in {working_dir}")
+     os.chmod(script_path, 0o777)
+     openfoam_dir = os.getenv("WM_PROJECT_DIR")
+@@ -1090,11 +1093,21 @@
+                 return os.path.join(root, file)
+     return ""
+ 
++_REFERENCE_ADAPTER = None
++
++
++def configure_retriever(adapter):
++    global _REFERENCE_ADAPTER
++    _REFERENCE_ADAPTER = adapter
++
++
+ def retrieve_faiss(database_name: str, query: str, topk: int = 1) -> dict:
+     """
+     Retrieve a similar case from a FAISS database.
+     """
+ 
++    if _REFERENCE_ADAPTER is not None:
++        return _REFERENCE_ADAPTER.search(database_name, query, topk)
+     global FAISS_DB_CACHE, _FAISS_DB_LOADED
+     if not _FAISS_DB_LOADED and not FAISS_DB_CACHE:
+         FAISS_DB_CACHE = load_faiss_dbs()

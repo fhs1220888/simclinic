@@ -1,0 +1,11 @@
+{
+  "case_domain": [
+    "incompressible"
+  ],
+  "case_category": [
+    "laminar"
+  ],
+  "case_solver": [
+    "simpleFoam"
+  ]
+}

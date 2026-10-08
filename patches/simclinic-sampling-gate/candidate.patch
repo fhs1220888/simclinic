@@ -1,0 +1,910 @@
+diff --git a/simclinic/session.py b/simclinic/session.py
+--- a/simclinic/session.py
++++ b/simclinic/session.py
+@@ -64,8 +64,9 @@
+ 
+     def tool(self,operation,phase,code,outcome,fingerprint,arguments,**extra):
+         prior=self.previous_failed.get(operation)
++        category=extra.pop('error_category',None if outcome=='pass' else 'process_exit' if code else 'unknown_result')
+         result=self.event('tool',operation=operation,phase=phase,exit_code=code,outcome=outcome,
+-            input_fingerprint=fingerprint,error_category=None if outcome=='pass' else 'process_exit' if code else 'unknown_result',
++            input_fingerprint=fingerprint,error_category=category,
+             arguments=arguments,retry_of=prior,**extra)
+         if outcome=='fail' or (code is not None and code!=0):self.previous_failed[operation]=result['id']
+         elif outcome=='pass':self.previous_failed.pop(operation,None)
+diff --git a/scripts/run_observed_agent.py b/scripts/run_observed_agent.py
+--- a/scripts/run_observed_agent.py
++++ b/scripts/run_observed_agent.py
+@@ -13,13 +13,14 @@
+ from scripts.run_full_agent import REQUIREMENT,IMAGE,CODEX,CORPUS
+ from simclinic.session import SessionRecorder,plain
+ from simclinic.domains.openfoam.completion import ChannelCompletion,task_definition
++from simclinic.domains.openfoam.sampling_gate import GatedChannelCompletion
+ from simclinic.backends.codex_cli import CodexCLI
+ from simclinic.retrieval import LexicalReferences
+ from simclinic.core.record import load_record
+ from simclinic.core.report import write_json,write_report
+ from simclinic.cli import get_report
+ 
+-NATIVE=ROOT/'integration/foam_agent_v210/native/observed'
++NATIVE=ROOT/'integration/foam_agent_v210/native/content'
+ 
+ 
+ def main():
+@@ -29,13 +30,20 @@
+     parser.add_argument('--fault',choices=('none','recoverable','persistent'),default='none')
+     parser.add_argument('--model',default='gpt-6.1-sol')
+     parser.add_argument('--codex',default=CODEX)
++    parser.add_argument('--native',choices=('observed','content'),default='content',
++                        help='默认使用正文修复版；旧源码对照可选 observed')
++    parser.add_argument('--completion-policy',choices=('legacy','sampling'),default='sampling')
+     args=parser.parse_args()
++    native=NATIVE.parent/args.native
+     if args.entry=='planner' and args.fault!='none':raise ValueError('Fault tests use the explicitly scoped local_runner entry.')
+     out=args.out.resolve();out.mkdir(parents=True,exist_ok=False)
+-    manifest=json.loads((NATIVE/'candidate-manifest.json').read_text())
++    manifest=json.loads((native/'candidate-manifest.json').read_text())
+     for name,sha in manifest['source_files'].items():
+-        if hashlib.sha256((NATIVE/name).read_bytes()).hexdigest()!=sha:raise ValueError('Native candidate changed: '+name)
+-    shutil.copytree(NATIVE,out/'source-package',ignore=shutil.ignore_patterns('__pycache__'))
++        if hashlib.sha256((native/name).read_bytes()).hexdigest()!=sha:raise ValueError('Native candidate changed: '+name)
++    expected_content=manifest.get('runtime_requirements',{}).get('input_content_sha256')
++    if expected_content and hashlib.sha256((ROOT/'simclinic/input_content.py').read_bytes()).hexdigest()!=expected_content:
++        raise ValueError('Content helper differs from the native contract manifest')
++    shutil.copytree(native,out/'source-package',ignore=shutil.ignore_patterns('__pycache__'))
+     sys.path.insert(0,str(out/'source-package/src'))
+     from main import create_foam_agent_graph,initialize_state
+     from config import Config
+@@ -44,7 +52,8 @@
+     from logger import close_logging
+     environment=dict(distribution='OpenFOAM Foundation',version='10',solver='simpleFoam',image=IMAGE,
+         image_id=json.loads(subprocess.check_output(['docker','image','inspect',IMAGE],text=True))[0]['Id'],
+-        model=args.model,graph_entrypoint=args.entry,native_manifest_sha256=hashlib.sha256((NATIVE/'candidate-manifest.json').read_bytes()).hexdigest())
++        model=args.model,graph_entrypoint=args.entry,completion_policy=args.completion_policy,native_variant=args.native,
++        native_manifest_sha256=hashlib.sha256((native/'candidate-manifest.json').read_bytes()).hexdigest())
+     recorder=SessionRecorder(out,task_definition(REQUIREMENT),environment,
+         dict(name='Foam-Agent with registered task gate',commit=manifest['base_commit'],full_agent_workflow=args.entry=='planner'))
+     recorder.data['fault_injection']=args.fault!='none'
+@@ -61,15 +70,15 @@
+     config.visualization_max_loop=0
+     reference=CORPUS/'reference-case'
+     (out/'requirement.txt').write_text(REQUIREMENT)
+-    runtime_names=('simclinic/session.py','simclinic/session_execution.py','simclinic/openfoam_observer.py',
+-        'simclinic/domains/openfoam/completion.py','simclinic/checks/behavior.py','simclinic/core/record.py','scripts/run_observed_agent.py')
++    runtime_names=tuple(str(p.relative_to(ROOT)) for p in sorted((ROOT/'simclinic').rglob('*.py'))
++                        if '__pycache__' not in p.parts)+('scripts/run_observed_agent.py',)
+     runtime=out/'runtime-source'
+     for name in runtime_names:
+         path=runtime/name;path.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/name,path)
+     write_json(out/'environment.json',dict(**environment,python=sys.version,cli_version=backend.version,
+         source_manifest=manifest,corpus_sha256=references.sha256,
+         runtime_sha256={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in runtime_names},
+-        requirements_sha256=hashlib.sha256((NATIVE.parent/'requirements.lock').read_bytes()).hexdigest(),
++        requirements_sha256=hashlib.sha256((native.parent/'requirements.lock').read_bytes()).hexdigest(),
+         fault=args.fault,review_limit=2,model_call_limit=backend.max_calls,model_render_fallback_limit=0))
+     fixed_fault=None;injections=0
+     if args.entry=='planner':
+@@ -102,7 +111,7 @@
+     result=None
+     try:
+         graph=create_foam_agent_graph(entrypoint=args.entry,observer=observe,
+-            completion_policy=ChannelCompletion(recorder,reference,IMAGE)).compile()
++            completion_policy=(GatedChannelCompletion if args.completion_policy=='sampling' else ChannelCompletion)(recorder,reference,IMAGE)).compile()
+         result=graph.invoke(initial,config={'recursion_limit':30})
+         write_json(out/'graph-result.json',plain(result))
+         recorder.finish(completed='completion_claim' in result)
+diff --git a/simclinic/__init__.py b/simclinic/__init__.py
+--- a/simclinic/__init__.py
++++ b/simclinic/__init__.py
+@@ -1,2 +1,2 @@
+ """SimClinic: offline simulation-agent audits, never a solver."""
+-__version__ = "0.10.0"
++__version__ = "0.11.0"
+diff --git a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -4,7 +4,7 @@
+ 
+ [project]
+ name = "simclinic"
+-version = "0.10.0"
++version = "0.11.0"
+ description = "Evidence-based offline diagnostics for simulation agents"
+ requires-python = ">=3.9"
+ dependencies = []
+diff --git a/simclinic/domains/openfoam/sampling_gate.py b/simclinic/domains/openfoam/sampling_gate.py
+new file mode 100644
+--- /dev/null
++++ b/simclinic/domains/openfoam/sampling_gate.py
+@@ -0,0 +1,207 @@
++"""Candidate registered completion policy; legacy and frozen policies stay intact."""
++import hashlib
++import json
++from pathlib import Path
++import subprocess
++import time
++import uuid
++
++from .acceptance import profile_error, pressure_gradient_error, solver_measurements
++from .completion import ChannelCompletion, canonical_dictionary
++from .logs import parse_solver_log
++from ...checks.behavior import matches
++from ...core.report import write_json
++from ...foam_runtime import current_record, verified_workspace, verify_workspace
++from ...result_guard import ResultRejected
++
++
++class SamplingError(ValueError):
++    def __init__(self, code, message, assessment_artifact=None):
++        self.code = code
++        self.assessment_artifact = assessment_artifact
++        prefix = code + ': '
++        super().__init__(message if message.startswith(prefix) else prefix + message)
++
++
++class GatedChannelCompletion(ChannelCompletion):
++    """A separate policy: sample outcome reflects logs, outputs and provenance.
++
++    Reference tolerances and task parameters come from the existing task.
++    Failures stop completion; this policy does not invoke a repair model.
++    """
++    def measure_outputs(self, profile, pressure):
++        return dict(profile_error=profile_error(profile), pressure_gradient_error=pressure_gradient_error(pressure))
++
++    def sample(self, work, context):
++        work = Path(work).resolve()
++        directory = self.recorder.directory / 'observations/sampling'
++        directory.mkdir(parents=True)
++        started = time.monotonic()
++        code, timed_out, launched = None, False, False
++        stdout, stderr = b'', b''
++        category, message, fatal, outputs = None, None, [], []
++        values = None
++        name = 'simclinic-assessment-' + uuid.uuid4().hex
++        argv = ['docker', 'run', '--rm', '--pull', 'never', '--name', name, '--init',
++                '--platform', 'linux/amd64', '--network', 'none', '--cpus', '2', '--memory', '2g',
++                '--read-only', '--tmpfs', '/tmp', '--user', 'root',
++                '--mount', f'type=bind,src={work},dst=/case', '--workdir', '/case',
++                '--entrypoint', '/bin/bash', self.image, '-c',
++                'source /opt/openfoam10/etc/bashrc && simpleFoam -postProcess -func sample -latestTime']
++        try:
++            marker = verify_workspace(work)
++            if any(marker.get(key) != context.get(key) for key in ('run_id', 'input_version')):
++                raise ResultRejected('stale_sampling_context', 'Sampling context differs from verified workspace.')
++            if (work / 'postProcessing').exists() or (work / 'postProcessing').is_symlink():
++                raise SamplingError('sampling_preexisting_output', 'Fresh sampling workspace already has postProcessing outputs.')
++            launched = True
++            result = subprocess.run(argv, capture_output=True, timeout=120)
++            stdout, stderr, code = result.stdout, result.stderr, result.returncode
++        except subprocess.TimeoutExpired as exc:
++            stdout, stderr = exc.stdout or b'', exc.stderr or b''
++            timed_out = True
++            category, message = 'sampling_timeout', 'Sampling exceeded 120 seconds; exit status is unknown.'
++        except (OSError, ResultRejected, SamplingError) as exc:
++            category, message = getattr(exc, 'code', 'sampling_launch_error'), str(exc)
++        finally:
++            if launched:
++                try:
++                    subprocess.run(['docker', 'rm', '--force', name], capture_output=True, timeout=20)
++                except (OSError, subprocess.TimeoutExpired):
++                    pass  # Keep the original process evidence; never replace its exit status.
++        for filename, payload in (('stdout.log', stdout), ('stderr.log', stderr)):
++            (directory / filename).write_bytes(payload)
++        stdout_id = self.recorder.artifact(directory / 'stdout.log', context)
++        stderr_id = self.recorder.artifact(directory / 'stderr.log', context)
++        for filename, payload, artifact_id in (('stdout.log', stdout, stdout_id), ('stderr.log', stderr, stderr_id)):
++            try:
++                observed = parse_solver_log(payload.decode('utf-8'), 'observations/sampling/' + filename)
++                fatal.extend(dict(item, artifact_id=artifact_id) for item in observed['fatal_errors'])
++            except UnicodeError:
++                if category is None:
++                    category, message = 'sampling_log_encoding', 'Sampling log is not valid UTF-8: ' + filename
++        if fatal:
++            category = 'sampling_fatal_log'
++            message = 'Fatal error in ' + ', '.join(f"{e['source']}:{e['line']}" for e in fatal)
++        elif category is None and code != 0:
++            category, message = 'sampling_process_exit', 'Sampling exited with status ' + str(code)
++        if category is None:
++            try:
++                verify_workspace(work)
++                files = []
++                for filename in ('profile.xy', 'pressure.xy'):
++                    found = sorted((work / 'postProcessing').rglob(filename))
++                    if not found:
++                        raise SamplingError('sampling_missing_output', 'Required output missing: postProcessing/**/' + filename)
++                    if len(found) != 1:
++                        raise SamplingError('sampling_ambiguous_output', 'Multiple outputs found for ' + filename)
++                    path = found[0]
++                    if path.is_symlink() or work not in path.resolve().parents or not path.is_file():
++                        raise SamplingError('sampling_unsafe_output', 'Required output leaves the verified workspace: ' + filename)
++                    payload = path.read_bytes()
++                    if not payload.strip():
++                        raise SamplingError('sampling_empty_output', 'Required output is empty: ' + filename)
++                    files.append((filename, payload))
++                for filename, payload in files:
++                    target = directory / filename
++                    target.write_bytes(payload)
++                    artifact_id = self.recorder.artifact(target, context)
++                    outputs.append(dict(path=str(target.relative_to(self.recorder.directory)),
++                                        artifact_id=artifact_id, sha256=hashlib.sha256(payload).hexdigest()))
++                # Read the exact archived sample bytes, not the mutable work files.
++                values = self.measure_outputs(directory / 'profile.xy', directory / 'pressure.xy')
++                verify_workspace(work)
++            except (OSError, ResultRejected, ValueError) as exc:
++                category = getattr(exc, 'code', 'sampling_invalid_output')
++                message = str(exc)
++        unknown = code is None or category in ('sampling_log_encoding', 'sampling_launch_error')
++        outcome = 'pass' if category is None else 'fail' if fatal else 'unknown' if unknown else 'fail'
++        if unknown:
++            self.recorder.tools_complete = False
++        assessment = dict(**{k: context.get(k) for k in ('run_id', 'input_version')},
++                          policy='sampling-gate-v1', exit_code=code, execution_started=launched,
++                          timed_out=timed_out, outcome=outcome, error_category=category, message=message,
++                          stdout_artifact=stdout_id, stderr_artifact=stderr_id,
++                          fatal_errors=fatal, outputs=outputs, measurements=values if category is None else None,
++                          zero_exit_with_fatal_log=code == 0 and bool(fatal),
++                          reference_tolerances_changed=False, automatic_repair=False)
++        path = directory / 'gate-assessment.json'
++        write_json(path, assessment)
++        source = self.recorder.artifact(path, context)
++        event = self.recorder.tool('sample', 'postprocess', code, outcome, context['input_version'],
++                                   {'function': 'sample', 'time': 'current verified latest', 'policy': 'sampling-gate-v1'},
++                                   elapsed_seconds=time.monotonic() - started, error_category=category,
++                                   stdout_artifact=stdout_id, stderr_artifact=stderr_id,
++                                   source_artifact=source, timed_out=timed_out)
++        self.recorder.event('decision', context=context, handles=[event['id']], decision_type='sampling_gate',
++                            action='continue' if outcome == 'pass' else 'stop', source_artifact=source)
++        if category is not None:
++            raise SamplingError(category, message, source)
++        return values
++
++    def __call__(self, state):
++        # Keep the legacy policy available; register the new assessment once,
++        # including typed errors, before emitting the completion statement.
++        recorder = self.recorder
++        context = state.get('simclinic_context') or {}
++        case = Path(state.get('case_dir') or recorder.directory / 'missing-case')
++        native = case / '.simclinic/native' / context.get('run_id', 'missing')
++        logs = recorder.directory / 'attempts' / context.get('run_id', 'missing') / 'logs'
++        execution = json.loads((native / 'execution.json').read_text()) if (native / 'execution.json').is_file() else {}
++        log = (logs / 'log.simpleFoam').read_text() if (logs / 'log.simpleFoam').is_file() else ''
++        values = solver_measurements(log, execution.get('exit_code'))
++        values.update(profile_error=None, pressure_gradient_error=None, task_inputs_verified=False, rendered_velocity=False)
++        checks, error = {}, None
++        snapshot = native / 'input-snapshot'
++        for folder in ('0', 'constant', 'system'):
++            for path in (self.reference / folder).rglob('*'):
++                if path.is_file():
++                    relative = path.relative_to(self.reference)
++                    candidate = snapshot / relative
++                    checks[str(relative)] = candidate.is_file() and canonical_dictionary(candidate) == canonical_dictionary(path)
++        values['task_inputs_verified'] = bool(checks) and all(checks.values())
++        if not state.get('error_logs'):
++            try:
++                record = current_record(case, context)
++                images = state.get('plot_outputs', [])
++                image_artifacts = [a for a in record.data['artifacts'] if a.get('role') == 'visualization']
++                values['rendered_velocity'] = bool(state.get('pyvista_visualization', {}).get('success')) and \
++                    state.get('visualization_summary', {}).get('fields_visualized') == ['U'] and len(images) == 1 and any(
++                        (case / a['path']).resolve() == Path(images[0]).resolve() and
++                        hashlib.sha256(Path(images[0]).read_bytes()).hexdigest() == a['sha256'] for a in image_artifacts)
++                with verified_workspace(case, context) as work:
++                    measured = self.sample(work, context)
++                current_record(case, context)
++                values.update(measured)  # Publish measurements only after final identity verification.
++            except (ResultRejected, OSError, ValueError) as exc:
++                error = dict(type=type(exc).__name__, code=getattr(exc, 'code', 'sampling_assessment_error'),
++                             message=str(exc), assessment_artifact=getattr(exc, 'assessment_artifact', None))
++                recorder.references_complete = False
++        accepted = error is None and all(matches(values[c['id']], c) is True for c in recorder.data['task']['acceptance'])
++        assessment = dict(**{k: context.get(k) for k in ('run_id', 'input_version')}, values=values,
++                          input_checks=checks, criteria=recorder.data['task']['acceptance'], accepted=accepted,
++                          error=error, policy='sampling-gate-v1',
++                          method='Same declared reference and tolerances; sampling gate before explicit completion.')
++        path = recorder.directory / 'observations/task-assessment.json'
++        write_json(path, assessment)
++        source = recorder.artifact(path, context)
++        for criterion in recorder.data['task']['acceptance']:
++            recorder.event('measurement', context=context, criterion_id=criterion['id'],
++                           value=values[criterion['id']], artifact_id=source)
++        recorder.acceptance_complete = True
++        claim = dict(**{k: context.get(k) for k in ('run_id', 'input_version')}, success=accepted,
++                     status='completed' if accepted else 'failed' if state.get('error_logs') or error else 'acceptance_not_met',
++                     emitter='Foam-Agent registered SimClinic channel completion node',
++                     assessment_artifact=source, criteria_preserved=True)
++        write_json(recorder.directory / 'observations/completion-claim.json', claim)
++        return {'acceptance_report': assessment, 'completion_claim': claim}
++
++
++class GatedHeldoutCompletion(GatedChannelCompletion):
++    def __init__(self, recorder, reference, image, spec):
++        super().__init__(recorder, reference, image)
++        self.spec = spec
++
++    def measure_outputs(self, profile, pressure):
++        from ...evaluation.heldout import velocity_error, pressure_error
++        return dict(profile_error=velocity_error(profile, self.spec), pressure_gradient_error=pressure_error(pressure, self.spec))
+diff --git a/tests/test_sampling_gate.py b/tests/test_sampling_gate.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_sampling_gate.py
+@@ -0,0 +1,217 @@
++"""Synthetic process and provenance contracts; these do not run CFD."""
++from contextlib import contextmanager
++import hashlib
++import json
++from pathlib import Path
++import subprocess
++import tempfile
++import unittest
++from unittest.mock import patch
++
++from simclinic.core.record import load_record
++from simclinic.domains.openfoam.completion import task_definition
++from simclinic.domains.openfoam.sampling_gate import GatedChannelCompletion, SamplingError
++from simclinic.result_guard import ResultRejected
++from simclinic.session import SessionRecorder
++
++
++class SamplingGateTests(unittest.TestCase):
++    def setup_case(self, temporary):
++        root = Path(temporary)
++        recorder = SessionRecorder(root / 'session', task_definition('Synthetic task'), {}, {})
++        recorder.data['synthetic'] = True
++        context = dict(run_id='a' * 32, input_version='sha256:synthetic-input')
++        recorder.context = context
++        recorder.data.update(context)
++        work = root / 'work'
++        work.mkdir()
++        return GatedChannelCompletion(recorder, root / 'reference', 'synthetic-image'), work, context
++
++    def outputs(self, work, mode='valid'):
++        target = work / 'postProcessing/sample/100'
++        target.mkdir(parents=True)
++        (target / 'profile.xy').write_text('\n'.join(
++            f'{y:.12g} {6*.01*(y/.1)*(1-y/.1):.12g} 0 0'
++            for y in (.0025+i*.005 for i in range(20))) + '\n')
++        (target / 'pressure.xy').write_text('\n'.join(
++            f'{x:.12g} {.012*(1-x):.12g}' for x in (.1+i*.05 for i in range(17))) + '\n')
++        if mode == 'empty':
++            (target / 'profile.xy').write_text('')
++        elif mode == 'ambiguous':
++            other = work / 'postProcessing/sample/200'
++            other.mkdir()
++            (other / 'profile.xy').write_text((target / 'profile.xy').read_text())
++        elif mode == 'invalid':
++            (target / 'profile.xy').write_text('0 nan 0 0\n1 0 0 0\n')
++        elif mode == 'unsafe':
++            (target / 'profile.xy').unlink()
++            outside = work.parent / 'outside.xy'
++            outside.write_text('Do not read this as sample evidence')
++            (target / 'profile.xy').symlink_to(outside)
++
++    def process(self, work, mode=None, stdout=b'End\n', code=0):
++        def run(argv, **kwargs):
++            if argv[1] == 'rm':
++                return subprocess.CompletedProcess(argv, 0, b'', b'')
++            if mode:
++                self.outputs(work, mode)
++            return subprocess.CompletedProcess(argv, code, stdout, b'')
++        return run
++
++    def event(self, policy):
++        return next(e for e in policy.recorder.data['events'] if e.get('operation') == 'sample')
++
++    def test_success_preserves_reference_and_registers_continue(self):
++        with tempfile.TemporaryDirectory() as t:
++            policy, work, context = self.setup_case(t)
++            with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', return_value=context), \
++                 patch('simclinic.domains.openfoam.sampling_gate.subprocess.run', side_effect=self.process(work, 'valid')):
++                result = policy.sample(work, context)
++            self.assertLess(result['profile_error'], 1e-10)
++            self.assertLess(result['pressure_gradient_error'], 1e-10)
++            self.assertEqual(self.event(policy)['outcome'], 'pass')
++            decision = policy.recorder.data['events'][-1]
++            self.assertEqual(decision['action'], 'continue')
++            self.assertEqual(decision['handles'], [self.event(policy)['id']])
++            data = load_record(policy.recorder.directory / 'record.json', policy.recorder.directory).data
++            for artifact in data['artifacts']:
++                self.assertEqual(hashlib.sha256((policy.recorder.directory / artifact['path']).read_bytes()).hexdigest(), artifact['sha256'])
++
++    def test_zero_exit_and_end_with_fatal_log_stops(self):
++        with tempfile.TemporaryDirectory() as t:
++            policy, work, context = self.setup_case(t)
++            with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', return_value=context), \
++                 patch('simclinic.domains.openfoam.sampling_gate.subprocess.run', side_effect=self.process(work, stdout=b'header\nFOAM FATAL IO ERROR\nEnd\n')):
++                with self.assertRaises(SamplingError) as caught:
++                    policy.sample(work, context)
++            self.assertEqual(caught.exception.code, 'sampling_fatal_log')
++            event = self.event(policy)
++            self.assertEqual((event['exit_code'], event['outcome'], event['error_category']), (0, 'fail', 'sampling_fatal_log'))
++            assessment = json.loads((policy.recorder.directory / 'observations/sampling/gate-assessment.json').read_text())
++            self.assertEqual(assessment['fatal_errors'][0]['line'], 2)
++            self.assertTrue(assessment['zero_exit_with_fatal_log'])
++            self.assertEqual(policy.recorder.data['events'][-1]['action'], 'stop')
++
++    def test_missing_output_names_path_instead_of_stopiteration(self):
++        with tempfile.TemporaryDirectory() as t:
++            policy, work, context = self.setup_case(t)
++            with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', return_value=context), \
++                 patch('simclinic.domains.openfoam.sampling_gate.subprocess.run', side_effect=self.process(work)):
++                with self.assertRaises(SamplingError) as caught:
++                    policy.sample(work, context)
++            self.assertEqual(caught.exception.code, 'sampling_missing_output')
++            self.assertIn('profile.xy', str(caught.exception))
++            self.assertEqual(str(caught.exception).count('sampling_missing_output:'), 1)
++            self.assertEqual(self.event(policy)['outcome'], 'fail')
++
++    def test_empty_ambiguous_invalid_or_unsafe_samples_stop(self):
++        for mode, expected in (('empty', 'sampling_empty_output'), ('ambiguous', 'sampling_ambiguous_output'),
++                               ('invalid', 'sampling_invalid_output'), ('unsafe', 'sampling_unsafe_output')):
++            with self.subTest(mode=mode), tempfile.TemporaryDirectory() as t:
++                policy, work, context = self.setup_case(t)
++                with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', return_value=context), \
++                     patch('simclinic.domains.openfoam.sampling_gate.subprocess.run', side_effect=self.process(work, mode)):
++                    with self.assertRaises(SamplingError) as caught:
++                        policy.sample(work, context)
++                self.assertEqual(caught.exception.code, expected)
++                self.assertEqual(self.event(policy)['outcome'], 'fail')
++
++    def test_timeout_keeps_unknown_exit_and_incomplete_tool_coverage(self):
++        with tempfile.TemporaryDirectory() as t:
++            policy, work, context = self.setup_case(t)
++            def run(argv, **kwargs):
++                if argv[1] == 'rm':
++                    return subprocess.CompletedProcess(argv, 0, b'', b'')
++                raise subprocess.TimeoutExpired(argv, 120, output=b'partial\n')
++            with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', return_value=context), \
++                 patch('simclinic.domains.openfoam.sampling_gate.subprocess.run', side_effect=run):
++                with self.assertRaises(SamplingError) as caught:
++                    policy.sample(work, context)
++            self.assertEqual(caught.exception.code, 'sampling_timeout')
++            self.assertIsNone(self.event(policy)['exit_code'])
++            self.assertEqual(self.event(policy)['outcome'], 'unknown')
++            self.assertFalse(policy.recorder.tools_complete)
++
++    def test_nonzero_exit_preserved_with_specific_category(self):
++        with tempfile.TemporaryDirectory() as t:
++            policy, work, context = self.setup_case(t)
++            with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', return_value=context), \
++                 patch('simclinic.domains.openfoam.sampling_gate.subprocess.run', side_effect=self.process(work, code=3)):
++                with self.assertRaises(SamplingError):
++                    policy.sample(work, context)
++            self.assertEqual(self.event(policy)['exit_code'], 3)
++            self.assertEqual(self.event(policy)['error_category'], 'sampling_process_exit')
++
++    def test_preexisting_output_or_old_context_never_launches_process(self):
++        for mode in ('preexisting', 'old-context'):
++            with self.subTest(mode=mode), tempfile.TemporaryDirectory() as t:
++                policy, work, context = self.setup_case(t)
++                marker = dict(context)
++                if mode == 'preexisting':
++                    (work / 'postProcessing').mkdir()
++                else:
++                    marker['run_id'] = 'b' * 32
++                with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', return_value=marker), \
++                     patch('simclinic.domains.openfoam.sampling_gate.subprocess.run') as run:
++                    with self.assertRaises(SamplingError):
++                        policy.sample(work, context)
++                run.assert_not_called()
++                self.assertIsNone(self.event(policy)['exit_code'])
++
++    def test_snapshot_change_after_sampling_stops_before_output_registration(self):
++        with tempfile.TemporaryDirectory() as t:
++            policy, work, context = self.setup_case(t)
++            with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', side_effect=[context, ResultRejected('snapshot_changed', 'Synthetic change')]), \
++                 patch('simclinic.domains.openfoam.sampling_gate.subprocess.run', side_effect=self.process(work, 'valid')):
++                with self.assertRaises(SamplingError) as caught:
++                    policy.sample(work, context)
++            self.assertEqual(caught.exception.code, 'snapshot_changed')
++            self.assertFalse((policy.recorder.directory / 'observations/sampling/profile.xy').exists())
++
++    def test_unknown_log_encoding_cannot_pass(self):
++        with tempfile.TemporaryDirectory() as t:
++            policy, work, context = self.setup_case(t)
++            with patch('simclinic.domains.openfoam.sampling_gate.verify_workspace', return_value=context), \
++                 patch('simclinic.domains.openfoam.sampling_gate.subprocess.run', side_effect=self.process(work, 'valid', stdout=b'\xff')):
++                with self.assertRaises(SamplingError) as caught:
++                    policy.sample(work, context)
++            self.assertEqual(caught.exception.code, 'sampling_log_encoding')
++            self.assertEqual(self.event(policy)['outcome'], 'unknown')
++
++    def test_identity_failure_after_sample_cannot_publish_measurements_or_success(self):
++        with tempfile.TemporaryDirectory() as t:
++            policy, work, context = self.setup_case(t)
++            case = Path(t) / 'case'
++            native = case / '.simclinic/native' / context['run_id']
++            (native / 'input-snapshot/system').mkdir(parents=True)
++            policy.reference.mkdir()
++            (policy.reference / 'system').mkdir()
++            text = 'FoamFile { object sample; }\n'
++            (native / 'input-snapshot/system/sample').write_text(text)
++            (policy.reference / 'system/sample').write_text(text)
++            (native / 'execution.json').write_text('{"exit_code":0}')
++            logs = policy.recorder.directory / 'attempts' / context['run_id'] / 'logs'
++            logs.mkdir(parents=True)
++            (logs / 'log.simpleFoam').write_text('SIMPLE solution converged\ntime step continuity errors : sum local = 1e-12, global = 0\nEnd\n')
++            image = case / 'U.png'
++            image.write_bytes(b'Synthetic image; not a CFD render')
++            from simclinic.core.record import Record
++            record = Record(dict(artifacts=[dict(path='U.png', role='visualization', sha256=hashlib.sha256(image.read_bytes()).hexdigest())]), 'synthetic')
++            @contextmanager
++            def workspace(*args):
++                yield work
++                raise ResultRejected('snapshot_changed', 'Synthetic identity change at context exit')
++            state = dict(case_dir=str(case), simclinic_context=context, plot_outputs=[str(image)],
++                         pyvista_visualization={'success': True}, visualization_summary={'fields_visualized': ['U']})
++            with patch('simclinic.domains.openfoam.sampling_gate.current_record', return_value=record), \
++                 patch('simclinic.domains.openfoam.sampling_gate.verified_workspace', workspace), \
++                 patch.object(policy, 'sample', return_value=dict(profile_error=0, pressure_gradient_error=0)):
++                result = policy(state)
++            self.assertFalse(result['completion_claim']['success'])
++            self.assertEqual(result['acceptance_report']['error']['code'], 'snapshot_changed')
++            self.assertIsNone(result['acceptance_report']['values']['profile_error'])
++            self.assertFalse(policy.recorder.references_complete)
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/scripts/run_sampling_gate_regression.py b/scripts/run_sampling_gate_regression.py
+new file mode 100644
+--- /dev/null
++++ b/scripts/run_sampling_gate_regression.py
+@@ -0,0 +1,205 @@
++"""Real, model-free development runs of frozen normal/failed inputs.
++
++Replay means archived inputs, never archived solver outputs. Every graph starts
++at local_runner and solves/renders/samples afresh; this is not a heldout study.
++"""
++import argparse
++import hashlib
++import json
++import os
++from pathlib import Path
++import shutil
++import subprocess
++import sys
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT))
++from simclinic.cli import get_report
++from simclinic.core.record import load_record
++from simclinic.core.report import write_json, write_report
++from simclinic.domains.openfoam.sampling_gate import GatedHeldoutCompletion
++from simclinic.evaluation.heldout import HeldoutCompletion, hashes, task, verify_hashes
++from simclinic.session import SessionRecorder, plain
++
++IMAGE = 'openfoam/openfoam10-paraview510@sha256:d6ff1f9a2e7bc3c9177f373bebbdeb542fd8b49144afc24d5e3a3cd9bfae253d'
++
++
++def prepare(out, scenarios=('healthy', 'archived-fatal')):
++    source_batch = ROOT / 'real-runs/content-interface-heldout-20261004'
++    frozen = json.loads((source_batch / 'freeze.json').read_text())
++    verify_hashes(source_batch / 'tasks/I1', frozen['tasks']['I1'])
++    native = ROOT / 'integration/foam_agent_v210/native/content'
++    manifest = json.loads((native / 'candidate-manifest.json').read_text())
++    for name, sha in manifest['source_files'].items():
++        if hashlib.sha256((native / name).read_bytes()).hexdigest() != sha:
++            raise ValueError('Native source changed: ' + name)
++    if hashlib.sha256((ROOT / 'simclinic/input_content.py').read_bytes()).hexdigest() != manifest['runtime_requirements']['input_content_sha256']:
++        raise ValueError('Content helper changed')
++    image_id = json.loads(subprocess.check_output(['docker', 'image', 'inspect', IMAGE], text=True))[0]['Id']
++    out.mkdir(parents=True, exist_ok=False)
++    shutil.copytree(native, out / 'native', ignore=shutil.ignore_patterns('__pycache__'))
++    shutil.copytree(source_batch / 'tasks/I1', out / 'task')
++    sources = {}
++    source_runs = {'healthy': 'I1-r1-candidate', 'archived-fatal': 'I1-r2-baseline',
++                   'missing-profile': 'I1-r1-candidate'}
++    for scenario in scenarios:
++        run = source_runs[scenario]
++        original = source_batch / 'runs' / run
++        record = load_record(original / 'record.json', original).data
++        for artifact in record['artifacts']:
++            if hashlib.sha256((original / artifact['path']).read_bytes()).hexdigest() != artifact['sha256']:
++                raise ValueError('Historical artifact changed: ' + artifact['path'])
++        attempt = record['attempts'][0]
++        inputs = original / attempt['input_snapshot']
++        shutil.copytree(inputs, out / 'inputs' / scenario)
++        injection = None
++        if scenario == 'missing-profile':
++            path = out / 'inputs' / scenario / 'system/sample'
++            text = path.read_text()
++            import re
++            changed, count = re.subn(r'\bprofile(?=\s*\{)', 'alternateProfile', text)
++            if count != 1:
++                raise ValueError('Expected exactly one profile sampling set to rename')
++            path.write_text(changed)
++            injection = dict(actor='Explicit development test injector',
++                             change='Rename profile set to alternateProfile; retain coordinates, fields and physics.',
++                             modified_file='system/sample', task_thresholds_changed=False)
++        sources[scenario] = dict(record=str(original / 'record.json'), source_run_id=attempt['run_id'],
++                                 source_input_version=attempt['input_version'], original_input_hashes=hashes(inputs),
++                                 input_hashes=hashes(out / 'inputs' / scenario), fault_injection=injection is not None,
++                                 injection=injection)
++    runtime = out / 'common-runtime'
++    shutil.copytree(ROOT / 'simclinic', runtime / 'simclinic', ignore=shutil.ignore_patterns('__pycache__'))
++    (runtime / 'scripts').mkdir()
++    shutil.copy2(Path(__file__), runtime / 'scripts' / Path(__file__).name)
++    protocol = dict(development_regression=True, heldout=False, archived_input_replay=True,
++                    archived_solver_output_reuse=False, full_agent_workflow=False, new_model_calls=0,
++                    scope='Fresh native local_runner -> U render -> registered completion; no planner or LLM.',
++                    image=IMAGE, image_id=image_id, python=sys.version,
++                    installed_dependencies=subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'], text=True).splitlines(),
++                    resources=dict(cpus=2, memory='2g', network='none', platform='linux/amd64'),
++                    sources=sources, native=hashes(out / 'native'), task=hashes(out / 'task'),
++                    common_runtime=hashes(runtime), review_limit=0, model_render_fallback_limit=0,
++                    difference='Registered completion policy only; same native content snapshot and task per scenario.',
++                    schedule=[dict(id=scenario + '-' + policy, scenario=scenario, policy=policy)
++                              for i, scenario in enumerate(scenarios)
++                              for policy in (('legacy', 'sampling') if i % 2 == 0 else ('sampling', 'legacy'))],
++                    optimization_effect_proven=False)
++    write_json(out / 'protocol.json', protocol)
++    (out / 'protocol.sha256').write_text(hashlib.sha256((out / 'protocol.json').read_bytes()).hexdigest() + '\n')
++    print('Prepared frozen development regression:', out)
++
++
++def run(batch, run_id):
++    protocol = json.loads((batch / 'protocol.json').read_text())
++    digest = hashlib.sha256((batch / 'protocol.json').read_bytes()).hexdigest()
++    if digest != (batch / 'protocol.sha256').read_text().strip() or ROOT != batch / 'common-runtime':
++        raise ValueError('Use the frozen development driver and intact protocol')
++    for directory, key in (('common-runtime', 'common_runtime'), ('native', 'native'), ('task', 'task')):
++        verify_hashes(batch / directory, protocol[key])
++    entries = protocol['schedule']
++    index = next(i for i, item in enumerate(entries) if item['id'] == run_id)
++    for previous in entries[:index]:
++        if not (batch / 'runs' / previous['id'] / 'summary.json').is_file():
++            raise ValueError('Run the predeclared serial order')
++    entry = entries[index]
++    scenario, policy = entry['scenario'], entry['policy']
++    verify_hashes(batch / 'inputs' / scenario, protocol['sources'][scenario]['input_hashes'])
++    if sys.version != protocol['python'] or subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'], text=True).splitlines() != protocol['installed_dependencies']:
++        raise ValueError('Python/dependencies changed')
++    if json.loads(subprocess.check_output(['docker', 'image', 'inspect', IMAGE], text=True))[0]['Id'] != protocol['image_id']:
++        raise ValueError('Image changed')
++    out = batch / 'runs' / run_id
++    out.mkdir(parents=True, exist_ok=False)
++    shutil.copytree(batch / 'native', out / 'source-package', ignore=shutil.ignore_patterns('__pycache__'))
++    sys.path.insert(0, str(out / 'source-package/src'))
++    from config import Config
++    from main import create_foam_agent_graph
++    from services import configure_llm
++    from utils import read_case_foamfiles, scan_case_directory
++    from logger import close_logging
++    class ForbiddenModel:
++        def invoke(self, *args, **kwargs):
++            raise AssertionError('This development regression permits zero model calls')
++    backend = ForbiddenModel()
++    configure_llm(backend)
++    environment = dict(distribution='OpenFOAM Foundation', version='10', solver='simpleFoam',
++                       image=IMAGE, image_id=protocol['image_id'], completion_policy=policy,
++                       protocol_sha256=digest, graph_entrypoint='local_runner', resources=protocol['resources'])
++    spec = json.loads((batch / 'task/spec.json').read_text())
++    objective = (batch / 'task/requirement.txt').read_text()
++    recorder = SessionRecorder(out, task(spec, objective), environment,
++                               dict(name='Foam-Agent sampling gate development regression',
++                                    commit='bfb7f791f77438ff90c1a39ff398739ee97bcc67', full_agent_workflow=False))
++    recorder.data.update(heldout=False, fault_injection=protocol['sources'][scenario].get('fault_injection',False), development_regression=True,
++                         archived_input_replay=True, archived_solver_output_reuse=False, new_model_calls=0)
++    case = out / 'case'
++    shutil.copytree(batch / 'inputs' / scenario, case)
++    write_json(out / 'environment.json', dict(**environment, python=sys.version,
++        common_runtime_hashes=protocol['common_runtime'], source_hashes=protocol['native'],
++        source_input=protocol['sources'][scenario], new_model_calls=0, review_limit=0, model_render_fallback_limit=0))
++    os.environ['SIMCLINIC_DOCKER_IMAGE'] = IMAGE
++    os.environ['SIMCLINIC_OBSERVED_EXECUTION'] = '1'
++    os.environ['LANGCHAIN_TRACING_V2'] = 'false'
++    config = Config(case_dir=str(case), max_loop=0, max_time_limit=180, recursion_limit=30)
++    config.visualization_max_loop = 0
++    initial = dict(case_dir=str(case), config=config, user_requirement=objective, llm_service=backend,
++                   foamfiles=read_case_foamfiles(str(case)), dir_structure=scan_case_directory(str(case)),
++                   loop_count=0, input_writer_mode='initial', requires_hpc=False,
++                   requires_visualization=True, error_logs=[])
++    try:
++        completion = (GatedHeldoutCompletion if policy == 'sampling' else HeldoutCompletion)(
++            recorder, batch / 'task/acceptance-reference', IMAGE, spec)
++        graph = create_foam_agent_graph(entrypoint='local_runner', observer=recorder.observe,
++                                        completion_policy=completion).compile()
++        result = graph.invoke(initial, config={'recursion_limit': 30})
++        write_json(out / 'graph-result.json', plain(result))
++        recorder.finish(completed='completion_claim' in result)
++    except Exception as exc:
++        write_json(out / 'failure.json', dict(type=type(exc).__name__, message=str(exc)))
++        recorder.finish(completed=False)
++        raise
++    finally:
++        close_logging()
++    report = get_report(load_record(out / 'record.json', out))
++    write_report(report, out / 'audit')
++    sample = next(e for e in recorder.data['events'] if e.get('operation') == 'sample')
++    summary = dict(synthetic=False, development_regression=True, heldout=False,
++        archived_input_replay=True, archived_solver_output_reuse=False, full_agent_workflow=False,
++        new_model_calls=0, scenario=scenario, fault_injection=recorder.data['fault_injection'],
++        completion_policy=policy, attempts=len(recorder.attempts),
++        completion=result['completion_claim'], acceptance=result['acceptance_report']['values'],
++        acceptance_error=result['acceptance_report']['error'], coverage=recorder.data['coverage'],
++        sample_tool={k: sample.get(k) for k in ('id', 'exit_code', 'outcome', 'error_category')},
++        audit_summary=report['summary'], metrics=recorder.data['metrics'], optimization_effect_proven=False)
++    write_json(out / 'summary.json', summary)
++    print(json.dumps(summary, ensure_ascii=False, indent=2), flush=True)
++    if result['completion_claim']['success'] != (scenario == 'healthy'):
++        raise RuntimeError('Unexpected task result; evidence retained')
++    if policy == 'sampling' and scenario == 'archived-fatal' and sample['error_category'] != 'sampling_fatal_log':
++        raise RuntimeError('Expected typed sampling failure was not observed')
++    if policy == 'sampling' and scenario == 'missing-profile' and sample['error_category'] != 'sampling_missing_output':
++        raise RuntimeError('Expected missing-output failure was not observed')
++
++
++def main():
++    parser = argparse.ArgumentParser()
++    parser.add_argument('--prepare', action='store_true')
++    parser.add_argument('--out', type=Path)
++    parser.add_argument('--batch', type=Path)
++    parser.add_argument('--run')
++    parser.add_argument('--scenarios', nargs='+', choices=('healthy','archived-fatal','missing-profile'),
++                        default=['healthy','archived-fatal'])
++    args = parser.parse_args()
++    if args.prepare and args.out:
++        if len(set(args.scenarios)) != len(args.scenarios):
++            parser.error('Scenarios must be unique')
++        prepare(args.out.resolve(), args.scenarios)
++    elif args.batch and args.run:
++        run(args.batch.resolve(), args.run)
++    else:
++        parser.error('Use --prepare --out or --batch --run')
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/scripts/verify_sampling_gate_regression.py b/scripts/verify_sampling_gate_regression.py
+new file mode 100644
+--- /dev/null
++++ b/scripts/verify_sampling_gate_regression.py
+@@ -0,0 +1,147 @@
++"""Offline verification of sampling gate development runs; no new execution."""
++import argparse
++import hashlib
++import json
++from pathlib import Path
++import sys
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT))
++from simclinic.core.record import load_record
++from simclinic.core.report import write_json
++from simclinic.domains.openfoam.logs import parse_solver_log
++from simclinic.evaluation.heldout import hashes, pressure_error, velocity_error, verify_hashes
++
++
++def require(condition, message):
++    if not condition:
++        raise ValueError(message)
++
++
++def verify(batch):
++    protocol = json.loads((batch / 'protocol.json').read_text())
++    digest = hashlib.sha256((batch / 'protocol.json').read_bytes()).hexdigest()
++    require(digest == (batch / 'protocol.sha256').read_text().strip(), 'Protocol changed')
++    for folder, key in (('common-runtime', 'common_runtime'), ('native', 'native'), ('task', 'task')):
++        verify_hashes(batch / folder, protocol[key])
++    for name in ('simclinic/core/record.py', 'simclinic/domains/openfoam/acceptance.py',
++                 'simclinic/domains/openfoam/completion.py', 'simclinic/domains/openfoam/logs.py',
++                 'simclinic/evaluation/heldout.py'):
++        require(hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == protocol['common_runtime'][name],
++                'Scientific/record helper differs from the run snapshot: ' + name)
++    old_format = "        super().__init__(code + ': ' + message)\n"
++    new_format = "        prefix = code + ': '\n        super().__init__(message if message.startswith(prefix) else prefix + message)\n"
++    delivered = (ROOT / 'simclinic/domains/openfoam/sampling_gate.py').read_text()
++    frozen_gate = (batch / 'common-runtime/simclinic/domains/openfoam/sampling_gate.py').read_text()
++    require(delivered == frozen_gate or delivered.replace(new_format, old_format) == frozen_gate,
++            'Delivered gate differs beyond the documented error-prefix formatting fix')
++    rows, versions, run_ids = [], {}, set()
++    total_artifacts = 0
++    spec = json.loads((batch / 'task/spec.json').read_text())
++    for entry in protocol['schedule']:
++        out = batch / 'runs' / entry['id']
++        record = load_record(out / 'record.json', out).data
++        summary = json.loads((out / 'summary.json').read_text())
++        environment = json.loads((out / 'environment.json').read_text())
++        require(environment['protocol_sha256'] == digest, 'Wrong run protocol')
++        require(record['synthetic'] is False and record['heldout'] is False and record['development_regression'] is True,
++                'Development provenance missing')
++        require(not record['model_calls'] and record['metrics']['model_tokens'] == 0
++                and not (out / 'model-calls').exists(), 'Unexpected model activity')
++        verify_hashes(out / 'source-package', protocol['native'])
++        source = protocol['sources'][entry['scenario']]
++        verify_hashes(batch / 'inputs' / entry['scenario'], source['input_hashes'])
++        require(record['fault_injection'] == source.get('fault_injection', False), 'Injection label differs')
++        require(len(record['attempts']) == 1, 'Unexpected extra execution')
++        attempt = record['attempts'][0]
++        require(attempt['run_id'] != source['source_run_id'] and attempt['run_id'] not in run_ids,
++                'Historical or duplicate run identity reused')
++        run_ids.add(attempt['run_id'])
++        require(attempt['execution']['exit_code'] == 0 and attempt['execution']['policy_validated'], 'Solver failed unexpectedly')
++        verify_hashes(out / attempt['input_snapshot'], source['input_hashes'])
++        versions.setdefault(entry['scenario'], set()).add(attempt['input_version'])
++        native_manifest = json.loads((out / 'attempts' / attempt['run_id'] / 'native/input-manifest.json').read_text())
++        calculated = 'sha256:' + hashlib.sha256(json.dumps(native_manifest['files'], sort_keys=True, separators=(',', ':')).encode()).hexdigest()
++        require(calculated == attempt['input_version'], 'Input version mismatch')
++        for artifact in record['artifacts']:
++            path = out / artifact['path']
++            require(hashlib.sha256(path.read_bytes()).hexdigest() == artifact['sha256'], 'Artifact changed: ' + artifact['path'])
++        total_artifacts += len(record['artifacts'])
++        expected_success = entry['scenario'] == 'healthy'
++        require(summary['completion']['success'] is expected_success, 'Unexpected completion')
++        assessment = json.loads((out / 'observations/task-assessment.json').read_text())
++        require(assessment['criteria'] == record['task']['acceptance'], 'Task criteria changed')
++        require(summary['acceptance']['rendered_velocity'] is True, 'U evidence missing')
++        sample = next(e for e in record['events'] if e.get('operation') == 'sample')
++        require(sample['exit_code'] == 0, 'Unexpected sample exit status')
++        logs = [parse_solver_log((out / 'observations/sampling' / name).read_text(), name)
++                for name in ('stdout.log', 'stderr.log')]
++        fatal = [item for log in logs for item in log['fatal_errors']]
++        require(bool(fatal) == (entry['scenario'] == 'archived-fatal'), 'Fatal log expectation differs')
++        if expected_success:
++            require(abs(velocity_error(out / 'observations/sampling/profile.xy', spec) - summary['acceptance']['profile_error']) < 1e-12,
++                    'Velocity error recomputation differs')
++            require(abs(pressure_error(out / 'observations/sampling/pressure.xy', spec) - summary['acceptance']['pressure_gradient_error']) < 1e-12,
++                    'Pressure error recomputation differs')
++            require(all(record['coverage'].values()), 'Positive evidence incomplete')
++        else:
++            require(summary['acceptance']['profile_error'] is None and summary['acceptance']['pressure_gradient_error'] is None,
++                    'Missing reference was fabricated')
++            require(record['coverage']['references'] is False, 'Missing reference coverage upgraded')
++        if entry['policy'] == 'sampling':
++            gate = json.loads((out / 'observations/sampling/gate-assessment.json').read_text())
++            require(gate['outcome'] == sample['outcome'] and gate['exit_code'] == sample['exit_code'], 'Gate/tool disagree')
++            decision = next(e for e in record['events'] if e.get('decision_type') == 'sampling_gate')
++            require(decision['handles'] == [sample['id']] and decision['action'] == ('continue' if expected_success else 'stop'),
++                    'Gate decision missing or inconsistent')
++            expected_category = None if expected_success else 'sampling_fatal_log' if fatal else 'sampling_missing_output'
++            require(sample['error_category'] == expected_category and sample['outcome'] == ('pass' if expected_success else 'fail'),
++                    'Typed outcome differs from actual evidence')
++        else:
++            require(sample['outcome'] == 'pass', 'Legacy sample outcome changed')
++            if not expected_success:
++                require(summary['acceptance_error']['type'] == 'StopIteration', 'Legacy diagnostic changed')
++        rows.append(dict(id=entry['id'], scenario=entry['scenario'], policy=entry['policy'],
++                         fault_injection=record['fault_injection'], quality_met=expected_success,
++                         sample_exit=sample['exit_code'], sample_outcome=sample['outcome'],
++                         error=summary['acceptance_error'], fatal_log_lines=[e['line'] for e in fatal],
++                         input_version=attempt['input_version'], run_id=attempt['run_id'],
++                         artifacts_verified=len(record['artifacts']), reference_recomputed=expected_success))
++    require(all(len(value) == 1 for value in versions.values()), 'Arms used different inputs')
++    result = dict(offline_verification=True, new_simulations=0, new_model_calls=0,
++                  development_regression=True, heldout=False, protocol_sha256=digest,
++                  frozen_sources_verified=True, paired_input_hashes_equal=True, fresh_solver_run_ids=True,
++                  artifact_count=total_artifacts, run_count=len(rows), runs=rows,
++                  delivered_gate_matches_snapshot=delivered == frozen_gate,
++                  delivery_delta=None if delivered == frozen_gate else 'Error message prefix formatting only; initial records retained.',
++                  verification_script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
++                  optimization_effect_proven=False)
++    write_json(batch / 'verification.json', result)
++    lines = ['# 采样门禁开发回归', '',
++             '使用冻结的历史输入重新求解、生成 U 图并采样；没有复用历史求解输出，没有模型调用。入口为原生 local_runner，没有验证新的模型规划路径。这是开发回归，不计入保留评估或自然故障率。', '',
++             '| 运行 | 明确注入 | 采样退出 | 工具判定 | 完整任务 | 错误 |',
++             '| --- | --- | ---: | --- | --- | --- |']
++    for row in rows:
++        error = row['error'] or {}
++        label = error.get('code', error.get('type', '—'))
++        lines.append(f"| {row['id']} | {row['fault_injection']} | {row['sample_exit']} | {row['sample_outcome']} | {row['quality_met']} | {label} |")
++    lines += ['', f"[离线核验](verification.json)通过 {total_artifacts} 个注册证据文件，重新计算正常样本的速度/压力参考误差；失败样本缺失参考数据，误差仍为 null、references 覆盖仍为 false。配对输入哈希一致，实际运行 ID 全部不同于原归档。", '',
++              '原 CFD 条件和参考阈值没有放宽。新门禁不自动修复文件或调用模型；旧策略本来就没有误报完整任务成功。本次改进是正确标注采样失败、提供原因与停止证据，并保护测量发布顺序，不证明成功率、耗时或模型消耗改善。', '']
++    if result['delivery_delta']:
++        lines += ['该协议冻结后发现错误消息重复前缀。交付代码仅修正这个显示问题；原始记录保留，另有完整新协议复测。冻结门禁与交付门禁除了此前缀格式外字节一致。', '']
++    (batch / 'report.md').write_text('\n'.join(lines))
++    return result
++
++
++def main():
++    parser = argparse.ArgumentParser()
++    parser.add_argument('--batch', type=Path, nargs='+', required=True)
++    args = parser.parse_args()
++    results = [verify(batch.resolve()) for batch in args.batch]
++    print(json.dumps(dict(batches=len(results), runs=sum(r['run_count'] for r in results),
++                         artifacts=sum(r['artifact_count'] for r in results), new_model_calls=0,
++                         new_simulations=0, verification=True), indent=2))
++
++
++if __name__ == '__main__':
++    main()

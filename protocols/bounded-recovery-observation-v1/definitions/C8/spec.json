@@ -1,0 +1,7 @@
+{
+  "id": "C8",
+  "kind": "couette",
+  "wall_speed": 0.028,
+  "nx": 60,
+  "ny": 30
+}

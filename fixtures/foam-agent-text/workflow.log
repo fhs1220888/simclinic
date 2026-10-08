@@ -1,0 +1,7 @@
+SYNTHETIC logger-style example, not a real Foam-Agent run.
+<error_logs>
+FOAM FATAL IO ERROR
+</error_logs>
+<rewrite_plan>
+Review input before retry.
+</rewrite_plan>

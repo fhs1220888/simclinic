@@ -1,0 +1,101 @@
+--- a/src/main.py
++++ b/src/main.py
+@@ -23,7 +23,7 @@
+ from logger import close_logging
+ import json
+ 
+-def create_foam_agent_graph(entrypoint="planner", observer=None) -> StateGraph:
++def create_foam_agent_graph(entrypoint="planner", observer=None, completion_policy=None) -> StateGraph:
+     """Create the OpenFOAM agent workflow graph."""
+     
+     # Create the graph
+@@ -39,9 +39,23 @@
+             except Exception as exc:
+                 observer("error", name, {"exception_type": type(exc).__name__})
+                 raise
+-            observer("end", name, result)
++            observer("end", name, {**state, **result})
+             return result
+         return invoke
++
++    def observed_route(name, function):
++        def route(state):
++            destination = function(state)
++            if destination == END and completion_policy is not None:
++                destination = "completion"
++            if observer is not None:
++                observer("route", name, {**state, "route_destination": destination})
++            return destination
++        return route
++
++    if completion_policy is not None:
++        workflow.add_node("completion", observed("completion", completion_policy))
++        workflow.add_edge("completion", END)
+ 
+     # Add nodes
+     workflow.add_node("planner", observed("planner", planner_node))
+@@ -56,13 +70,13 @@
+     if entrypoint not in {"planner", "local_runner"}:
+         raise ValueError("Supported entrypoints: planner or local_runner")
+     workflow.add_edge(START, entrypoint)
+-    workflow.add_conditional_edges("planner", route_after_planner)
++    workflow.add_conditional_edges("planner", observed_route("route_after_planner", route_after_planner))
+     workflow.add_edge("meshing", "input_writer")
+-    workflow.add_conditional_edges("input_writer", route_after_input_writer)
+-    workflow.add_conditional_edges("hpc_runner", route_after_runner)
+-    workflow.add_conditional_edges("local_runner", route_after_runner)
+-    workflow.add_conditional_edges("reviewer", route_after_reviewer)
+-    workflow.add_edge("visualization", END)
++    workflow.add_conditional_edges("input_writer", observed_route("route_after_input_writer", route_after_input_writer))
++    workflow.add_conditional_edges("hpc_runner", observed_route("route_after_runner", route_after_runner))
++    workflow.add_conditional_edges("local_runner", observed_route("route_after_runner", route_after_runner))
++    workflow.add_conditional_edges("reviewer", observed_route("route_after_reviewer", route_after_reviewer))
++    workflow.add_edge("visualization", "completion" if completion_policy is not None else END)
+     
+     return workflow
+ 
+--- a/src/services/input_writer.py
++++ b/src/services/input_writer.py
+@@ -531,6 +531,9 @@
+             if file_path:
+                 allowed_files.add(file_path.strip().lstrip("./"))
+ 
++    if not allowed_files:
++        raise ValueError("Rewrite plan must explicitly name files; no unrestricted rewrite.")
++
+     # Prepare updated structures
+     updated_dir = dict(dir_structure) if dir_structure else {}
+     foamfiles_list = []
+@@ -539,9 +542,8 @@
+ 
+     for foamfile in response.list_foamfile:
+         rel_path = os.path.join(foamfile.folder_name, foamfile.file_name).replace('\\', '/').lstrip('./')
+-        if allowed_files and rel_path not in allowed_files:
+-            print(f"Warning: Skipping unplanned rewrite file: {rel_path}")
+-            continue
++        if rel_path not in allowed_files:
++            raise ValueError("Unplanned rewrite file: " + rel_path)
+ 
+         file_path = str(case_input_path(case_dir, foamfile.folder_name, foamfile.file_name))
+         os.makedirs(os.path.dirname(file_path), exist_ok=True)
+--- a/src/utils.py
++++ b/src/utils.py
+@@ -758,6 +758,8 @@
+     slurm_script_path: Optional[str]
+     termination_reason: Optional[str]
+     simclinic_context: Optional[dict]
++    completion_claim: Optional[dict]
++    acceptance_report: Optional[dict]
+     plot_configs: Optional[list]
+     plot_outputs: Optional[list]
+     visualization_summary: Optional[dict]
+@@ -920,6 +922,9 @@
+     return FoamPydantic(list_foamfile=foamfile_list)
+ 
+ def run_command(script_path: str, out_file: str, err_file: str, working_dir: str, max_time_limit: int) -> dict:
++    if os.getenv("SIMCLINIC_OBSERVED_EXECUTION") == "1":
++        from simclinic.session_execution import run_container
++        return run_container(script_path, out_file, err_file, working_dir, max_time_limit)
+     if os.getenv("SIMCLINIC_DOCKER_IMAGE"):
+         from simclinic.foam_execution import run_container
+         return run_container(script_path, out_file, err_file, working_dir, max_time_limit)

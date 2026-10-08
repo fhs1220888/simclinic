@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "freeze_sha256": "5fe1c82fe06adde350c10362dbe7af080cff010327a0752b33803858217bd3f8",
+  "manifest_sha256": "9f1e77465663e88f61cbafd7dbdb045bbe2d89ad4c128ed750c4ce34c8971b72",
+  "base_file_count": 52,
+  "target_file_count": 53,
+  "target_bytes_match": true,
+  "reverse_restored_all_basis_bytes": true,
+  "source_and_evidence_hashes_verified": true,
+  "protected_file_count": 8,
+  "temporary_environment_removed": true,
+  "new_model_calls": 0,
+  "new_simulations": 0
+}
