@@ -1,0 +1,531 @@
+{
+  "report_version": "1.0",
+  "record_id": "collected-ece9350d609f4fbbabc8f1a19caf80f5",
+  "synthetic": false,
+  "run_id": "eabfbc6d74334b7b8588f6d9fa77fd77",
+  "environment": {
+    "profile": "fixed-channel",
+    "platform": "Linux-7.0.14-orbstack-00380-ga7e0a2dc9535-x86_64-with-glibc2.31",
+    "architecture": "x86_64",
+    "tools": {
+      "bash": {
+        "path": "/usr/bin/bash",
+        "sha256": "025cf78cd9d276019e916b97b0decd10cacb14902db8eb9f28233019babfb331"
+      },
+      "blockMesh": {
+        "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/blockMesh",
+        "sha256": "95bfbbb972225828e10aa7cebc0748caf7fef4e078a87a28fea28ea2a27ff107"
+      },
+      "checkMesh": {
+        "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/checkMesh",
+        "sha256": "914ca1f58834fac140d9088cf83edc576408bcc52639f09d532d35f85f5a3182"
+      },
+      "simpleFoam": {
+        "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/simpleFoam",
+        "sha256": "e2494648b20fabfcee587bd44b6de50e178000509839f5bb63c2918b13aa72be"
+      }
+    },
+    "model_calls": 0,
+    "full_agent_workflow": false,
+    "distribution": "OpenFOAM Foundation",
+    "version": "10",
+    "solver": "simpleFoam",
+    "regime": "steady-incompressible-single-phase",
+    "threads": 1,
+    "wm_options": "linux64GccDPInt32Opt",
+    "bashrc_sha256": "a1726cb7c05f11d05bfb74182b10c00a22d9da9b0fdad47de116e45f9ad4f7d8",
+    "runtime_digest": "2d5f9ac937f22954c9f7d1e6b92586f4e2f73dfb3feb0ef8fb4cfafed39651ca"
+  },
+  "checks": [
+    {
+      "check_id": "preflight",
+      "name": "运行前遗漏检查",
+      "status": "pass",
+      "details": [
+        {
+          "status": "pass",
+          "message": "validate_case 已通过；记录了处理结果。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/6",
+              "event_id": "e7"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/task/required_preflight"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/0",
+              "event_id": "e1"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/1",
+              "event_id": "e2"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/coverage/decisions"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "checkMesh 已通过；记录了处理结果。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/6",
+              "event_id": "e7"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/task/required_preflight"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/3",
+              "event_id": "e4"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/4",
+              "event_id": "e5"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/coverage/decisions"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check_id": "error_continuation",
+      "name": "错误后继续生成结论",
+      "status": "pass",
+      "details": [
+        {
+          "status": "pass",
+          "message": "成功结论前未观察到工具错误。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/7",
+              "event_id": "e8"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/coverage/tools"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "成功结论前未观察到工具错误。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/19",
+              "event_id": "e20"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/coverage/tools"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check_id": "retries",
+      "name": "无效重复重试",
+      "status": "not_applicable",
+      "details": [
+        {
+          "status": "not_applicable",
+          "message": "未观察到失败后的重复调用。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/coverage/tools"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check_id": "stale_results",
+      "name": "引用旧结果",
+      "status": "pass",
+      "details": [
+        {
+          "status": "pass",
+          "message": "引用结果与引用时运行 ID、输入版本一致。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/9",
+              "event_id": "e10"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/21",
+              "file": "log.simpleFoam"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "引用结果与引用时运行 ID、输入版本一致。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/11",
+              "event_id": "e12"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/21",
+              "file": "log.simpleFoam"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "引用结果与引用时运行 ID、输入版本一致。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/13",
+              "event_id": "e14"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/21",
+              "file": "log.simpleFoam"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "引用结果与引用时运行 ID、输入版本一致。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/15",
+              "event_id": "e16"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/24",
+              "file": "postProcessing/sample/103/profile.xy"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "引用结果与引用时运行 ID、输入版本一致。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/17",
+              "event_id": "e18"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/25",
+              "file": "postProcessing/sample/103/pressure.xy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check_id": "completion",
+      "name": "缺少完成证据",
+      "status": "pass",
+      "details": [
+        {
+          "status": "pass",
+          "message": "execution_end (execution): 记录中的验收值满足条件。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/19",
+              "event_id": "e20"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/task/acceptance/0"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/10",
+              "event_id": "e11"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/21",
+              "file": "log.simpleFoam"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "steady_converged (numerical): 记录中的验收值满足条件。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/19",
+              "event_id": "e20"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/task/acceptance/1"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/12",
+              "event_id": "e13"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/21",
+              "file": "log.simpleFoam"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "local_continuity (numerical): 记录中的验收值满足条件。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/19",
+              "event_id": "e20"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/task/acceptance/2"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/14",
+              "event_id": "e15"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/21",
+              "file": "log.simpleFoam"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "profile_error (reference): 记录中的验收值满足条件。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/19",
+              "event_id": "e20"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/task/acceptance/3"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/16",
+              "event_id": "e17"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/24",
+              "file": "postProcessing/sample/103/profile.xy"
+            }
+          ]
+        },
+        {
+          "status": "pass",
+          "message": "pressure_gradient_error (reference): 记录中的验收值满足条件。",
+          "evidence": [
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/19",
+              "event_id": "e20"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/task/acceptance/4"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/events/18",
+              "event_id": "e19"
+            },
+            {
+              "source": "/runs/channel-demo/after/record.json",
+              "pointer": "/artifacts/25",
+              "file": "postProcessing/sample/103/pressure.xy"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "finding": 0,
+    "pass": 4,
+    "insufficient_evidence": 0,
+    "not_applicable": 1
+  },
+  "limitations": [
+    "仅审计已导入证据；记录中的身份和完整性声明需由采集端保证。",
+    "行为检查通过不等于验证仿真正确性或优化效果；应分别核验领域验收与复测。",
+    "LLM 原因解释只能作为假设。"
+  ],
+  "case_files_checked": true,
+  "acceptance_observations": {
+    "stages": {
+      "execution": "met",
+      "numerical": "met",
+      "reference": "met"
+    },
+    "criteria": [
+      {
+        "criterion_id": "execution_end",
+        "description": "求解退出成功且 End 已观测",
+        "stage": "execution",
+        "status": "met",
+        "value": true,
+        "operator": "eq",
+        "target": true,
+        "evidence": [
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/task/acceptance/0"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/events/10",
+            "event_id": "e11"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/artifacts/21",
+            "file": "log.simpleFoam"
+          }
+        ]
+      },
+      {
+        "criterion_id": "steady_converged",
+        "description": "SIMPLE residualControl 收敛标记",
+        "stage": "numerical",
+        "status": "met",
+        "value": true,
+        "operator": "eq",
+        "target": true,
+        "evidence": [
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/task/acceptance/1"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/events/12",
+            "event_id": "e13"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/artifacts/21",
+            "file": "log.simpleFoam"
+          }
+        ]
+      },
+      {
+        "criterion_id": "local_continuity",
+        "description": "末步局部连续性误差",
+        "stage": "numerical",
+        "status": "met",
+        "value": 8.10074078918e-13,
+        "operator": "le",
+        "target": 1e-07,
+        "evidence": [
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/task/acceptance/2"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/events/14",
+            "event_id": "e15"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/artifacts/21",
+            "file": "log.simpleFoam"
+          }
+        ]
+      },
+      {
+        "criterion_id": "profile_error",
+        "description": "速度剖面相对 L2 误差",
+        "stage": "reference",
+        "status": "met",
+        "value": 0.006986786967466754,
+        "operator": "le",
+        "target": 0.02,
+        "evidence": [
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/task/acceptance/3"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/events/16",
+            "event_id": "e17"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/artifacts/24",
+            "file": "postProcessing/sample/103/profile.xy"
+          }
+        ]
+      },
+      {
+        "criterion_id": "pressure_gradient_error",
+        "description": "运动学压力梯度相对误差",
+        "stage": "reference",
+        "status": "met",
+        "value": 0.003935226324550441,
+        "operator": "le",
+        "target": 0.03,
+        "evidence": [
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/task/acceptance/4"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/events/18",
+            "event_id": "e19"
+          },
+          {
+            "source": "/runs/channel-demo/after/record.json",
+            "pointer": "/artifacts/25",
+            "file": "postProcessing/sample/103/pressure.xy"
+          }
+        ]
+      }
+    ],
+    "limitation": "仅对最新可归属测量进行验收比较；与 Agent 完成声明审计分开。"
+  },
+  "candidates": []
+}

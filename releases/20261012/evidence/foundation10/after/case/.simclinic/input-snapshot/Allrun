@@ -1,0 +1,3 @@
+#!/bin/bash
+set -eu
+simpleFoam > log.simpleFoam 2>&1

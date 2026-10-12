@@ -1,0 +1,18 @@
+{
+  "source_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+  "execution_scope": "isolated-upstream-execution-functions",
+  "errors": [],
+  "processes": [
+    {
+      "returncode": 0,
+      "args": [
+        "bash",
+        "-c",
+        "source /opt/openfoam10/etc/bashrc && bash /runs/ended-not-converged/case/Allrun"
+      ],
+      "elapsed_seconds": 3.227062896999996
+    }
+  ],
+  "model_calls": 0,
+  "full_agent_workflow": false
+}

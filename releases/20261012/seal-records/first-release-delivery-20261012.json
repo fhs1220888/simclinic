@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-12",
+  "kind": "final_delivery_material_and_entrypoint_inspection",
+  "status": "pass",
+  "product_version": "0.11.0+collect1",
+  "current_deliverables": [
+    {
+      "purpose": "product_install_and_demo",
+      "path": "dist/simclinic-first-release-trial-20261012.zip",
+      "bytes": 644733,
+      "sha256": "48bb6f3a2dc9a2490197bbf677b9657d14765297e8772f83c0438a63652f9351",
+      "verification": "dist/first-release-trial-delivery-verification-20261012.json"
+    },
+    {
+      "purpose": "future_independent_user_trial_materials",
+      "path": "dist/simclinic-first-user-pilot-20261012.zip",
+      "bytes": 669012,
+      "sha256": "7fa7e298ecf06299c3a81262e53b4a25d074f30b3b0b974eb84f925853960564",
+      "verification": "dist/first-user-pilot-delivery-verification-20261012.json"
+    }
+  ],
+  "current_entry_files_checked": [
+    "README-first-release.md",
+    "dist/first-release-trial-20261012/COLLECT.md",
+    "dist/first-release-trial-20261012/FOUNDATION10.md",
+    "dist/first-release-trial-20261012/INSTALL.md",
+    "dist/first-release-trial-20261012/NOTICE.md",
+    "dist/first-release-trial-20261012/README.md",
+    "dist/first-release-trial-20261012/STATUS.md",
+    "dist/first-release-trial-20261012/WALKTHROUGH.md",
+    "dist/first-user-pilot-20261012/PREPARATION.json",
+    "dist/first-user-pilot-20261012/README.md",
+    "dist/first-user-pilot-20261012/feedback/T01.md",
+    "dist/first-user-pilot-20261012/feedback/T02.md",
+    "dist/first-user-pilot-20261012/feedback/T03.md",
+    "dist/first-user-pilot-20261012/pilot/ACCEPTANCE.md",
+    "dist/first-user-pilot-20261012/pilot/FEEDBACK-TEMPLATE.md",
+    "dist/first-user-pilot-20261012/pilot/PARTICIPANT.md",
+    "dist/first-user-pilot-20261012/pilot/TRACKER.md",
+    "docs/first-release-blockers-20261012.md",
+    "docs/first-release-delivery-20261012.md",
+    "docs/first-release-scope.md",
+    "release/first-release-trial/INSTALL.md",
+    "release/first-release-trial/README.md",
+    "release/first-release-trial/STATUS.md",
+    "release/first-release-trial/WALKTHROUGH.md",
+    "release/first-user-pilot/ACCEPTANCE.md",
+    "release/first-user-pilot/FEEDBACK-TEMPLATE.md",
+    "release/first-user-pilot/PARTICIPANT.md",
+    "release/first-user-pilot/README.md",
+    "release/first-user-pilot/TRACKER.md",
+    "user-trials/first-batch-20261011/README.md",
+    "user-trials/first-batch-20261011/RETURN.md",
+    "user-trials/first-batch-20261011/SESSION-TEMPLATE.md",
+    "user-trials/first-batch-20261011/TRACKER.md",
+    "user-trials/first-batch-20261011/feedback/T01.md",
+    "user-trials/first-batch-20261011/feedback/T02.md",
+    "user-trials/first-batch-20261011/feedback/T03.md",
+    "user-trials/first-batch-20261011/handoff/T01-message.md",
+    "user-trials/first-batch-20261011/handoff/T02-message.md",
+    "user-trials/first-batch-20261011/handoff/T03-message.md",
+    "user-trials/first-batch-20261011/sessions/T01.md",
+    "user-trials/first-batch-20261011/sessions/T02.md",
+    "user-trials/first-batch-20261011/sessions/T03.md",
+    "user-trials/first-batch-20261011/state.json"
+  ],
+  "stale_20261011_product_or_pilot_delivery_targets": [],
+  "reference_scan_scope": "Current repository release entry, final checklist, scope/blockers documents, release templates, live trial notes/state, current package top-level guides and pilot materials. Historical archives and runtime evidence are retained separately.",
+  "historical_references_retained": [
+    {
+      "location": "docs/first-release-distribution.md",
+      "reason": "Chronological distribution history; opening notice links the current final checklist"
+    },
+    {
+      "location": "docs/first-release-scope.md",
+      "reason": "Historical demo1/handoff receipts under existing completion evidence; current product identified at top"
+    },
+    {
+      "location": "docs/first-release-blockers-20261012.json",
+      "reason": "Original inspection of 20261011 archive plus explicit resolved followup"
+    },
+    {
+      "location": "dist/*20261011* and date-specific prior verification files",
+      "reason": "Sealed provenance; not current installation targets"
+    },
+    {
+      "location": "product/receipts, product/evidence and product/STATUS.md",
+      "reason": "Original runtime acceptance and 20261011 snapshot dates; no new runtime conclusions"
+    },
+    {
+      "location": "user-trials/first-batch-20261011",
+      "reason": "Initial directory date preserved; all current material references point to 20261012"
+    }
+  ],
+  "product_zip_unchanged_this_turn": true,
+  "pilot_product_files_byte_identical_to_product_zip": 170,
+  "pilot_crc_and_manifest": "pass",
+  "pilot_manifest_entries_verified": 179,
+  "pilot_local_document_links_verified": 24,
+  "task_and_acceptance_semantics_unchanged": true,
+  "blank_feedback_forms_preserved": 3,
+  "independent_user_trial_status": "deferred_not_verified",
+  "independent_user_counts": {
+    "assigned": 0,
+    "sent": 0,
+    "started": 0,
+    "feedback_received": 0,
+    "independent_pass": 0,
+    "not_started": 3
+  },
+  "license_decision": "deferred_owner_decision_pending",
+  "runtime_calls": {
+    "installation": 0,
+    "package_tests": 0,
+    "shell_cases": 0,
+    "cfd_solvers": 0,
+    "sampling": 0,
+    "models": 0
+  },
+  "feature_changes": 0,
+  "new_cases": 0,
+  "notifications_or_invites_sent": 0,
+  "current_entry_files_checked_count": 43,
+  "current_entry_markdown_links_checked": 95,
+  "missing_entry_links": [],
+  "template_link_resolution": "Release template relative links checked against their current distributed layout",
+  "historical_distribution_current_notice_checked": true
+}

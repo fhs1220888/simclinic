@@ -1,0 +1,8 @@
+<runner>
+Removed files with prefix 'log' in /runs/healthy/case
+Running Allrun (attempt 1/1)
+Executing script /runs/healthy/case/Allrun in /runs/healthy/case
+Executed script /runs/healthy/case/Allrun
+Warning: file log.simpleFoam contains 'error' but does not match expected format.
+Allrun executed successfully without errors.
+</runner>

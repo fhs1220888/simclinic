@@ -1,0 +1,554 @@
+{
+  "schema_version": "1.0",
+  "record_id": "collected-09329ed628f743c1aab02a7d1c86d85e",
+  "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+  "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+  "synthetic": false,
+  "environment": {
+    "profile": "fixed-channel",
+    "platform": "Linux-7.0.14-orbstack-00380-ga7e0a2dc9535-x86_64-with-glibc2.31",
+    "architecture": "x86_64",
+    "tools": {
+      "bash": {
+        "path": "/usr/bin/bash",
+        "sha256": "025cf78cd9d276019e916b97b0decd10cacb14902db8eb9f28233019babfb331"
+      },
+      "blockMesh": {
+        "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/blockMesh",
+        "sha256": "95bfbbb972225828e10aa7cebc0748caf7fef4e078a87a28fea28ea2a27ff107"
+      },
+      "checkMesh": {
+        "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/checkMesh",
+        "sha256": "914ca1f58834fac140d9088cf83edc576408bcc52639f09d532d35f85f5a3182"
+      },
+      "simpleFoam": {
+        "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/simpleFoam",
+        "sha256": "e2494648b20fabfcee587bd44b6de50e178000509839f5bb63c2918b13aa72be"
+      }
+    },
+    "model_calls": 0,
+    "full_agent_workflow": false,
+    "distribution": "OpenFOAM Foundation",
+    "version": "10",
+    "solver": "simpleFoam",
+    "regime": "steady-incompressible-single-phase",
+    "threads": 1,
+    "wm_options": "linux64GccDPInt32Opt",
+    "bashrc_sha256": "a1726cb7c05f11d05bfb74182b10c00a22d9da9b0fdad47de116e45f9ad4f7d8",
+    "runtime_digest": "2d5f9ac937f22954c9f7d1e6b92586f4e2f73dfb3feb0ef8fb4cfafed39651ca"
+  },
+  "task": {
+    "id": "channel-poiseuille-v1",
+    "objective": "固定低 Re 层流通道，满足执行、稳态和解析参考验收。",
+    "required_preflight": [
+      "validate_case",
+      "checkMesh"
+    ],
+    "acceptance": [
+      {
+        "id": "execution_end",
+        "stage": "execution",
+        "operator": "eq",
+        "target": true,
+        "description": "求解退出成功且 End 已观测"
+      },
+      {
+        "id": "steady_converged",
+        "stage": "numerical",
+        "operator": "eq",
+        "target": true,
+        "description": "SIMPLE residualControl 收敛标记"
+      },
+      {
+        "id": "local_continuity",
+        "stage": "numerical",
+        "operator": "le",
+        "target": 1e-07,
+        "description": "末步局部连续性误差"
+      },
+      {
+        "id": "profile_error",
+        "stage": "reference",
+        "operator": "le",
+        "target": 0.02,
+        "description": "速度剖面相对 L2 误差"
+      },
+      {
+        "id": "pressure_gradient_error",
+        "stage": "reference",
+        "operator": "le",
+        "target": 0.03,
+        "description": "运动学压力梯度相对误差"
+      }
+    ]
+  },
+  "agent": {
+    "name": "SimClinic scripted execution harness",
+    "version": "0.2",
+    "upstream_execution_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+    "full_agent_workflow": false,
+    "execution_variant": "baseline",
+    "source_manifest": {
+      "base_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+      "variant": "baseline",
+      "source_files": {
+        "logger.py": "82e0e6b2affdf2832a8d01c3946d1034de9d721ee1db7834f28d2f66c194456a",
+        "local_runner_node.py": "d01e9259e68d487e40e64a0726135bdc5ef8dbe0a35079eb37f534ccbf2150c6",
+        "run_local.py": "2951991cbbd24b4b89959a90a1a3ae07de40344dccdb040732eea8db1ac57949",
+        "utils.py": "96769493618040f60b87dc870b377369ab0d23b692df8d9db6b9aab57154510c"
+      },
+      "loader_sha256": "be0072f573c79b8e630ee0b7cb649c3a3b651d8ed091072f745e3d522cb3f9a7"
+    }
+  },
+  "coverage": {
+    "tools": true,
+    "decisions": true,
+    "references": true,
+    "acceptance": true
+  },
+  "collection_status": "complete",
+  "metrics": {
+    "wall_seconds": 4.444550437008729,
+    "solver_seconds": 2.7560107309982413,
+    "model_tokens": null,
+    "model_cost": null
+  },
+  "input_manifest": {
+    "0/U": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a",
+    "0/p": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a",
+    "constant/momentumTransport": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2",
+    "constant/physicalProperties": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77",
+    "system/blockMeshDict": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e",
+    "system/controlDict": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b",
+    "system/fvSchemes": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab",
+    "system/fvSolution": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df",
+    "system/sample": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152",
+    "Allrun": "2b28300effa026ab39072f107ea7176f6b0d80d3209f197247351ac6ea22c5a8"
+  },
+  "events": [
+    {
+      "id": "e1",
+      "kind": "tool",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "operation": "validate_case",
+      "phase": "preflight",
+      "arguments": {},
+      "outcome": "pass",
+      "exit_code": 0,
+      "input_fingerprint": "803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "error_category": null,
+      "validation": "Foundation10 environment and exact fixed-profile input bytes"
+    },
+    {
+      "id": "e2",
+      "kind": "decision",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "handles": [
+        "e1"
+      ],
+      "action": "allow_mesh"
+    },
+    {
+      "id": "e3",
+      "kind": "tool",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "operation": "blockMesh",
+      "phase": "other",
+      "arguments": {
+        "argv": [
+          "blockMesh"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "f984c5a7cf1aad097249c188d6713a6073fb099d914a9b89969216f9ffc8620d",
+      "error_category": null,
+      "stdout_artifact": "a11",
+      "stderr_artifact": "a12",
+      "elapsed_seconds": 0.5637036840053042
+    },
+    {
+      "id": "e4",
+      "kind": "tool",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "operation": "checkMesh",
+      "phase": "preflight",
+      "arguments": {
+        "argv": [
+          "checkMesh",
+          "-allTopology",
+          "-allGeometry"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "8eb7fd5b1933554fd55f6b38ee7200f5dd8fde576edf7abc8f43d995ed64f2e4",
+      "error_category": null,
+      "stdout_artifact": "a13",
+      "stderr_artifact": "a14",
+      "elapsed_seconds": 0.45420792799268384
+    },
+    {
+      "id": "e5",
+      "kind": "decision",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "handles": [
+        "e4"
+      ],
+      "action": "allow_solve"
+    },
+    {
+      "id": "e6",
+      "kind": "observation",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "observation_type": "execution_service_start",
+      "variant": "baseline"
+    },
+    {
+      "id": "e7",
+      "kind": "tool",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "operation": "Allrun",
+      "phase": "solve",
+      "arguments": {
+        "script": "Allrun"
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "error_category": null,
+      "result_artifact": "a15",
+      "captured_by": "existing upstream Popen.communicate observer"
+    },
+    {
+      "id": "e8",
+      "kind": "claim",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "claim_type": "conclusion",
+      "success": true,
+      "text": "Pinned local_runner_node execution verdict",
+      "artifact_id": "a21"
+    },
+    {
+      "id": "e9",
+      "kind": "tool",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "operation": "sample",
+      "phase": "postprocess",
+      "arguments": {
+        "argv": [
+          "simpleFoam",
+          "-postProcess",
+          "-func",
+          "sample",
+          "-latestTime"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "6ccf9277c74e9b0c367f4bf06935b6fd08804a1b776308ccd58651138bf39729",
+      "error_category": null,
+      "stdout_artifact": "a23",
+      "stderr_artifact": "a24",
+      "elapsed_seconds": 0.6143166719994042
+    },
+    {
+      "id": "e10",
+      "kind": "reference",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "artifact_id": "a22"
+    },
+    {
+      "id": "e11",
+      "kind": "measurement",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "criterion_id": "execution_end",
+      "value": true,
+      "artifact_id": "a22"
+    },
+    {
+      "id": "e12",
+      "kind": "reference",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "artifact_id": "a22"
+    },
+    {
+      "id": "e13",
+      "kind": "measurement",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "criterion_id": "steady_converged",
+      "value": true,
+      "artifact_id": "a22"
+    },
+    {
+      "id": "e14",
+      "kind": "reference",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "artifact_id": "a22"
+    },
+    {
+      "id": "e15",
+      "kind": "measurement",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "criterion_id": "local_continuity",
+      "value": 8.10074078918e-13,
+      "artifact_id": "a22"
+    },
+    {
+      "id": "e16",
+      "kind": "reference",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "artifact_id": "a25"
+    },
+    {
+      "id": "e17",
+      "kind": "measurement",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "criterion_id": "profile_error",
+      "value": 0.006986786967466754,
+      "artifact_id": "a25"
+    },
+    {
+      "id": "e18",
+      "kind": "reference",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "artifact_id": "a26"
+    },
+    {
+      "id": "e19",
+      "kind": "measurement",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "criterion_id": "pressure_gradient_error",
+      "value": 0.003935226324550441,
+      "artifact_id": "a26"
+    },
+    {
+      "id": "e20",
+      "kind": "claim",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "claim_type": "completion",
+      "success": true,
+      "text": "Existing scripted channel acceptance verdict, not a model-generated statement"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "a1",
+      "path": ".simclinic/input-snapshot/Allrun",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "2b28300effa026ab39072f107ea7176f6b0d80d3209f197247351ac6ea22c5a8"
+    },
+    {
+      "id": "a2",
+      "path": ".simclinic/input-snapshot/0/U",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a"
+    },
+    {
+      "id": "a3",
+      "path": ".simclinic/input-snapshot/0/p",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a"
+    },
+    {
+      "id": "a4",
+      "path": ".simclinic/input-snapshot/constant/physicalProperties",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77"
+    },
+    {
+      "id": "a5",
+      "path": ".simclinic/input-snapshot/constant/momentumTransport",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2"
+    },
+    {
+      "id": "a6",
+      "path": ".simclinic/input-snapshot/system/blockMeshDict",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e"
+    },
+    {
+      "id": "a7",
+      "path": ".simclinic/input-snapshot/system/fvSchemes",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab"
+    },
+    {
+      "id": "a8",
+      "path": ".simclinic/input-snapshot/system/fvSolution",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df"
+    },
+    {
+      "id": "a9",
+      "path": ".simclinic/input-snapshot/system/controlDict",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b"
+    },
+    {
+      "id": "a10",
+      "path": ".simclinic/input-snapshot/system/sample",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152"
+    },
+    {
+      "id": "a11",
+      "path": ".simclinic/call-3/stdout.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "f45e7c9c0346cb54e99896f972939511c1a4a5ea27026bd793fc4d233de2fcd2"
+    },
+    {
+      "id": "a12",
+      "path": ".simclinic/call-3/stderr.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a13",
+      "path": ".simclinic/call-4/stdout.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "a1113b92bbc38e3bae05a7e27172e03ec8a7c8973f2d2faf2b0f1948b2a04772"
+    },
+    {
+      "id": "a14",
+      "path": ".simclinic/call-4/stderr.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a15",
+      "path": ".simclinic/upstream.json",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "0ff37a30d02c978da6a51ca4328175191f01f718c5b0a8165cf0fc2c0d078d38"
+    },
+    {
+      "id": "a16",
+      "path": "Allrun.out",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a17",
+      "path": "Allrun.err",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a18",
+      "path": "review.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a19",
+      "path": ".simclinic/service.stdout.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "0a74bb6c49c056d04539bf314bf1f6f047f5e48347c4b6f5d75c5443ab220e5d"
+    },
+    {
+      "id": "a20",
+      "path": ".simclinic/service.stderr.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a21",
+      "path": "workflow.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "0a74bb6c49c056d04539bf314bf1f6f047f5e48347c4b6f5d75c5443ab220e5d"
+    },
+    {
+      "id": "a22",
+      "path": "log.simpleFoam",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "7e0a6cd7ec4470953afa0728e16f0618abb501a82f7d9f43a768d982a1ab9905"
+    },
+    {
+      "id": "a23",
+      "path": ".simclinic/call-9/stdout.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "68cb0ceddf2653816ccaf6e45cdba02fb421edd3ac8a02070f985bd6bee7c18e"
+    },
+    {
+      "id": "a24",
+      "path": ".simclinic/call-9/stderr.log",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a25",
+      "path": "postProcessing/sample/103/profile.xy",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "b4e8dac698945a343533a7fa6b31bea3d33f177c4857818b334ce8717eadc283"
+    },
+    {
+      "id": "a26",
+      "path": "postProcessing/sample/103/pressure.xy",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "5efad0eb825e5ed0c315565f82d14989c4305962502297afe5f93d2647dbb0ee"
+    },
+    {
+      "id": "a27",
+      "path": ".simclinic/acceptance.json",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "sha256": "5092621272b66b34a52718070bf5c1b4f7683a8c51e5027d6fc26e4a1a81ecb1"
+    }
+  ],
+  "collection_scope": {
+    "profile": "fixed-channel",
+    "tools": "Fixed execution-service boundaries; explicit channel preflight/sampling when selected",
+    "decisions": "Registered harness gates and actual pinned runner conclusion; no planner/reviewer",
+    "references": "Results produced and consumed in this fresh case only",
+    "acceptance": "Declared fixed profile only; shell controls have no numerical/reference acceptance"
+  },
+  "fault_injection": false,
+  "scope_terminal_observed": true
+}

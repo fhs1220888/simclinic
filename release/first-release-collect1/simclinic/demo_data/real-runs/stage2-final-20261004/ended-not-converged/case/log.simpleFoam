@@ -1,0 +1,56 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 10-c4cf895ad8fa
+Exec   : simpleFoam
+Date   : Oct 04 2026
+Time   : 18:00:13
+Host   : "0b42330562dd"
+PID    : 554
+I/O    : uncollated
+Case   : /runs/ended-not-converged/case
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+SIMPLE: Convergence criteria found
+        p: tolerance 1e-07
+        U: tolerance 1e-07
+
+Reading field p
+
+Reading field U
+
+Reading/calculating face flux field phi
+
+Selecting viscosity model constant
+Selecting turbulence model type laminar
+Selecting laminar stress model Stokes
+No MRF models present
+
+No fvModels present
+No fvConstraints present
+
+Starting time loop
+
+Time = 1s
+
+smoothSolver:  Solving for Ux, Initial residual = 1, Final residual = 0.0032402882373, No Iterations 3
+smoothSolver:  Solving for Uy, Initial residual = 1, Final residual = 0.00289593312942, No Iterations 4
+GAMG:  Solving for p, Initial residual = 1, Final residual = 0.00605865994644, No Iterations 12
+time step continuity errors : sum local = 1.98370784906e-05, global = -6.09956092606e-06, cumulative = -6.09956092606e-06
+ExecutionTime = 0.113131 s  ClockTime = 0 s
+
+End
+

@@ -1,0 +1,26 @@
+{
+  "values": {
+    "execution_end": true,
+    "steady_converged": true,
+    "local_continuity": 8.10074078918e-13,
+    "profile_error": 0.006986786967466754,
+    "pressure_gradient_error": 0.003935226324550297
+  },
+  "specification": {
+    "length": 1.0,
+    "height": 0.1,
+    "width": 0.01,
+    "mean_velocity": 0.01,
+    "nu": 0.001,
+    "nx": 40,
+    "ny": 20,
+    "profile_relative_l2_tolerance": 0.02,
+    "pressure_gradient_relative_tolerance": 0.03,
+    "continuity_tolerance": 1e-07
+  },
+  "methods": {
+    "profile": "relative L2 against u=6 Umean (y/H)(1-y/H), including Uy/Uz",
+    "pressure": "least-squares dp/dx against -12 nu Umean/H^2; kinematic pressure",
+    "numerical": "SIMPLE residualControl marker plus final local continuity"
+  }
+}

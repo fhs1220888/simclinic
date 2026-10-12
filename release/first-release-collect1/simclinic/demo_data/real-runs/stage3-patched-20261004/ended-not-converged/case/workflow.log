@@ -1,0 +1,8 @@
+<runner>
+Removed files with prefix 'log' in /runs/ended-not-converged/case
+Running Allrun (attempt 1/1)
+Executing script /runs/ended-not-converged/case/Allrun in /runs/ended-not-converged/case
+Executed script /runs/ended-not-converged/case/Allrun
+Warning: file log.simpleFoam contains 'error' but does not match expected format.
+Allrun executed successfully without errors.
+</runner>

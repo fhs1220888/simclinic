@@ -1,0 +1,62 @@
+{
+  "comparison_version": "1.0",
+  "before_record_id": "collected-09329ed628f743c1aab02a7d1c86d85e",
+  "after_record_id": "collected-ece9350d609f4fbbabc8f1a19caf80f5",
+  "synthetic": false,
+  "comparable": true,
+  "incomparability_reasons": [],
+  "check_changes": [
+    {
+      "check_id": "preflight",
+      "before": "pass",
+      "after": "pass"
+    },
+    {
+      "check_id": "error_continuation",
+      "before": "pass",
+      "after": "pass"
+    },
+    {
+      "check_id": "retries",
+      "before": "not_applicable",
+      "after": "not_applicable"
+    },
+    {
+      "check_id": "stale_results",
+      "before": "pass",
+      "after": "pass"
+    },
+    {
+      "check_id": "completion",
+      "before": "pass",
+      "after": "pass"
+    }
+  ],
+  "metrics": {
+    "wall_seconds": {
+      "before": 4.444550437008729,
+      "after": 4.461553361994447,
+      "delta": 0.017002924985717982
+    },
+    "solver_seconds": {
+      "before": 2.7560107309982413,
+      "after": 2.8132829460082576,
+      "delta": 0.057272215010016225
+    },
+    "model_tokens": {
+      "before": null,
+      "after": null,
+      "delta": null
+    },
+    "model_cost": {
+      "before": null,
+      "after": null,
+      "delta": null
+    }
+  },
+  "limitations": [
+    "单对离线记录只作描述比较，不能证明优化效果。",
+    "缺少完成声明可能意味着任务未完成，不能按问题减少声称质量提升。",
+    "下一阶段需要相同环境、质量门禁、保留算例与多次真实运行。"
+  ]
+}

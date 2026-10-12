@@ -2,6 +2,8 @@
 
 [English](README.md) | **[简体中文](README.zh-CN.md)**
 
+20261012首版本地交付已封版，独立安装与已有演示见[首版入口](README-first-release.md)。公开同步范围及暂缓的用户验收在其中说明。
+
 为仿真 Agent 诊断失败原因、提出工具与流程改进，并验证改进是否有效。
 
 **开发版本：0.11.0。** 产品形态为 Python CLI + 仓库内 Skill。

@@ -1,0 +1,37 @@
+{
+  "python": "3.12.11 (main, Jul  8 2025, 20:59:33) [Clang 20.1.4 ]",
+  "python_executable": "/opt/simclinic-venv/bin/python",
+  "package_version": "0.11.0+collect1",
+  "package_location": "/opt/simclinic-venv/lib/python3.12/site-packages/simclinic/__init__.py",
+  "platform": "Linux-7.0.14-orbstack-00380-ga7e0a2dc9535-x86_64-with-glibc2.31",
+  "architecture": "x86_64",
+  "wm_project": "OpenFOAM",
+  "wm_project_version": "10",
+  "wm_project_dir": "/opt/openfoam10",
+  "wm_options": "linux64GccDPInt32Opt",
+  "git": "git version 2.25.1",
+  "os_release": "NAME=\"Ubuntu\"\nVERSION=\"20.04.2 LTS (Focal Fossa)\"\nID=ubuntu\nID_LIKE=debian\nPRETTY_NAME=\"Ubuntu 20.04.2 LTS\"\nVERSION_ID=\"20.04\"\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nVERSION_CODENAME=focal\nUBUNTU_CODENAME=focal\n",
+  "installed_system_packages": "ca-certificates\t20240203~20.04.1\ngit\t1:2.25.1-1ubuntu3.14\nopenfoam10\t20230119\n",
+  "tools": {
+    "blockMesh": {
+      "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/blockMesh",
+      "sha256": "95bfbbb972225828e10aa7cebc0748caf7fef4e078a87a28fea28ea2a27ff107"
+    },
+    "checkMesh": {
+      "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/checkMesh",
+      "sha256": "914ca1f58834fac140d9088cf83edc576408bcc52639f09d532d35f85f5a3182"
+    },
+    "simpleFoam": {
+      "path": "/opt/openfoam10/platforms/linux64GccDPInt32Opt/bin/simpleFoam",
+      "sha256": "e2494648b20fabfcee587bd44b6de50e178000509839f5bb63c2918b13aa72be"
+    },
+    "git": {
+      "path": "/usr/bin/git",
+      "sha256": "c3edb15c9715b79fcfb1fa978256cdfc14a9ad72a4a8d5680a9fc5ebc6a57e0e"
+    },
+    "bash": {
+      "path": "/usr/bin/bash",
+      "sha256": "025cf78cd9d276019e916b97b0decd10cacb14902db8eb9f28233019babfb331"
+    }
+  }
+}

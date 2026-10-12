@@ -1,0 +1,8 @@
+<runner>
+Removed files with prefix 'log' in /tmp/simclinic-collect-eq_w97_r/case
+Running Allrun (attempt 1/1)
+Executing script /tmp/simclinic-collect-eq_w97_r/case/Allrun in /tmp/simclinic-collect-eq_w97_r/case
+Executed script /tmp/simclinic-collect-eq_w97_r/case/Allrun
+Warning: file log.simpleFoam contains 'error' but does not match expected format.
+Allrun executed successfully without errors.
+</runner>

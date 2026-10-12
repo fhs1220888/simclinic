@@ -2,6 +2,8 @@
 
 **[English](README.md)** | [简体中文](README.zh-CN.md)
 
+Sealed first-release baseline and existing demo: [delivery entry](README-first-release.md). Public scope and deferred user acceptance are documented there.
+
 Evidence-based diagnostics and candidate improvements for simulation agents.
 
 **Development version: 0.11.0.** Python CLI + repository-local Skill.

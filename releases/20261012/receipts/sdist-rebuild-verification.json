@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "distribution": "0.11.0+collect1",
+  "wheel_sha256": "14f6893e07e547a7d74fa2453c3ab0292d0d7dbc011613b4b6d14ece7ff962f3",
+  "sdist_sha256": "e5cddf89bf2fd03ab27baf50ddec057e418f78e8aad9a0e864101d509d359f99",
+  "source_rebuilt_outside_repository": true,
+  "package_payload_files": 114,
+  "all_package_payload_bytes_identical": true,
+  "declared_license_files_present": [
+    "NOTICE.md",
+    "LICENSE-Foam-Agent-MIT.txt"
+  ],
+  "new_model_calls": 0,
+  "new_cfd_runs": 0
+}

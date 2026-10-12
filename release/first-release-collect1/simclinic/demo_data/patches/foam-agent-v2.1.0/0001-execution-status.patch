@@ -1,0 +1,59 @@
+--- a/src/utils.py
++++ b/src/utils.py
+@@ -913,7 +913,7 @@
+     
+     return FoamPydantic(list_foamfile=foamfile_list)
+ 
+-def run_command(script_path: str, out_file: str, err_file: str, working_dir: str, max_time_limit: int) -> None:
++def run_command(script_path: str, out_file: str, err_file: str, working_dir: str, max_time_limit: int) -> dict:
+     print(f"Executing script {script_path} in {working_dir}")
+     os.chmod(script_path, 0o777)
+     openfoam_dir = os.getenv("WM_PROJECT_DIR")
+@@ -940,11 +940,13 @@
+             start_new_session=True,
+         )
+ 
++        timed_out = False
+         try:
+             stdout, stderr = process.communicate(timeout=max_time_limit)
+             out.write(stdout)
+             err.write(stderr)
+         except subprocess.TimeoutExpired:
++            timed_out = True
+             os.killpg(os.getpgid(process.pid), signal.SIGKILL) 
+             
+             stdout, stderr = process.communicate()
+@@ -959,6 +961,7 @@
+     
+ 
+     print(f"Executed script {script_path}")
++    return {"exit_code": process.returncode, "timed_out": timed_out}
+ 
+ def check_foam_errors(directory: str) -> list:
+     """Check OpenFOAM log files for errors.
+--- a/src/services/run_local.py
++++ b/src/services/run_local.py
+@@ -59,10 +59,22 @@
+     # Run with retries
+     for attempt in range(1, max_retries + 1):
+         print(f"Running Allrun (attempt {attempt}/{max_retries})")
+-        run_command(allrun_file_path, out_file, err_file, case_dir, timeout)
++        execution = run_command(allrun_file_path, out_file, err_file, case_dir, timeout)
+ 
+         # Inspect
+         error_logs = check_foam_errors(case_dir)
++        if (not isinstance(execution, dict)
++                or type(execution.get("exit_code")) is not int
++                or type(execution.get("timed_out")) is not bool):
++            error_logs.insert(0, {"file": "Allrun", "error_content": "Execution status is unavailable."})
++        elif execution["timed_out"] or execution["exit_code"] != 0:
++            error_logs.insert(0, {
++                "file": "Allrun",
++                "error_content": "Allrun timed out." if execution["timed_out"] else
++                    f"Allrun exited with code {execution['exit_code']}.",
++                "exit_code": execution["exit_code"],
++                "timed_out": execution["timed_out"],
++            })
+         if len(error_logs) == 0:
+             return []
+ 

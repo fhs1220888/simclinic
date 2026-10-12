@@ -1,0 +1,7 @@
+<runner>
+Removed files with prefix 'log' in /runs/no-log-failure/case
+Running Allrun (attempt 1/1)
+Executing script /runs/no-log-failure/case/Allrun in /runs/no-log-failure/case
+Executed script /runs/no-log-failure/case/Allrun
+Allrun executed successfully without errors.
+</runner>
