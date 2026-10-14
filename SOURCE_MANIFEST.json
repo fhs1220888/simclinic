@@ -529,12 +529,12 @@
     {
       "path": "PROJECT-STATUS.md",
       "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
-      "sha256": "313aecf5be8290f47a903ddd065eebddf88b201f6cd25bd3f4fb0e725e4cac97"
+      "sha256": "bb308ceb06d68f3e95b84de4d20c9732696f120fd1f5d2e2fd557ab4cb5b0b1b"
     },
     {
       "path": "README-first-release.md",
       "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
-      "sha256": "f7a7c7f3dce288009cd626177d32efb4a5198c5ac79e21dfe77b7680ca21e7b3"
+      "sha256": "f45db0042243c5618c8f08fdb953362bc1497348c52bd8530274578d6889cffe"
     },
     {
       "path": "README.md",
