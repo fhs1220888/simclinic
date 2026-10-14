@@ -522,6 +522,31 @@
       "reason": "Authored public entrypoint/documentation or declared portable metadata derivative"
     },
     {
+      "path": "LICENSE",
+      "sha256": "13a2e85bc0e1db5bb4083dd1000f1ebb5f1632b1a7b17b767bca3d756849b22f",
+      "reason": "Public README and owner-authorized MIT license"
+    },
+    {
+      "path": "PROJECT-STATUS.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "313aecf5be8290f47a903ddd065eebddf88b201f6cd25bd3f4fb0e725e4cac97"
+    },
+    {
+      "path": "README-first-release.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f7a7c7f3dce288009cd626177d32efb4a5198c5ac79e21dfe77b7680ca21e7b3"
+    },
+    {
+      "path": "README.md",
+      "sha256": "db66ec0f552233ad6ccf1faf20d82c90f797a20e5401b504a620b2969802b0d1",
+      "reason": "English README with language navigation"
+    },
+    {
+      "path": "README.zh-CN.md",
+      "sha256": "90f25f2315ef2f4d678ae5ec476cedcdee4e4bd4dfe6483e280a49e4d1b81e54",
+      "reason": "Simplified Chinese README with equivalent commands and validation scope"
+    },
+    {
       "path": "THIRD_PARTY_NOTICES.md",
       "sha256": "5e71cb2db369600e6a241137d2ec46dd0ecd939927f7ee619ffdc34061dbc076",
       "reason": "Authored public entrypoint/documentation or declared portable metadata derivative"
@@ -552,19 +577,1554 @@
       "reason": "Authored public entrypoint/documentation or declared portable metadata derivative"
     },
     {
-      "path": "README.md",
-      "sha256": "f74e9182b21a51dd0cc35a0442acb83e415509c9a510584bf3ac3e1fc6a042c5",
-      "reason": "English README with language navigation"
+      "path": "release/first-release-collect1/COLLECT.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "7076fdb25f6cf9e72a229aad8866b14de5abfbfb540e83866a741e5894b48560"
     },
     {
-      "path": "LICENSE",
-      "sha256": "13a2e85bc0e1db5bb4083dd1000f1ebb5f1632b1a7b17b767bca3d756849b22f",
-      "reason": "Public README and owner-authorized MIT license"
+      "path": "release/first-release-collect1/INSTALL.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3f285257a25848a07f5f4ddf4075d99fbbfcb7ae196c2e1d4d8238dfa5494f26"
     },
     {
-      "path": "README.zh-CN.md",
-      "sha256": "b12a5ed805fd5611473d7eedfc1f6bb13fc3363003ac0d8aa3eb24f8492f2584",
-      "reason": "Simplified Chinese README with equivalent commands and validation scope"
+      "path": "release/first-release-collect1/LICENSE-Foam-Agent-MIT.txt",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "release/first-release-collect1/MANIFEST.in",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3b8b4b2e0155c6a28aed94e8b3b48bce302730fd05b9098365e3bfc9e4a4fb45"
+    },
+    {
+      "path": "release/first-release-collect1/NOTICE.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "830c7d598f14234677e2f1ed1a206dd038aaef37999b995fa953380129587b61"
+    },
+    {
+      "path": "release/first-release-collect1/README.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "cc092375000b6f481f39125de081c1ba1a38d01c0c94916af014c0ceb6a586a0"
+    },
+    {
+      "path": "release/first-release-collect1/THIRD-PARTY-LICENSES/Foam-Agent-MIT.txt",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "release/first-release-collect1/pyproject.toml",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ad41b5014e61f09ea8ba291caac35a20e1e119de7a823fa0735e98b0e377ccd5"
+    },
+    {
+      "path": "release/first-release-collect1/setup.cfg",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1c473cbaee8da5fc46e7f0158794af5cea4414c34a3cf3f180c2001f5e38bd3e"
+    },
+    {
+      "path": "release/first-release-collect1/setup.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "bef77f31efe88005eaec2ac5a0c1ad6a06e3683ac340833a80077ecbaa168b60"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/__init__.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1ae811d3c8c463530d555154ce7546ab4c024cdb0d6bc2f97cd1059cd1302196"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/__main__.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/_showcase_impl.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6c5ce56b7492e970efddf9db215523c857ee587863340c13db6f6b4dd68eb529"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/advisor/__init__.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "9ac0a2601bf83d75ea33ef48ff8b00761efca196a88f8fa82d771102c548ca39"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/checks/__init__.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "daddb914c33960832d5fef0bc2fdc36bdc3ed42a75c23f0112c8898a5ef682fb"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/checks/behavior.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "be5197a44943d5609e51b35407cd2f90f56eaf74ee950aa6c051612dbdb8bc85"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/cli.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "91c7a036d1c998cc3488f9303dcf137df3bc768fc486fc9731b4466bc5516e29"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/collection.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6b44d1e391c34dc00111f7a850a20d2024997e85c59dd673e322eb5a755c67cb"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/core/__init__.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "c2d5f9093afd4eb100e06c310af661fd397b93f1e739a6fbc41f18e6c9af5c7c"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/core/evidence.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5c428fb5ade5d1c818fdb2c3e3cb771d65ed5465577a089453926d2575c3cd41"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/core/record.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "419f0a8cde20a2a9afe57bac940c388b5f460a59b797cb1f2715039eabc5eeb0"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/core/report.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6c6cea1fb8ba938f69ad82cd2b2d11c9f08348db42851f0e96bdf85478492e81"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/docs/COLLECT.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "7076fdb25f6cf9e72a229aad8866b14de5abfbfb540e83866a741e5894b48560"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/docs/first-release-scope.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "53789b6effd9bf144436bbd96feb91503aa19b43162d5278098693a4e7c9f365"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/docs/record-format.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "39c4ae25ac224d5793f85d6c2ec9fd75620c6d2eeacc80e109ecdc6eee2ec1a9"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/integration/foam_agent_v210/execute.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "be0072f573c79b8e630ee0b7cb649c3a3b651d8ed091072f745e3d522cb3f9a7"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/integration/foam_agent_v210/patched/manifest.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "9fe57f4cc69729c646965e440cf5098f7a720211a3837a5668845d3fe6f8ca02"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/integration/foam_agent_v210/upstream/LICENSE",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/integration/foam_agent_v210/upstream/local_runner_node.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d01e9259e68d487e40e64a0726135bdc5ef8dbe0a35079eb37f534ccbf2150c6"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/integration/foam_agent_v210/upstream/logger.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "82e0e6b2affdf2832a8d01c3946d1034de9d721ee1db7834f28d2f66c194456a"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/integration/foam_agent_v210/upstream/run_local.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2951991cbbd24b4b89959a90a1a3ae07de40344dccdb040732eea8db1ac57949"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/integration/foam_agent_v210/upstream/utils.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "96769493618040f60b87dc870b377369ab0d23b692df8d9db6b9aab57154510c"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/package-provenance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "14a3fb5029525015d62ae8213ab80d45930c500bb6445727e779867744c274e8"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/patches/foam-agent-v2.1.0/0001-execution-status.patch",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "011e9d369021cc6b74914c7730b9172236794470f65c5162d100621d81475424"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/patches/foam-agent-v2.1.0/0002-verified-result-interface.patch",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e250022a92ece9ae3ddbbe2ca0ad3ad7ce4030264de50acd4bc3f6fcc7b0ea8e"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/acceptance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "de75f792c7548fe9e337a1ee68f5b7cac702f6f0a68f63d371452712eed31951"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/call-3/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/call-3/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "abbaa62f744f2f3fe67e6c05d1c1121236362924ca2cc9472b9f5e76f6708a8d"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/call-4/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/call-4/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "10cfa9d948748c7d9de547e3cb3e8fa2d915e26786926432c8be91490dc63161"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/call-6/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/call-6/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6b230a790e7dbbfcbe24c415dab3dcfcfba3fbb837d0b5cfeaa06e4aa12daed9"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/call-9/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/call-9/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "34cedfad03b6d3b35ef2088459a632124237e249fefcd588e72f06d07efba6b0"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "4ebfa97554bb0c28eeaa72f1ff51d4ed81523017bae3139bb99f28ee793a983d"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/.simclinic/upstream.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "c56a83720b64308eb282e3d0a8543acac54cfd93c0a12dfad2b10a4b005359b1"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/log.simpleFoam",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "c41e59807660c1711aebb7112c97aa7c14eda61915ee7339f754c305a86b0e21"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/postProcessing/sample/1/pressure.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b9b034ed0300d8666f477b95947bf52358cfaac7e9ef349c134093d502f63f9d"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/postProcessing/sample/1/profile.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "02474d609a4fe490f9d9f93501135b3ca96a8146fc6116cfa2e0945fa8dd6a5a"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/ended-not-converged/case/workflow.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6b230a790e7dbbfcbe24c415dab3dcfcfba3fbb837d0b5cfeaa06e4aa12daed9"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/acceptance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "9554a34d09fe1ba36567cd5d213a4ed3dc705cab6c5c9283ec327e67fe8f2a5c"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/call-3/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/call-3/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "15f2888588cc33fd43ea100c00f5c97c9bf41845cb9e1ec8b10b55ac065b44f8"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/call-4/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/call-4/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "56377dcf6f2270e2f0558ce624863e8fb64a84abb07c3d1185c97a3287efed68"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/call-6/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/call-6/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e1831bc7d41e448852635a4bc49fa1f1f29fe0b8af270433936a70be4501b554"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/call-9/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/call-9/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ea31a8102bebb0fbd5c13d328b582958c446462557892a76a70e6b71292c6924"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "9d3298adcd9eade81312abbc5b79185f74ed3a78e41490aa069fc10efc2eff94"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/.simclinic/upstream.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e9dee63f2346eecef294d75db2dac81bea2c11c18638a8d91c3242c5b5d4d28c"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/log.simpleFoam",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ae3e62958e5247445602195f0bf9c7b147bd6e8d96562105b4f73aa67e0e4207"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/postProcessing/sample/103/pressure.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5efad0eb825e5ed0c315565f82d14989c4305962502297afe5f93d2647dbb0ee"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/postProcessing/sample/103/profile.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b4e8dac698945a343533a7fa6b31bea3d33f177c4857818b334ce8717eadc283"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/healthy/case/workflow.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e1831bc7d41e448852635a4bc49fa1f1f29fe0b8af270433936a70be4501b554"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/acceptance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ea9ff11706b34032cfc1bace0ca008917a2c889515a26ae0bf0ac189d654e4ea"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/call-3/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/call-3/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "82547fe458f1cc1b68f52814a27a39c8cc068242757a7404cf2c2971dde79a98"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/call-4/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/call-4/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ab4ee0d7392a30460c83c7523856e8d527192ab943e624d90bbed42014b1f038"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/call-6/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/call-6/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "29cf008f9f5827fe167104d1d7269911dd3246ee536d4bc7931bd075d5d2db36"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3898c4ceae0bcbc1a2d1cbaa364307351dabce6e78341e91a35ea5b10217755e"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/.simclinic/upstream.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "717292660455dd67c7192e3cdb208fdb1c2a4683d84e2b700cc352a9ec8229b4"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage2-final-20261004/no-log-failure/case/workflow.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "29cf008f9f5827fe167104d1d7269911dd3246ee536d4bc7931bd075d5d2db36"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/acceptance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "de75f792c7548fe9e337a1ee68f5b7cac702f6f0a68f63d371452712eed31951"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/call-3/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/call-3/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "27a0d80927653f30c46e06106ffa3daa40a07249fdba151f7968677a1208ddbe"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/call-4/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/call-4/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "823a8887cebc2224f07853f8993fc9177f09972ac4f7622fdf676bbdeed6e59f"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/call-6/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/call-6/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6b230a790e7dbbfcbe24c415dab3dcfcfba3fbb837d0b5cfeaa06e4aa12daed9"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/call-9/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/call-9/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "924d1f7f469667d595967fda5fb35f160c061881994af470fffa85f80cf6f5b5"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "275ef2db2431f192703d4cbfce5b9ac9c0afed3aa52d228f66433fd3b997b582"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/.simclinic/upstream.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "eb956082fd47512a1042ea58bbe56980ae7b6fee1360a71f82201a810f6e5071"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/log.simpleFoam",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "a96608a0211932eab02dd09bddce49b8e5d9ed9bb396832e885a4be87372b8af"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/postProcessing/sample/1/pressure.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b9b034ed0300d8666f477b95947bf52358cfaac7e9ef349c134093d502f63f9d"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/postProcessing/sample/1/profile.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "02474d609a4fe490f9d9f93501135b3ca96a8146fc6116cfa2e0945fa8dd6a5a"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/ended-not-converged/case/workflow.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6b230a790e7dbbfcbe24c415dab3dcfcfba3fbb837d0b5cfeaa06e4aa12daed9"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/acceptance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "9554a34d09fe1ba36567cd5d213a4ed3dc705cab6c5c9283ec327e67fe8f2a5c"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/call-3/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/call-3/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "608797d2d6242781d4d6af208166ced3698f6fc09984d02e57463b19ffd9d63b"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/call-4/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/call-4/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "039d02d1faac2903ce57bf61a54c6edf59a79fb3a29ac02e68a7a62b55a037f0"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/call-6/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/call-6/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e1831bc7d41e448852635a4bc49fa1f1f29fe0b8af270433936a70be4501b554"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/call-9/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/call-9/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3070099dfd6e305789a0595ff33d387aa629adf8cabf93453107df4d27e541d0"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "9e3a9bb1d12e2ae4fde59768d0ad261b916c0dcb40f15f16a68212edfcb7b334"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/.simclinic/upstream.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e4b9d7bb6511b3c77ff5709cbbecb970adb0b03a5294e42943bd2b323adac59f"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/log.simpleFoam",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "c1d45612414b9c14d5e62e169132f4a61d246819cbb82dee385a97d4436d839a"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/postProcessing/sample/103/pressure.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5efad0eb825e5ed0c315565f82d14989c4305962502297afe5f93d2647dbb0ee"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/postProcessing/sample/103/profile.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b4e8dac698945a343533a7fa6b31bea3d33f177c4857818b334ce8717eadc283"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/healthy/case/workflow.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e1831bc7d41e448852635a4bc49fa1f1f29fe0b8af270433936a70be4501b554"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/acceptance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ea9ff11706b34032cfc1bace0ca008917a2c889515a26ae0bf0ac189d654e4ea"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/call-3/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/call-3/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "30c04657c43dc3fd61ee0c332f76761d706be53139dcb9877c056aaa8bc2a230"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/call-4/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/call-4/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5cde822f29781703a02d734da5e47d774246093610fb508429dc32fb3c30eb0c"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/call-6/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/call-6/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "91933a9cdd05d0e8bd0eefc875c59427bdb018cab227128cdffdaf3bb1ee323d"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "837f25a088c4d59f44b3dd94b9171cb97908399526b05870e1d0f8cd92d8ad48"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/.simclinic/upstream.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b6fddaf2ccd16651e0ba50da9b53d8ee47cf5bb87f410031b93a55abdbfe0717"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/demo_data/real-runs/stage3-patched-20261004/no-log-failure/case/workflow.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "91933a9cdd05d0e8bd0eefc875c59427bdb018cab227128cdffdaf3bb1ee323d"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/domains/__init__.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f09e6f593c70d41a0c2de62b2f56451a9ae681a9bf188b3e03cdf724b5d0056f"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/domains/openfoam/__init__.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e467a207d8bbb4c45a613be0f80641dc33139f40269901548e79906cb50c8000"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/domains/openfoam/acceptance.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "aba466b82015931da0e2e3669eacdef6b2c1b917fac16dc02a2e4a081eb4bb5f"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/domains/openfoam/channel.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b8ac5c3a3fcd6220eac514a30fef469ddaf69a1f2aa7b04b227ee111df15f498"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/domains/openfoam/logs.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "de68d53764e89df6508cef0144e9e339e7ba2257a813f05c05409d17fab42c6c"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/evaluation/__init__.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2535940e5804cd94a38f19bec621c624ca1e996fbf072f8b48018dfd9b89286a"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/live_collection.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "557d7032b29b2700bcf6d1701fddedf4d7edfab97646eefc891237ee1c5ce62d"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/result_guard.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f2f2610d78de6efe697a5f81e5adee66d789705e28347cbf339663128fb69d53"
+    },
+    {
+      "path": "release/first-release-collect1/simclinic/showcase.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3d4d15a3d30f419a099183a34e444eca12eda0015577fd152b6dabafc5a39df9"
+    },
+    {
+      "path": "release/first-release-collect1/tests/test_distribution.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d81552f421f7d4d166672422890347e575a8ae4be7658fb6efb573b7b5eadc11"
+    },
+    {
+      "path": "release/first-user-pilot/ACCEPTANCE.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "0743c462ff1955128af94bc67d35fe14d84eb06820d2130b96dce79bf80a385e"
+    },
+    {
+      "path": "release/first-user-pilot/FEEDBACK-TEMPLATE.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "331f3b51c9e595ec9a007633bee474de55c0cd275ceea158a21e02ada2565dff"
+    },
+    {
+      "path": "release/first-user-pilot/PARTICIPANT.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "534eca8408fbde410dae78abb2928c85a92c5149dcc0674ac019e02c27b5dd7d"
+    },
+    {
+      "path": "release/first-user-pilot/README.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5576739b814628263d8e197813568a54a0af2f4cd5ad58037c9f13b709d52367"
+    },
+    {
+      "path": "release/first-user-pilot/TRACKER.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e49fa728e29f5e737969e5cf14c744847d206c3491348ab323d6196f916df82a"
+    },
+    {
+      "path": "releases/20261012/.dockerignore",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "0e6c313e19f45938838d9711f066363999cab47188615cbe741e2ae358311a7b"
+    },
+    {
+      "path": "releases/20261012/COLLECT.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d2f396867dd301e105cec989a7bd4379632309b5b17966b90d6ca02b4667a602"
+    },
+    {
+      "path": "releases/20261012/Dockerfile",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "4903e008592188890289cbf450f673aaabb785222ee95978d6b764b1cb49810e"
+    },
+    {
+      "path": "releases/20261012/FOUNDATION10.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "c09b2007dd28c390f9856cb9e42f460876bf06b6a8c9d4a4c2ede16b12d7a919"
+    },
+    {
+      "path": "releases/20261012/INSTALL.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "129f9b01c491203e2311be7bef556e6e8fd6f70e44f45f4f4ad7e00af7cd7478"
+    },
+    {
+      "path": "releases/20261012/LICENSE-Foam-Agent-MIT.txt",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "releases/20261012/NOTICE.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "830c7d598f14234677e2f1ed1a206dd038aaef37999b995fa953380129587b61"
+    },
+    {
+      "path": "releases/20261012/PUBLIC-SYNC-VERIFICATION.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "148cfc8e2cb1f8d6892f4fbc3a40554ef1f11455a041dc536809daf6f2aa5a39"
+    },
+    {
+      "path": "releases/20261012/PUBLICATION.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "c84987c52a73a5e36f0807e192b6f1aad4968575f6c99b553a42bd40a093c35d"
+    },
+    {
+      "path": "releases/20261012/PUBLICATION.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3cb893e4fc6a781ec28d2cec27f4157dbaff37be5bda91d90095173b4c40be3b"
+    },
+    {
+      "path": "releases/20261012/README.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "37cfc4145924c6614ee57872781d2d103fa38ff6ab0ec6f0973fd02ba116c181"
+    },
+    {
+      "path": "releases/20261012/SEALED-PRODUCT-SHA256SUMS",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2281b53e19550990bc8c3602618e1fa8943e66924f01ee2ddfb6f821a639bd0b"
+    },
+    {
+      "path": "releases/20261012/SHA256SUMS",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "08465f70b0d89e802be5213aa184f8032567204a05b61fa549434c4fc3f7f773"
+    },
+    {
+      "path": "releases/20261012/STATUS.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3129d5a8a66c8bbad1b0ec31575a6d349c4598d727e2541116b7aedad7f87b1c"
+    },
+    {
+      "path": "releases/20261012/THIRD-PARTY-LICENSES/Foam-Agent-MIT.txt",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "releases/20261012/WALKTHROUGH.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f48628c22969d10764ef8cf0ef680f14bd58dd2875021774c729f46c69b2ee48"
+    },
+    {
+      "path": "releases/20261012/environment.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e85965015822bfe6be33fcedbc106672460291fe306e6608f815d3520e0f3b6c"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/RESULTS.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "104aa083491f17cb9c06b0de22f97e42e4642b3092cf1ce8a91dbb55c52347e7"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/SEALED-SHA256SUMS",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ab5e7b71d3f7b9ce1d2cf73034b2f674e947dcff037fafced26a653704d7f6e9"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/SHA256SUMS",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "69e4753e635e473746722364dcda27408bbbaef795c70c5454e4f1fe0aa1c9d0"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "212ee4f3c90e703d1f58fe68b63fda87277f9eb9770d6abe5c4eb661323f8b30"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/audit-again/report.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "888410260115719240921ede3c3ca8d7deee4775985be824f453eb1ef2a486f7"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/audit-again/report.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "82b913d4eada52760306b2aeeeedcb0142f87170d127463fe541138a7176f06b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/audit/report.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "888410260115719240921ede3c3ca8d7deee4775985be824f453eb1ef2a486f7"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/audit/report.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "82b913d4eada52760306b2aeeeedcb0142f87170d127463fe541138a7176f06b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/baseline-source/LICENSE",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/baseline-source/run_local.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2951991cbbd24b4b89959a90a1a3ae07de40344dccdb040732eea8db1ac57949"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/baseline-source/utils.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "96769493618040f60b87dc870b377369ab0d23b692df8d9db6b9aab57154510c"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/acceptance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5092621272b66b34a52718070bf5c1b4f7683a8c51e5027d6fc26e4a1a81ecb1"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/call-3/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/call-3/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1f87b63b58918f9a17fc374479beec98d066bb50523a89f64ff8aaf51298f264"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/call-4/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/call-4/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "df879871d2235ca4e4873c01ae116a77b147517e1ff2699661ba8c642603579a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/call-9/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/call-9/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b2b4ca622f3f73cd09ea0306c4144f135b1152670e40e7d53a0669018c6565b8"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/0/U",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/0/p",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/Allrun",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2b28300effa026ab39072f107ea7176f6b0d80d3209f197247351ac6ea22c5a8"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/constant/momentumTransport",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/constant/physicalProperties",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/system/blockMeshDict",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/system/controlDict",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/system/fvSchemes",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/system/fvSolution",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/input-snapshot/system/sample",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "fc5eeab2ffce3fc9e2e169e8fcecdcf5a8ce44eba07bb9e3efa9e5e3a5659038"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/service.stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/service.stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b0fd17d54bd052356c53e23998cc24efaf0631f1508a8e26f25dc65c523cdd4d"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/.simclinic/upstream.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "554fc89d357704d79e01bf4900c81820cf16098bde4ec4dcda44222fb8c73f4f"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/0/U",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/0/p",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/103/U",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e90e039ce571eb1103bc408f508d615b8598acde4135ea064c150db2b6f229f2"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/103/p",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f800f3e8628a844812a6ea9bf4ec2d675a017c69899845a540ef03cec6d554b3"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/103/phi",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8e8c33283b289ebd4f168b2544a421cbf158dd2ffb393c7837d324567977fdf7"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/103/uniform/time",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "a7af0224cd2efaf53c37aa1a89a05db7e598f7f1858e15751be70f28a4b5d8b0"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/Allrun",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2b28300effa026ab39072f107ea7176f6b0d80d3209f197247351ac6ea22c5a8"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/Allrun.err",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/Allrun.out",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/constant/momentumTransport",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/constant/physicalProperties",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/constant/polyMesh/boundary",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2034c8fbfb5ddd9021bac080a6708d2c4f5f3e277affddb16fe8b7f5d443ff30"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/constant/polyMesh/faces",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "7c7a01ac4ef660918c8391101fc108876718592f6bd80ac5cd673ff0be6d4d5a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/constant/polyMesh/neighbour",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "cb98e4b91e1efbf09ab6931bc2d5bed172c3667b63fe7e6f681dbd51613f3f7a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/constant/polyMesh/owner",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "aed7868198c29343e85558767132003090dda4d69c10e3d07a0bd3ee75643715"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/constant/polyMesh/points",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2cc26a85a2040ee1d6da812394da71eed3be6f06a52376b08d6ff1dfd7b6af54"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/constant/polyMesh/sets/twoInternalFacesCells",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b182bf8d55f0d850c489067977825bf78f7aba1efaa2dd5e881c1454da961778"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/log.simpleFoam",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "27b86769e5b2313fb3976f3c9d261087feff6f247bd5bd2a2f004716f887994f"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/postProcessing/sample/103/pressure.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5efad0eb825e5ed0c315565f82d14989c4305962502297afe5f93d2647dbb0ee"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/postProcessing/sample/103/profile.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b4e8dac698945a343533a7fa6b31bea3d33f177c4857818b334ce8717eadc283"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/review.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/system/blockMeshDict",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/system/controlDict",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/system/fvSchemes",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/system/fvSolution",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/system/sample",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/case/workflow.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b0fd17d54bd052356c53e23998cc24efaf0631f1508a8e26f25dc65c523cdd4d"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/collection-summary.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "99c90b24b874dd91beb37334ae71058685dfa668f676f5e6bb54a61194c61d4f"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/patch-application.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "60d534b1d817fe9bac654b456a56e05ed30db6fa76fb27e6cbb7b840b8d8cc83"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/patch-sandbox/LICENSE",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/patch-sandbox/src/services/run_local.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3fe9bc281db8943a50190b5dc51bf7ecfb2f600080bfa35a55c094beb5fba81b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/patch-sandbox/src/services/verified_results.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8aa0737f77920c4351b70f764d8012e3e5448135ee4812f7cca6eacaec4f1ce0"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/patch-sandbox/src/utils.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1c710ccb3d1c00690a753663017b29d80018aecf4fe2e7252ccb9601fbae5d6e"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/patches/0001-execution-status.patch",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "011e9d369021cc6b74914c7730b9172236794470f65c5162d100621d81475424"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/patches/0002-verified-result-interface.patch",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e250022a92ece9ae3ddbbe2ca0ad3ad7ce4030264de50acd4bc3f6fcc7b0ea8e"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "fc5eeab2ffce3fc9e2e169e8fcecdcf5a8ce44eba07bb9e3efa9e5e3a5659038"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/runtime/execute.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "be0072f573c79b8e630ee0b7cb649c3a3b651d8ed091072f745e3d522cb3f9a7"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/runtime/patched/LICENSE",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/runtime/patched/local_runner_node.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d01e9259e68d487e40e64a0726135bdc5ef8dbe0a35079eb37f534ccbf2150c6"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/runtime/patched/logger.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "82e0e6b2affdf2832a8d01c3946d1034de9d721ee1db7834f28d2f66c194456a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/runtime/patched/manifest.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "9fe57f4cc69729c646965e440cf5098f7a720211a3837a5668845d3fe6f8ca02"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/runtime/patched/run_local.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "3fe9bc281db8943a50190b5dc51bf7ecfb2f600080bfa35a55c094beb5fba81b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/runtime/patched/utils.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1c710ccb3d1c00690a753663017b29d80018aecf4fe2e7252ccb9601fbae5d6e"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/runtime/patched/verified_results.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8aa0737f77920c4351b70f764d8012e3e5448135ee4812f7cca6eacaec4f1ce0"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/after/source-manifest.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6a768fdf9c8a98dd9e6a11d6fac858ff7470011595b9da7899c61c339a9c2c8b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8bac8fb539300e5d451fa236149895641c0907991e9ca65a4ba7875d2fcabfe9"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/audit-again/report.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "af061a9355025a74d37400f76a36d5827605a3eb4db5f462e4346fc0d2e31c78"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/audit-again/report.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "071821e265ddfa79cd46c6e9810729ae36f1c4860550b5fdaa2fef603bb5c3c4"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/audit/report.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "af061a9355025a74d37400f76a36d5827605a3eb4db5f462e4346fc0d2e31c78"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/audit/report.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "071821e265ddfa79cd46c6e9810729ae36f1c4860550b5fdaa2fef603bb5c3c4"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/acceptance.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5092621272b66b34a52718070bf5c1b4f7683a8c51e5027d6fc26e4a1a81ecb1"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/call-3/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/call-3/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f45e7c9c0346cb54e99896f972939511c1a4a5ea27026bd793fc4d233de2fcd2"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/call-4/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/call-4/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "a1113b92bbc38e3bae05a7e27172e03ec8a7c8973f2d2faf2b0f1948b2a04772"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/call-9/stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/call-9/stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "68cb0ceddf2653816ccaf6e45cdba02fb421edd3ac8a02070f985bd6bee7c18e"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/0/U",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/0/p",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/Allrun",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2b28300effa026ab39072f107ea7176f6b0d80d3209f197247351ac6ea22c5a8"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/constant/momentumTransport",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/constant/physicalProperties",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/system/blockMeshDict",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/system/controlDict",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/system/fvSchemes",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/system/fvSolution",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/input-snapshot/system/sample",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "0a450aaa0b4ce8a914fe594d8b53f5511d360fd5ea9704cb9a96d726cebb0d7d"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/service.stderr.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/service.stdout.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "0a74bb6c49c056d04539bf314bf1f6f047f5e48347c4b6f5d75c5443ab220e5d"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/.simclinic/upstream.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "0ff37a30d02c978da6a51ca4328175191f01f718c5b0a8165cf0fc2c0d078d38"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/0/U",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/0/p",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/103/U",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e90e039ce571eb1103bc408f508d615b8598acde4135ea064c150db2b6f229f2"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/103/p",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f800f3e8628a844812a6ea9bf4ec2d675a017c69899845a540ef03cec6d554b3"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/103/phi",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8e8c33283b289ebd4f168b2544a421cbf158dd2ffb393c7837d324567977fdf7"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/103/uniform/time",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "a7af0224cd2efaf53c37aa1a89a05db7e598f7f1858e15751be70f28a4b5d8b0"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/Allrun",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2b28300effa026ab39072f107ea7176f6b0d80d3209f197247351ac6ea22c5a8"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/Allrun.err",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/Allrun.out",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/constant/momentumTransport",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/constant/physicalProperties",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/constant/polyMesh/boundary",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2034c8fbfb5ddd9021bac080a6708d2c4f5f3e277affddb16fe8b7f5d443ff30"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/constant/polyMesh/faces",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "7c7a01ac4ef660918c8391101fc108876718592f6bd80ac5cd673ff0be6d4d5a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/constant/polyMesh/neighbour",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "cb98e4b91e1efbf09ab6931bc2d5bed172c3667b63fe7e6f681dbd51613f3f7a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/constant/polyMesh/owner",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "aed7868198c29343e85558767132003090dda4d69c10e3d07a0bd3ee75643715"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/constant/polyMesh/points",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2cc26a85a2040ee1d6da812394da71eed3be6f06a52376b08d6ff1dfd7b6af54"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/constant/polyMesh/sets/twoInternalFacesCells",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b182bf8d55f0d850c489067977825bf78f7aba1efaa2dd5e881c1454da961778"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/log.simpleFoam",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "7e0a6cd7ec4470953afa0728e16f0618abb501a82f7d9f43a768d982a1ab9905"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/postProcessing/sample/103/pressure.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "5efad0eb825e5ed0c315565f82d14989c4305962502297afe5f93d2647dbb0ee"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/postProcessing/sample/103/profile.xy",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b4e8dac698945a343533a7fa6b31bea3d33f177c4857818b334ce8717eadc283"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/review.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/system/blockMeshDict",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/system/controlDict",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/system/fvSchemes",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/system/fvSolution",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/system/sample",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/case/workflow.log",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "0a74bb6c49c056d04539bf314bf1f6f047f5e48347c4b6f5d75c5443ab220e5d"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/collection-summary.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "28b9fd094ed9a731223ce1a65322208f0714b707d699736b3a3878371defd761"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/record.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "0a450aaa0b4ce8a914fe594d8b53f5511d360fd5ea9704cb9a96d726cebb0d7d"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/runtime/execute.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "be0072f573c79b8e630ee0b7cb649c3a3b651d8ed091072f745e3d522cb3f9a7"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/runtime/upstream/LICENSE",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e8b20121736f503d30beee3197be3463c77b61edf443d507c14c7dc699b9a9ca"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/runtime/upstream/local_runner_node.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d01e9259e68d487e40e64a0726135bdc5ef8dbe0a35079eb37f534ccbf2150c6"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/runtime/upstream/logger.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "82e0e6b2affdf2832a8d01c3946d1034de9d721ee1db7834f28d2f66c194456a"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/runtime/upstream/run_local.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2951991cbbd24b4b89959a90a1a3ae07de40344dccdb040732eea8db1ac57949"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/runtime/upstream/utils.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "96769493618040f60b87dc870b377369ab0d23b692df8d9db6b9aab57154510c"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/before/source-manifest.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e842f812b039c5bf0ad121f7f04a0f2cd4309956ed0807fec65d9098121cc084"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/comparison.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "b23d3c359a11d143e3bcdf9231210ae00b987421e27d53d2a5c68414708716fc"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/environment.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6b673dc5cb04bf54828ef3d3a8f0e28e0957658b8c73a886729296a05604c9c2"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/installation-verification.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "06d1e67c4e722ddcfa41fc9d88196d439a1129d9fce80b91c38259295b9cb787"
+    },
+    {
+      "path": "releases/20261012/evidence/foundation10/verification.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "7b3571d12e40c20de2f4b5d770fedbb9d375c49f2f7b43fdbc3d153ec13da1b7"
+    },
+    {
+      "path": "releases/20261012/patches/0001-execution-status.patch",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "011e9d369021cc6b74914c7730b9172236794470f65c5162d100621d81475424"
+    },
+    {
+      "path": "releases/20261012/patches/0002-verified-result-interface.patch",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e250022a92ece9ae3ddbbe2ca0ad3ad7ce4030264de50acd4bc3f6fcc7b0ea8e"
+    },
+    {
+      "path": "releases/20261012/pilot/ACCEPTANCE.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "0743c462ff1955128af94bc67d35fe14d84eb06820d2130b96dce79bf80a385e"
+    },
+    {
+      "path": "releases/20261012/pilot/FEEDBACK-TEMPLATE.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "331f3b51c9e595ec9a007633bee474de55c0cd275ceea158a21e02ada2565dff"
+    },
+    {
+      "path": "releases/20261012/pilot/PARTICIPANT.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d1be0030e136c35b25388379f841d69b8b282bc1fe25c94584c3880bf5be5086"
+    },
+    {
+      "path": "releases/20261012/pilot/TRACKER.md",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e49fa728e29f5e737969e5cf14c744847d206c3491348ab323d6196f916df82a"
+    },
+    {
+      "path": "releases/20261012/receipts/clean-install-verification.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "d6d4ff5041eb10a7db1b9ea9a673fa3d0fd08a2fac60b8082366b38d1c1a90c5"
+    },
+    {
+      "path": "releases/20261012/receipts/foundation10-delivery-verification.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ca8d0e71e00c1b1960734ac70d59c269159178bef4459c1cdd9f64df94eff783"
+    },
+    {
+      "path": "releases/20261012/receipts/foundation10-environment.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "6b673dc5cb04bf54828ef3d3a8f0e28e0957658b8c73a886729296a05604c9c2"
+    },
+    {
+      "path": "releases/20261012/receipts/foundation10-installation-verification.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "06d1e67c4e722ddcfa41fc9d88196d439a1129d9fce80b91c38259295b9cb787"
+    },
+    {
+      "path": "releases/20261012/receipts/foundation10-verification.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "7b3571d12e40c20de2f4b5d770fedbb9d375c49f2f7b43fdbc3d153ec13da1b7"
+    },
+    {
+      "path": "releases/20261012/receipts/sdist-rebuild-verification.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "2e6191f6b7dacec94851a24fc4b5c79d60f17b663091240f6b09f292246c36ae"
+    },
+    {
+      "path": "releases/20261012/run-channel.sh",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "ba9cc113bcef04cc986632dcf997bedc8cb9fb9edde5f8b61a6ff05cc0584e32"
+    },
+    {
+      "path": "releases/20261012/seal-records/first-release-delivery-20261012.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e0b3cd97cd1b6899c2c3ba80144e7e4ab3e7f40701eb96156bb4eb8958904990"
+    },
+    {
+      "path": "releases/20261012/seal-records/first-release-seal-verification-20261012.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "651eab59b4a66125d84e66774fb93903965f2b0452f1fbcd65a825c4cdb270e2"
+    },
+    {
+      "path": "releases/20261012/seal-records/first-release-trial-delivery-verification-20261012.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "89d9db3f74533669d7ecd24b2aab9acde88b9ebb85b563e90eb5d5dc691e293d"
+    },
+    {
+      "path": "releases/20261012/seal-records/first-user-pilot-delivery-verification-20261012.json",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "47f898e58bb6977692c9002d8407ab7f9c10ffff404e1ac2539049eaf5fc7e31"
+    },
+    {
+      "path": "releases/20261012/simclinic-0.11.0+collect1-py3-none-any.whl",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "14f6893e07e547a7d74fa2453c3ab0292d0d7dbc011613b4b6d14ece7ff962f3"
+    },
+    {
+      "path": "releases/20261012/simclinic-0.11.0+collect1.tar.gz",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "e5cddf89bf2fd03ab27baf50ddec057e418f78e8aad9a0e864101d509d359f99"
+    },
+    {
+      "path": "releases/20261012/verify-channel.py",
+      "reason": "First-release public selection or current entry; exact source and archive hashes are recorded in releases/20261012/PUBLICATION.json",
+      "sha256": "a888ce1ef947431fb607ce01e99fe59f36cb07db46f38a77e33f320a6dfc9a80"
     }
   ],
   "excluded_trees": [
@@ -576,5 +2136,12 @@
     "benchmarks/diagnostics-v1/data"
   ],
   "historical_archives_modified": false,
-  "source_copy_is_not_a_frozen_execution_archive": true
+  "source_copy_is_not_a_frozen_execution_archive": true,
+  "first_release_sync": {
+    "baseline": "20261012",
+    "selection_manifest": "releases/20261012/PUBLICATION.json",
+    "local_sealed_archives_unchanged": true,
+    "complete_sealed_zip_upload_deferred": true,
+    "runtime_feature_changes": 0
+  }
 }

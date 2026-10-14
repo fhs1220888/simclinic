@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-12",
+  "kind": "static_release_seal_verification",
+  "status": "pass",
+  "release_status": "sealed",
+  "release_id": "simclinic-first-release-20261012",
+  "sealed_directory": "dist/first-release-sealed-20261012",
+  "sealed_files": 10,
+  "manifest_entries_verified": 9,
+  "seal_metadata_sha256": "22aa1acb8a2ac0932c87d99cf5f4b816d5176fdfa18651ca6fe271135e256592",
+  "total_manifest_sha256": "5d7da20cbfe33b2af8667accb01ac2f59c7ed6cd824f720fdbae04effe244600",
+  "sealed_file_hashes": {
+    "README.md": "26eb3e423d8374ac4db0554567b1328439dec8cff25e31d89576e75b1d0f72fa",
+    "SEAL.json": "22aa1acb8a2ac0932c87d99cf5f4b816d5176fdfa18651ca6fe271135e256592",
+    "SHA256SUMS": "5d7da20cbfe33b2af8667accb01ac2f59c7ed6cd824f720fdbae04effe244600",
+    "first-release-delivery-20261012.json": "e0b3cd97cd1b6899c2c3ba80144e7e4ab3e7f40701eb96156bb4eb8958904990",
+    "first-release-trial-delivery-verification-20261012.json": "89d9db3f74533669d7ecd24b2aab9acde88b9ebb85b563e90eb5d5dc691e293d",
+    "first-user-pilot-delivery-verification-20261012.json": "47f898e58bb6977692c9002d8407ab7f9c10ffff404e1ac2539049eaf5fc7e31",
+    "pilot-files-SHA256SUMS": "1d1258182301dc9aa67dc23c40c90613fe83b8448acb94770cb42fabecf1f3ca",
+    "product-files-SHA256SUMS": "2281b53e19550990bc8c3602618e1fa8943e66924f01ee2ddfb6f821a639bd0b",
+    "simclinic-first-release-trial-20261012.zip": "48bb6f3a2dc9a2490197bbf677b9657d14765297e8772f83c0438a63652f9351",
+    "simclinic-first-user-pilot-20261012.zip": "7fa7e298ecf06299c3a81262e53b4a25d074f30b3b0b974eb84f925853960564"
+  },
+  "fixed_repository_files": {
+    "dist/simclinic-first-release-trial-20261012.zip": {
+      "bytes": 644733,
+      "sha256": "48bb6f3a2dc9a2490197bbf677b9657d14765297e8772f83c0438a63652f9351"
+    },
+    "dist/simclinic-first-user-pilot-20261012.zip": {
+      "bytes": 669012,
+      "sha256": "7fa7e298ecf06299c3a81262e53b4a25d074f30b3b0b974eb84f925853960564"
+    },
+    "dist/first-release-trial-delivery-verification-20261012.json": {
+      "bytes": 2850,
+      "sha256": "89d9db3f74533669d7ecd24b2aab9acde88b9ebb85b563e90eb5d5dc691e293d"
+    },
+    "dist/first-user-pilot-delivery-verification-20261012.json": {
+      "bytes": 1616,
+      "sha256": "47f898e58bb6977692c9002d8407ab7f9c10ffff404e1ac2539049eaf5fc7e31"
+    },
+    "docs/first-release-delivery-20261012.json": {
+      "bytes": 5631,
+      "sha256": "e0b3cd97cd1b6899c2c3ba80144e7e4ab3e7f40701eb96156bb4eb8958904990"
+    },
+    "docs/first-release-summary-20261012.md": {
+      "bytes": 1849,
+      "sha256": "77c6883fea9d2802bacb91d3c03a255cfd6fee1d03214a1c5218664d8ec02fbb"
+    },
+    "docs/first-release-delivery-20261012.md": {
+      "bytes": 4863,
+      "sha256": "c13b64278591ea0b330f7eb377c0252f81546e8a1d02d91328b9e0466199be23"
+    }
+  },
+  "all_original_package_and_dated_record_hashes_preserved": true,
+  "product_manifest_entries_verified": 169,
+  "pilot_manifest_entries_verified": 179,
+  "pilot_product_files_byte_identical": 170,
+  "zip_crc": "pass",
+  "record_archive_correspondence": "pass",
+  "read_only_file_protection": "pass",
+  "runtime_calls": {
+    "installation": 0,
+    "package_tests": 0,
+    "shell_cases": 0,
+    "cfd_solvers": 0,
+    "sampling": 0,
+    "models": 0
+  },
+  "feature_changes": 0,
+  "new_cases": 0,
+  "notifications_or_invites_sent": 0,
+  "license_decision": "deferred_owner_decision_pending",
+  "independent_user_trials": "deferred_not_verified",
+  "independent_user_counts": {
+    "assigned": 0,
+    "sent": 0,
+    "started": 0,
+    "feedback_received": 0,
+    "independent_pass": 0,
+    "not_started": 3
+  },
+  "changed_document_local_links_verified": 52,
+  "read_only_files_verified": 18
+}

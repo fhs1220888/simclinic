@@ -1,0 +1,177 @@
+{
+  "status": "pass",
+  "purpose": "Independent Foundation10 installation acceptance for the existing healthy channel",
+  "full_agent_workflow": false,
+  "model_calls": 0,
+  "solver_runs": 2,
+  "sampling_calls": 2,
+  "new_cases": 0,
+  "runs": [
+    {
+      "variant": "baseline",
+      "run_id": "82d58ad1a9c147c799843ff5e43046d9",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "measurements": {
+        "execution_end": true,
+        "steady_converged": true,
+        "local_continuity": 8.10074078918e-13,
+        "profile_error": 0.006986786967466754,
+        "pressure_gradient_error": 0.003935226324550441
+      },
+      "audit_summary": {
+        "finding": 0,
+        "pass": 4,
+        "insufficient_evidence": 0,
+        "not_applicable": 1
+      },
+      "verified_artifacts": 27,
+      "record_sha256": "0a450aaa0b4ce8a914fe594d8b53f5511d360fd5ea9704cb9a96d726cebb0d7d",
+      "acceptance_stages": {
+        "execution": "met",
+        "numerical": "met",
+        "reference": "met"
+      },
+      "record": "before/record.json"
+    },
+    {
+      "variant": "patched",
+      "run_id": "eabfbc6d74334b7b8588f6d9fa77fd77",
+      "input_version": "sha256:803d3a01b44f7e862611fceab30da2ae82c72fa003eecc5dc60cc6ff9529e80b",
+      "measurements": {
+        "execution_end": true,
+        "steady_converged": true,
+        "local_continuity": 8.10074078918e-13,
+        "profile_error": 0.006986786967466754,
+        "pressure_gradient_error": 0.003935226324550441
+      },
+      "audit_summary": {
+        "finding": 0,
+        "pass": 4,
+        "insufficient_evidence": 0,
+        "not_applicable": 1
+      },
+      "verified_artifacts": 27,
+      "record_sha256": "fc5eeab2ffce3fc9e2e169e8fcecdcf5a8ce44eba07bb9e3efa9e5e3a5659038",
+      "acceptance_stages": {
+        "execution": "met",
+        "numerical": "met",
+        "reference": "met"
+      },
+      "record": "after/record.json"
+    }
+  ],
+  "comparison": {
+    "comparison_version": "1.0",
+    "before_record_id": "collected-09329ed628f743c1aab02a7d1c86d85e",
+    "after_record_id": "collected-ece9350d609f4fbbabc8f1a19caf80f5",
+    "synthetic": false,
+    "comparable": true,
+    "incomparability_reasons": [],
+    "check_changes": [
+      {
+        "check_id": "preflight",
+        "before": "pass",
+        "after": "pass"
+      },
+      {
+        "check_id": "error_continuation",
+        "before": "pass",
+        "after": "pass"
+      },
+      {
+        "check_id": "retries",
+        "before": "not_applicable",
+        "after": "not_applicable"
+      },
+      {
+        "check_id": "stale_results",
+        "before": "pass",
+        "after": "pass"
+      },
+      {
+        "check_id": "completion",
+        "before": "pass",
+        "after": "pass"
+      }
+    ],
+    "metrics": {
+      "wall_seconds": {
+        "before": 4.444550437008729,
+        "after": 4.461553361994447,
+        "delta": 0.017002924985717982
+      },
+      "solver_seconds": {
+        "before": 2.7560107309982413,
+        "after": 2.8132829460082576,
+        "delta": 0.057272215010016225
+      },
+      "model_tokens": {
+        "before": null,
+        "after": null,
+        "delta": null
+      },
+      "model_cost": {
+        "before": null,
+        "after": null,
+        "delta": null
+      }
+    },
+    "limitations": [
+      "单对离线记录只作描述比较，不能证明优化效果。",
+      "缺少完成声明可能意味着任务未完成，不能按问题减少声称质量提升。",
+      "下一阶段需要相同环境、质量门禁、保留算例与多次真实运行。"
+    ]
+  },
+  "patch_application": {
+    "base_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+    "commands": [
+      {
+        "command": [
+          "git",
+          "apply",
+          "--check",
+          "/runs/channel-demo/after/patches/0001-execution-status.patch"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "apply",
+          "/runs/channel-demo/after/patches/0001-execution-status.patch"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "apply",
+          "--check",
+          "/runs/channel-demo/after/patches/0002-verified-result-interface.patch"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "apply",
+          "/runs/channel-demo/after/patches/0002-verified-result-interface.patch"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "applied_snapshot_matches_existing_candidate": true
+  },
+  "limitations": [
+    "One existing case, two runs; no optimization or performance claim.",
+    "Tested Linux amd64 container on macOS arm64; no native macOS solver or other platform claim."
+  ]
+}

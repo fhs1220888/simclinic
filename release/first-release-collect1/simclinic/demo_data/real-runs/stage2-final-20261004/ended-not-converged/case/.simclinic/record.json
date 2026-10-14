@@ -1,0 +1,453 @@
+{
+  "schema_version": "1.0",
+  "record_id": "collected-e9b1dedafa934e8f80f3f9a84a6c76c5",
+  "run_id": "982d74e68eb54df9b2e83f9d98464145",
+  "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+  "synthetic": false,
+  "environment": {
+    "image_id": "sha256:d6ff1f9a2e7bc3c9177f373bebbdeb542fd8b49144afc24d5e3a3cd9bfae253d",
+    "image_repo_digests": [
+      "openfoam/openfoam10-paraview510@sha256:d6ff1f9a2e7bc3c9177f373bebbdeb542fd8b49144afc24d5e3a3cd9bfae253d"
+    ],
+    "architecture": "amd64",
+    "platform": "linux/amd64",
+    "cpu_limit": 2,
+    "agent_source_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+    "distribution": "OpenFOAM Foundation",
+    "version": "10",
+    "solver": "simpleFoam",
+    "regime": "steady-incompressible-single-phase",
+    "threads": 1,
+    "wm_options": "linux64GccDPInt32Opt",
+    "runtime_digest": "40ed99fd3c7ad9e4e7ec26139aea1057569b71b3f83b09746840ee2ccfe82116"
+  },
+  "task": {
+    "id": "channel-poiseuille-v1",
+    "objective": "固定低 Re 层流通道，满足执行、稳态和解析参考验收。",
+    "required_preflight": [
+      "validate_case",
+      "checkMesh"
+    ],
+    "acceptance": [
+      {
+        "id": "execution_end",
+        "stage": "execution",
+        "operator": "eq",
+        "target": true,
+        "description": "求解退出成功且 End 已观测"
+      },
+      {
+        "id": "steady_converged",
+        "stage": "numerical",
+        "operator": "eq",
+        "target": true,
+        "description": "SIMPLE residualControl 收敛标记"
+      },
+      {
+        "id": "local_continuity",
+        "stage": "numerical",
+        "operator": "le",
+        "target": 1e-07,
+        "description": "末步局部连续性误差"
+      },
+      {
+        "id": "profile_error",
+        "stage": "reference",
+        "operator": "le",
+        "target": 0.02,
+        "description": "速度剖面相对 L2 误差"
+      },
+      {
+        "id": "pressure_gradient_error",
+        "stage": "reference",
+        "operator": "le",
+        "target": 0.03,
+        "description": "运动学压力梯度相对误差"
+      }
+    ]
+  },
+  "agent": {
+    "name": "SimClinic scripted execution harness",
+    "version": "0.2",
+    "upstream_execution_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+    "full_agent_workflow": false
+  },
+  "coverage": {
+    "tools": true,
+    "decisions": true,
+    "references": true,
+    "acceptance": true
+  },
+  "collection_status": "complete",
+  "metrics": {
+    "wall_seconds": 5.5058356300000355,
+    "solver_seconds": 3.227062896999996,
+    "model_tokens": null,
+    "model_cost": null
+  },
+  "input_manifest": {
+    "0/U": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a",
+    "0/p": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a",
+    "constant/momentumTransport": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2",
+    "constant/physicalProperties": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77",
+    "system/blockMeshDict": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e",
+    "system/controlDict": "ef7226a9672dc8717894a8b56b3cd1d94b96c0969eb98bca843ce1db8fdf1a24",
+    "system/fvSchemes": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab",
+    "system/fvSolution": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df",
+    "system/sample": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152",
+    "Allrun": "2b28300effa026ab39072f107ea7176f6b0d80d3209f197247351ac6ea22c5a8"
+  },
+  "events": [
+    {
+      "id": "e1",
+      "kind": "tool",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "operation": "validate_case",
+      "phase": "preflight",
+      "arguments": {},
+      "outcome": "pass",
+      "exit_code": 0,
+      "input_fingerprint": "7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "error_category": null,
+      "validation": "version guard and generated benchmark inputs"
+    },
+    {
+      "id": "e2",
+      "kind": "decision",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "handles": [
+        "e1"
+      ],
+      "action": "allow_mesh"
+    },
+    {
+      "id": "e3",
+      "kind": "tool",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "operation": "blockMesh",
+      "phase": "other",
+      "arguments": {
+        "argv": [
+          "blockMesh"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "66881b72d65d0ea2f30ceb6b26af7713ffc4d421beccee2ff5a0baedfa6dfa54",
+      "error_category": null,
+      "stdout_artifact": "a1",
+      "stderr_artifact": "a2",
+      "elapsed_seconds": 0.5932191070000385
+    },
+    {
+      "id": "e4",
+      "kind": "tool",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "operation": "checkMesh",
+      "phase": "preflight",
+      "arguments": {
+        "argv": [
+          "checkMesh",
+          "-allTopology",
+          "-allGeometry"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "45e35dfa4cbc7dcdec8639791347897f9fe9c35044413259016c737aba457f9f",
+      "error_category": null,
+      "stdout_artifact": "a3",
+      "stderr_artifact": "a4",
+      "elapsed_seconds": 0.606195691000039
+    },
+    {
+      "id": "e5",
+      "kind": "decision",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "handles": [
+        "e4"
+      ],
+      "action": "allow_solve"
+    },
+    {
+      "id": "e6",
+      "kind": "tool",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "operation": "Foam-Agent execution service",
+      "phase": "other",
+      "arguments": {
+        "argv": [
+          "/usr/bin/python3",
+          "/workspace/integration/foam_agent_v210/execute.py",
+          "/runs/ended-not-converged/case"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "af9de6d6fe7ca3d366f6eb76d4460d2e42d7f571f01cbac5fafbbb94121ab435",
+      "error_category": null,
+      "stdout_artifact": "a5",
+      "stderr_artifact": "a6",
+      "elapsed_seconds": 3.411658848000002
+    },
+    {
+      "id": "e7",
+      "kind": "tool",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "operation": "Allrun",
+      "phase": "solve",
+      "arguments": {
+        "script": "Allrun"
+      },
+      "outcome": "pass",
+      "exit_code": 0,
+      "input_fingerprint": "7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "error_category": null,
+      "result_artifact": "a7",
+      "captured_by": "upstream Popen.communicate observation"
+    },
+    {
+      "id": "e8",
+      "kind": "claim",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "claim_type": "conclusion",
+      "success": true,
+      "text": "Pinned local_runner_node execution verdict",
+      "artifact_id": "a8"
+    },
+    {
+      "id": "e9",
+      "kind": "tool",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "operation": "sample",
+      "phase": "postprocess",
+      "arguments": {
+        "argv": [
+          "simpleFoam",
+          "-postProcess",
+          "-func",
+          "sample",
+          "-latestTime"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "6d176ae869c2e87b51b55a69b0168d06d942e415ae2cf7a017933853ad8147bd",
+      "error_category": null,
+      "stdout_artifact": "a10",
+      "stderr_artifact": "a11",
+      "elapsed_seconds": 0.860522302999982
+    },
+    {
+      "id": "e10",
+      "kind": "reference",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e11",
+      "kind": "measurement",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "criterion_id": "execution_end",
+      "value": true,
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e12",
+      "kind": "reference",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e13",
+      "kind": "measurement",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "criterion_id": "steady_converged",
+      "value": false,
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e14",
+      "kind": "reference",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e15",
+      "kind": "measurement",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "criterion_id": "local_continuity",
+      "value": 1.98370784906e-05,
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e16",
+      "kind": "reference",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "artifact_id": "a12"
+    },
+    {
+      "id": "e17",
+      "kind": "measurement",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "criterion_id": "profile_error",
+      "value": 0.27799370080374836,
+      "artifact_id": "a12"
+    },
+    {
+      "id": "e18",
+      "kind": "reference",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "artifact_id": "a13"
+    },
+    {
+      "id": "e19",
+      "kind": "measurement",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "criterion_id": "pressure_gradient_error",
+      "value": 1.634830241038154,
+      "artifact_id": "a13"
+    },
+    {
+      "id": "e20",
+      "kind": "claim",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "claim_type": "completion",
+      "success": false,
+      "text": "Scripted harness acceptance verdict, not a model-generated statement"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "a1",
+      "path": ".simclinic/call-3/stdout.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "abbaa62f744f2f3fe67e6c05d1c1121236362924ca2cc9472b9f5e76f6708a8d"
+    },
+    {
+      "id": "a2",
+      "path": ".simclinic/call-3/stderr.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a3",
+      "path": ".simclinic/call-4/stdout.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "10cfa9d948748c7d9de547e3cb3e8fa2d915e26786926432c8be91490dc63161"
+    },
+    {
+      "id": "a4",
+      "path": ".simclinic/call-4/stderr.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a5",
+      "path": ".simclinic/call-6/stdout.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "6b230a790e7dbbfcbe24c415dab3dcfcfba3fbb837d0b5cfeaa06e4aa12daed9"
+    },
+    {
+      "id": "a6",
+      "path": ".simclinic/call-6/stderr.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a7",
+      "path": ".simclinic/upstream.json",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "c56a83720b64308eb282e3d0a8543acac54cfd93c0a12dfad2b10a4b005359b1"
+    },
+    {
+      "id": "a8",
+      "path": "workflow.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "6b230a790e7dbbfcbe24c415dab3dcfcfba3fbb837d0b5cfeaa06e4aa12daed9"
+    },
+    {
+      "id": "a9",
+      "path": "log.simpleFoam",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "c41e59807660c1711aebb7112c97aa7c14eda61915ee7339f754c305a86b0e21"
+    },
+    {
+      "id": "a10",
+      "path": ".simclinic/call-9/stdout.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "34cedfad03b6d3b35ef2088459a632124237e249fefcd588e72f06d07efba6b0"
+    },
+    {
+      "id": "a11",
+      "path": ".simclinic/call-9/stderr.log",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a12",
+      "path": "postProcessing/sample/1/profile.xy",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "02474d609a4fe490f9d9f93501135b3ca96a8146fc6116cfa2e0945fa8dd6a5a"
+    },
+    {
+      "id": "a13",
+      "path": "postProcessing/sample/1/pressure.xy",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "b9b034ed0300d8666f477b95947bf52358cfaac7e9ef349c134093d502f63f9d"
+    },
+    {
+      "id": "a14",
+      "path": ".simclinic/acceptance.json",
+      "run_id": "982d74e68eb54df9b2e83f9d98464145",
+      "input_version": "sha256:7ae12e491c0e476cbaa0ea0fff92eb1ce193c85e6c0da32ba77f7e5688e22f10",
+      "sha256": "de75f792c7548fe9e337a1ee68f5b7cac702f6f0a68f63d371452712eed31951"
+    }
+  ],
+  "benchmark_spec": {
+    "length": 1.0,
+    "height": 0.1,
+    "width": 0.01,
+    "mean_velocity": 0.01,
+    "nu": 0.001,
+    "nx": 40,
+    "ny": 20,
+    "profile_relative_l2_tolerance": 0.02,
+    "pressure_gradient_relative_tolerance": 0.03,
+    "continuity_tolerance": 1e-07
+  },
+  "fault_injection": "ended-not-converged"
+}

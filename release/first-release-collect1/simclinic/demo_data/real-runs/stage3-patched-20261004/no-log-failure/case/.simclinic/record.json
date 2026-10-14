@@ -1,0 +1,412 @@
+{
+  "schema_version": "1.0",
+  "record_id": "collected-debb1cbb9c40472d986eb144fab65e65",
+  "run_id": "6970648d927942a8a72a16695dc31fd8",
+  "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+  "synthetic": false,
+  "environment": {
+    "image_id": "sha256:d6ff1f9a2e7bc3c9177f373bebbdeb542fd8b49144afc24d5e3a3cd9bfae253d",
+    "image_repo_digests": [
+      "openfoam/openfoam10-paraview510@sha256:d6ff1f9a2e7bc3c9177f373bebbdeb542fd8b49144afc24d5e3a3cd9bfae253d"
+    ],
+    "architecture": "amd64",
+    "platform": "linux/amd64",
+    "cpu_limit": 2,
+    "agent_source_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+    "distribution": "OpenFOAM Foundation",
+    "version": "10",
+    "solver": "simpleFoam",
+    "regime": "steady-incompressible-single-phase",
+    "threads": 1,
+    "wm_options": "linux64GccDPInt32Opt",
+    "runtime_digest": "40ed99fd3c7ad9e4e7ec26139aea1057569b71b3f83b09746840ee2ccfe82116"
+  },
+  "task": {
+    "id": "channel-poiseuille-v1",
+    "objective": "固定低 Re 层流通道，满足执行、稳态和解析参考验收。",
+    "required_preflight": [
+      "validate_case",
+      "checkMesh"
+    ],
+    "acceptance": [
+      {
+        "id": "execution_end",
+        "stage": "execution",
+        "operator": "eq",
+        "target": true,
+        "description": "求解退出成功且 End 已观测"
+      },
+      {
+        "id": "steady_converged",
+        "stage": "numerical",
+        "operator": "eq",
+        "target": true,
+        "description": "SIMPLE residualControl 收敛标记"
+      },
+      {
+        "id": "local_continuity",
+        "stage": "numerical",
+        "operator": "le",
+        "target": 1e-07,
+        "description": "末步局部连续性误差"
+      },
+      {
+        "id": "profile_error",
+        "stage": "reference",
+        "operator": "le",
+        "target": 0.02,
+        "description": "速度剖面相对 L2 误差"
+      },
+      {
+        "id": "pressure_gradient_error",
+        "stage": "reference",
+        "operator": "le",
+        "target": 0.03,
+        "description": "运动学压力梯度相对误差"
+      }
+    ]
+  },
+  "agent": {
+    "name": "SimClinic scripted execution harness",
+    "version": "0.2",
+    "upstream_execution_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+    "full_agent_workflow": false,
+    "execution_variant": "patched",
+    "candidate_patch_manifest": {
+      "base_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+      "variant": "patched",
+      "source_files": {
+        "verified_results.py": "8aa0737f77920c4351b70f764d8012e3e5448135ee4812f7cca6eacaec4f1ce0",
+        "local_runner_node.py": "d01e9259e68d487e40e64a0726135bdc5ef8dbe0a35079eb37f534ccbf2150c6",
+        "logger.py": "82e0e6b2affdf2832a8d01c3946d1034de9d721ee1db7834f28d2f66c194456a",
+        "utils.py": "1c710ccb3d1c00690a753663017b29d80018aecf4fe2e7252ccb9601fbae5d6e",
+        "run_local.py": "3fe9bc281db8943a50190b5dc51bf7ecfb2f600080bfa35a55c094beb5fba81b"
+      },
+      "patches": {
+        "0001-execution-status.patch": "011e9d369021cc6b74914c7730b9172236794470f65c5162d100621d81475424",
+        "0002-verified-result-interface.patch": "e250022a92ece9ae3ddbbe2ca0ad3ad7ce4030264de50acd4bc3f6fcc7b0ea8e"
+      }
+    }
+  },
+  "coverage": {
+    "tools": true,
+    "decisions": true,
+    "references": true,
+    "acceptance": true
+  },
+  "collection_status": "complete",
+  "metrics": {
+    "wall_seconds": 4.316432314999929,
+    "solver_seconds": 2.3113172719999966,
+    "model_tokens": null,
+    "model_cost": null
+  },
+  "input_manifest": {
+    "0/U": "cfcb207c679bf05dc07509e44c86d98824c76402c2a5e3a6ac120ecab6fc272a",
+    "0/p": "1ff2277c00ef0ee3eff2a923f5c6f9810bb2550fbd1ffba233231ddda75c9d1a",
+    "constant/momentumTransport": "f4bc1189f6dd940ab968bb21a37e62757eb6d696dd3de704d4b2560a9b4096a2",
+    "constant/physicalProperties": "8cfb3d3018f086300b5caac9aca0b1e051c6e9d554e03cc47b7360e32f644e77",
+    "system/blockMeshDict": "b030b4b7800a40f900a8c2bda42ab4f6fca8626331f05561c40f0ac5f32b144e",
+    "system/controlDict": "8f7596b5f7bd614879d63724b6b46819ac009ec63bf048ea8adccc4c6287a75b",
+    "system/fvSchemes": "d7872671e46a481248859fceb0da6d3232de5acff1217a195087058440c5ddab",
+    "system/fvSolution": "2101c95886b18d654e4aad884006d0b45476228d686ac96c2744815c4c8133df",
+    "system/sample": "8d8b74d64d174d233cf109751061e9bac6ec51e070410f0332032136c16fd152",
+    "Allrun": "f29d3a8ecd93c320cebe58fa827f76b3beb17dbe275e95187d8e26afdddda40a"
+  },
+  "events": [
+    {
+      "id": "e1",
+      "kind": "tool",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "operation": "validate_case",
+      "phase": "preflight",
+      "arguments": {},
+      "outcome": "pass",
+      "exit_code": 0,
+      "input_fingerprint": "20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "error_category": null,
+      "validation": "version guard and generated benchmark inputs"
+    },
+    {
+      "id": "e2",
+      "kind": "decision",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "handles": [
+        "e1"
+      ],
+      "action": "allow_mesh"
+    },
+    {
+      "id": "e3",
+      "kind": "tool",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "operation": "blockMesh",
+      "phase": "other",
+      "arguments": {
+        "argv": [
+          "blockMesh"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "df51fae05915837ca4e3c641934bd58557e3a9e536e058726ddce42d3bdd29c3",
+      "error_category": null,
+      "stdout_artifact": "a1",
+      "stderr_artifact": "a2",
+      "elapsed_seconds": 0.6974009099999421
+    },
+    {
+      "id": "e4",
+      "kind": "tool",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "operation": "checkMesh",
+      "phase": "preflight",
+      "arguments": {
+        "argv": [
+          "checkMesh",
+          "-allTopology",
+          "-allGeometry"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "581dd589b220de89cab88b81bf4e9bd3c3a3c53f3812799b2d323301c923a60d",
+      "error_category": null,
+      "stdout_artifact": "a3",
+      "stderr_artifact": "a4",
+      "elapsed_seconds": 1.0618753070000366
+    },
+    {
+      "id": "e5",
+      "kind": "decision",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "handles": [
+        "e4"
+      ],
+      "action": "allow_solve"
+    },
+    {
+      "id": "e6",
+      "kind": "tool",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "operation": "Foam-Agent execution service",
+      "phase": "other",
+      "arguments": {
+        "argv": [
+          "/usr/bin/python3",
+          "/workspace/integration/foam_agent_v210/execute.py",
+          "/runs/no-log-failure/case",
+          "--variant",
+          "patched"
+        ]
+      },
+      "exit_code": 0,
+      "outcome": "pass",
+      "input_fingerprint": "836384036a6b4dcfd743fe85bbc1d2e0ba47d54d8bafb19ef6a9e5d3172fd1ac",
+      "error_category": null,
+      "stdout_artifact": "a5",
+      "stderr_artifact": "a6",
+      "elapsed_seconds": 2.5224040230000355
+    },
+    {
+      "id": "e7",
+      "kind": "tool",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "operation": "Allrun",
+      "phase": "solve",
+      "arguments": {
+        "script": "Allrun"
+      },
+      "outcome": "fail",
+      "exit_code": 7,
+      "input_fingerprint": "20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "error_category": "nonzero_exit",
+      "result_artifact": "a7",
+      "captured_by": "upstream Popen.communicate observation"
+    },
+    {
+      "id": "e8",
+      "kind": "claim",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "claim_type": "conclusion",
+      "success": false,
+      "text": "Pinned local_runner_node execution verdict",
+      "artifact_id": "a8"
+    },
+    {
+      "id": "e9",
+      "kind": "reference",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e10",
+      "kind": "measurement",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "criterion_id": "execution_end",
+      "value": false,
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e11",
+      "kind": "reference",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e12",
+      "kind": "measurement",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "criterion_id": "steady_converged",
+      "value": null,
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e13",
+      "kind": "reference",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e14",
+      "kind": "measurement",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "criterion_id": "local_continuity",
+      "value": null,
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e15",
+      "kind": "reference",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e16",
+      "kind": "measurement",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "criterion_id": "profile_error",
+      "value": null,
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e17",
+      "kind": "reference",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e18",
+      "kind": "measurement",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "criterion_id": "pressure_gradient_error",
+      "value": null,
+      "artifact_id": "a9"
+    },
+    {
+      "id": "e19",
+      "kind": "claim",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "claim_type": "completion",
+      "success": false,
+      "text": "Scripted harness acceptance verdict, not a model-generated statement"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "a1",
+      "path": ".simclinic/call-3/stdout.log",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "30c04657c43dc3fd61ee0c332f76761d706be53139dcb9877c056aaa8bc2a230"
+    },
+    {
+      "id": "a2",
+      "path": ".simclinic/call-3/stderr.log",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a3",
+      "path": ".simclinic/call-4/stdout.log",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "5cde822f29781703a02d734da5e47d774246093610fb508429dc32fb3c30eb0c"
+    },
+    {
+      "id": "a4",
+      "path": ".simclinic/call-4/stderr.log",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a5",
+      "path": ".simclinic/call-6/stdout.log",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "91933a9cdd05d0e8bd0eefc875c59427bdb018cab227128cdffdaf3bb1ee323d"
+    },
+    {
+      "id": "a6",
+      "path": ".simclinic/call-6/stderr.log",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "a7",
+      "path": ".simclinic/upstream.json",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "b6fddaf2ccd16651e0ba50da9b53d8ee47cf5bb87f410031b93a55abdbfe0717"
+    },
+    {
+      "id": "a8",
+      "path": "workflow.log",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "91933a9cdd05d0e8bd0eefc875c59427bdb018cab227128cdffdaf3bb1ee323d"
+    },
+    {
+      "id": "a9",
+      "path": ".simclinic/acceptance.json",
+      "run_id": "6970648d927942a8a72a16695dc31fd8",
+      "input_version": "sha256:20166c205a6de7557a15cdde4c70117bb0fc7d86fbcc77ee82d55c13cbc62c69",
+      "sha256": "ea9ff11706b34032cfc1bace0ca008917a2c889515a26ae0bf0ac189d654e4ea"
+    }
+  ],
+  "benchmark_spec": {
+    "length": 1.0,
+    "height": 0.1,
+    "width": 0.01,
+    "mean_velocity": 0.01,
+    "nu": 0.001,
+    "nx": 40,
+    "ny": 20,
+    "profile_relative_l2_tolerance": 0.02,
+    "pressure_gradient_relative_tolerance": 0.03,
+    "continuity_tolerance": 1e-07
+  },
+  "fault_injection": "no-log-failure"
+}

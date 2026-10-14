@@ -1,0 +1,10 @@
+<runner>
+Removed files with prefix 'log' in /runs/no-log-failure/case
+Running Allrun (attempt 1/1)
+Executing script /runs/no-log-failure/case/Allrun in /runs/no-log-failure/case
+Executed script /runs/no-log-failure/case/Allrun
+Errors detected in the Allrun execution.
+<error_logs>
+[{'file': 'Allrun', 'error_content': 'Allrun exited with code 7.', 'exit_code': 7, 'timed_out': False}]
+</error_logs>
+</runner>

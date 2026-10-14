@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "archives": [
+    {
+      "file": "simclinic-foundation10-collect1-20261011.zip",
+      "bytes": 332581,
+      "sha256": "82665df2a07b78396cfe0e38cec9d975bf9d17f43a74c9a2077dd543724177e0"
+    },
+    {
+      "file": "simclinic-foundation10-evidence-20261011.zip",
+      "bytes": 292563,
+      "sha256": "ea9ed79cbfd27888397fbe28b4941005e8e381532c1b3bfa8de8b44262da6dec"
+    }
+  ],
+  "zip_crc_and_manifest_checks": "pass",
+  "relocated_installed_package_evidence_verification": "pass",
+  "relocated_receipt_byte_identical": true,
+  "additional_solver_runs": 0,
+  "additional_sampling_calls": 0
+}

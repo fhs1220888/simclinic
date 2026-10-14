@@ -1,0 +1,72 @@
+{
+  "status": "pass",
+  "kind": "documentation_only_delivery_revision",
+  "date": "2026-10-12",
+  "zip": "simclinic-first-release-trial-20261012.zip",
+  "bytes": 644733,
+  "sha256": "48bb6f3a2dc9a2490197bbf677b9657d14765297e8772f83c0438a63652f9351",
+  "base_archive": {
+    "zip": "simclinic-first-release-trial-20261011.zip",
+    "sha256": "362b1ae6432d12389f7b9a61fea13542dc0f74ef7ae17a6717fd504bee94cfaf",
+    "preserved": true
+  },
+  "package_version": "0.11.0+collect1",
+  "revision": {
+    "file": "INSTALL.md",
+    "old_receipt_reference": "clean-install-verification.json",
+    "correct_receipt_reference": "receipts/clean-install-verification.json",
+    "receipt_exists_after_clean_extraction": true
+  },
+  "zip_crc": "pass",
+  "archive_files": 170,
+  "extracted_all_manifest_entries_verified": true,
+  "manifest_file_hashes_checked": 169,
+  "top_level_markdown_local_links_verified": 17,
+  "missing_local_links": [],
+  "clean_extraction_outside_repository": true,
+  "extraction_path_contains_spaces_and_unicode": true,
+  "changed_archive_files": [
+    {
+      "path": "INSTALL.md",
+      "before_sha256": "91d58e84d196360ad9ff660596d5c981630f0f554c5ae12b4ef72022ec9e8d2d",
+      "after_sha256": "129f9b01c491203e2311be7bef556e6e8fd6f70e44f45f4f4ad7e00af7cd7478"
+    },
+    {
+      "path": "SHA256SUMS",
+      "before_sha256": "bcbb137617e8d8b21eca48d5cfadb7bc47b5053c0b6d15747b6c454c243704e6",
+      "after_sha256": "2281b53e19550990bc8c3602618e1fa8943e66924f01ee2ddfb6f821a639bd0b"
+    }
+  ],
+  "unchanged_archive_files": 168,
+  "wheel": {
+    "file": "simclinic-0.11.0+collect1-py3-none-any.whl",
+    "sha256": "14f6893e07e547a7d74fa2453c3ab0292d0d7dbc011613b4b6d14ece7ff962f3",
+    "unchanged": true
+  },
+  "sdist": {
+    "file": "simclinic-0.11.0+collect1.tar.gz",
+    "sha256": "e5cddf89bf2fd03ab27baf50ddec057e418f78e8aad9a0e864101d509d359f99",
+    "unchanged": true
+  },
+  "original_patches_receipts_evidence_and_license_bytes_unchanged": true,
+  "existing_receipt_statuses": {
+    "receipts/clean-install-verification.json": "pass",
+    "receipts/sdist-rebuild-verification.json": "pass",
+    "receipts/trial-verification.json": "pass",
+    "evidence/foundation10/verification.json": "pass"
+  },
+  "existing_receipts_rerun": false,
+  "runtime_installation_or_package_tests_rerun": false,
+  "new_shell_case_runs": 0,
+  "new_cfd_solver_runs": 0,
+  "new_sampling_calls": 0,
+  "new_model_calls": 0,
+  "new_cases": 0,
+  "feature_changes": 0,
+  "license_decision": "deferred_owner_decision_pending",
+  "independent_user_trials": "deferred_not_verified",
+  "previous_pilot_bundle": "Preserved historical 20261011 materials; no user outreach or repackaging this revision",
+  "updated_repository_document_links_checked": 16,
+  "release_install_source_matches_packaged_document": true,
+  "expanded_delivery_directory_matches_archive": true
+}

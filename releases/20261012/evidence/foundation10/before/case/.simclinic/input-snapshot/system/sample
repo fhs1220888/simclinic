@@ -1,0 +1,11 @@
+FoamFile
+{ version 2.0; format ascii; class dictionary; object sample; }
+
+
+type sets; libs ("libsampling.so"); interpolationScheme cellPoint;
+setFormat raw; fields (U p);
+sets (
+ profile {type lineUniform; axis y; start (0.5 0.0025 0.005); end (0.5 0.0975 0.005); nPoints 20;}
+ pressure {type lineUniform; axis x; start (0.1 0.05 0.005); end (0.9 0.05 0.005); nPoints 17;}
+);
+

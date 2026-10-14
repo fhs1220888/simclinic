@@ -1,0 +1,85 @@
+{
+  "status": "pass",
+  "date": "2026-10-11",
+  "image_id": "sha256:1191b04fa4f8bb906608c86ceef257abf5d529f53b4adf8c62b90d25040786f5",
+  "build_context": "Repository-external temporary directory; Dockerfile and existing wheel only",
+  "runtime_mounts": [
+    {
+      "destination": "/kit",
+      "contents": "Distribution files only, read-only"
+    },
+    {
+      "destination": "/runs",
+      "contents": "New empty output directory"
+    }
+  ],
+  "mounted_full_repository": false,
+  "mounted_historical_inventory": false,
+  "runtime_network": "none",
+  "platform": "linux/amd64",
+  "host_architecture": "arm64",
+  "cpu_limit": 2,
+  "memory_limit": "2g",
+  "omp_threads": 1,
+  "build_network_required": true,
+  "runtime_python_dependency_count": 0,
+  "wheel_sha256": "14f6893e07e547a7d74fa2453c3ab0292d0d7dbc011613b4b6d14ece7ff962f3",
+  "sdist_sha256": "e5cddf89bf2fd03ab27baf50ddec057e418f78e8aad9a0e864101d509d359f99",
+  "cfd_solver_runs": 2,
+  "sampling_calls": 2,
+  "model_calls": 0,
+  "new_cases": 0,
+  "startup_attempts": [
+    {
+      "status": "shell_environment_initialization_failed",
+      "solver_runs": 0,
+      "collection_created": false
+    },
+    {
+      "status": "pass",
+      "solver_runs": 2
+    }
+  ],
+  "commands": {
+    "build": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--progress",
+      "plain",
+      "-t",
+      "simclinic-foundation10:collect1",
+      "<external-kit>"
+    ],
+    "run": [
+      "docker",
+      "run",
+      "--rm",
+      "--pull",
+      "never",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "2",
+      "--memory",
+      "2g",
+      "--user",
+      "root",
+      "--mount",
+      "type=bind,src=<external-kit>,dst=/kit,readonly",
+      "--mount",
+      "type=bind,src=<new-output>,dst=/runs",
+      "simclinic-foundation10:collect1",
+      "/kit/run-channel.sh",
+      "/runs/channel-demo"
+    ]
+  },
+  "limits": [
+    "Existing normal channel only; fixed execution-service scope, not full Agent workflow.",
+    "Original wheel/sdist byte-identical; no feature or case expansion.",
+    "Native Linux installation instructions provided but not independently run."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "base_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+  "variant": "patched",
+  "source_files": {
+    "local_runner_node.py": "d01e9259e68d487e40e64a0726135bdc5ef8dbe0a35079eb37f534ccbf2150c6",
+    "logger.py": "82e0e6b2affdf2832a8d01c3946d1034de9d721ee1db7834f28d2f66c194456a",
+    "run_local.py": "3fe9bc281db8943a50190b5dc51bf7ecfb2f600080bfa35a55c094beb5fba81b",
+    "utils.py": "1c710ccb3d1c00690a753663017b29d80018aecf4fe2e7252ccb9601fbae5d6e",
+    "verified_results.py": "8aa0737f77920c4351b70f764d8012e3e5448135ee4812f7cca6eacaec4f1ce0"
+  },
+  "patches": {
+    "0001-execution-status.patch": "011e9d369021cc6b74914c7730b9172236794470f65c5162d100621d81475424",
+    "0002-verified-result-interface.patch": "e250022a92ece9ae3ddbbe2ca0ad3ad7ce4030264de50acd4bc3f6fcc7b0ea8e"
+  }
+}

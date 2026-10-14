@@ -1,0 +1,4 @@
+include README.md INSTALL.md COLLECT.md NOTICE.md LICENSE-Foam-Agent-MIT.txt
+recursive-include THIRD-PARTY-LICENSES *
+recursive-include simclinic/demo_data *
+recursive-include tests *.py

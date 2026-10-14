@@ -1,0 +1,11 @@
+{
+  "base_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+  "variant": "baseline",
+  "source_files": {
+    "logger.py": "82e0e6b2affdf2832a8d01c3946d1034de9d721ee1db7834f28d2f66c194456a",
+    "local_runner_node.py": "d01e9259e68d487e40e64a0726135bdc5ef8dbe0a35079eb37f534ccbf2150c6",
+    "run_local.py": "2951991cbbd24b4b89959a90a1a3ae07de40344dccdb040732eea8db1ac57949",
+    "utils.py": "96769493618040f60b87dc870b377369ab0d23b692df8d9db6b9aab57154510c"
+  },
+  "loader_sha256": "be0072f573c79b8e630ee0b7cb649c3a3b651d8ed091072f745e3d522cb3f9a7"
+}

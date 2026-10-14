@@ -1,0 +1,48 @@
+{
+  "base_commit": "bfb7f791f77438ff90c1a39ff398739ee97bcc67",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "apply",
+        "--check",
+        "/runs/channel-demo/after/patches/0001-execution-status.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "apply",
+        "/runs/channel-demo/after/patches/0001-execution-status.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "apply",
+        "--check",
+        "/runs/channel-demo/after/patches/0002-verified-result-interface.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "apply",
+        "/runs/channel-demo/after/patches/0002-verified-result-interface.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "applied_snapshot_matches_existing_candidate": true
+}
